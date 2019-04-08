@@ -3,10 +3,10 @@ namespace App\Model;
 
 class Post
 {
-	private $_id,
-			$_title,
-			$_content,
-			$_dateCreation;
+	private $_id;
+    private $_title;
+    private$_content;
+    private$_dateCreation;
 	
 	function __construct(array $data)
 	{

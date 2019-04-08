@@ -3,11 +3,11 @@ namespace App\Model;
 
 class Comment
 {
-	private $_id,
-			$_postId,
-			$_author,
-			$_comment,
-			$_commentDate,
+	private $_id;
+	private $_postId;
+	private $_author;
+	private $_comment;
+	private $_commentDate;
 
 	public function __construct(array $data)
 	{
