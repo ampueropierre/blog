@@ -3,11 +3,11 @@ namespace App\Model;
 
 class Comment
 {
-	private $_id;
-	private $_postId;
-	private $_author;
-	private $_comment;
-	private $_commentDate;
+	protected $id;
+	protected $postId;
+	protected $author;
+	protected $comment;
+	protected $commentDate;
 
 	public function __construct(array $data)
 	{
@@ -26,34 +26,34 @@ class Comment
 
 	public function id()
 	{
-		return $this->_id;
+		return $this->id;
 	}
 
 	public function postId()
 	{
-		return $this->_postId;
+		return $this->postId;
 	}
 
 	public function author()
 	{
-		return $this->_author;
+		return $this->author;
 	}
 
 	public function comment()
 	{
-		return $this->_comment;
-	}
+		return $this->comment;
+	
 
 	public function commentDate()
 	{
-		return $this->_commentDate;
+		return $this->commentDate;
 	}
 
 	public function setId($id)
 	{
 		$id = (int) $id;
 		if (is_int($id) && $id > 0) {
-			$this->_id = $id;
+			$this->id = $id;
 		}
 		else {
 			trigger_error('L\'id doit etre un nombre entier et superieur à 0', E_USER_WARNING);
@@ -64,7 +64,7 @@ class Comment
 	{
 		$postId = (int) $postId;
 		if (is_int($postId) && $postId > 0) {
-			$this->_postId = $postId;
+			$this->postId = $postId;
 		}
 		else {
 			trigger_error('L\'id du poste doit etre un nombre entier et superieur à 0', E_USER_WARNING);
@@ -74,7 +74,7 @@ class Comment
 	public function setAuthor($author)
 	{
 		if (is_string($author)) {
-			$this->_author = $author;
+			$this->author = $author;
 		}
 		else {
 			trigger_error('L\'auteur doit etre une chaine de caractères', E_USER_WARNING);
@@ -83,13 +83,13 @@ class Comment
 
 	public function setCommentDate(\DateTime $commentDate)
 	{
-		$this->_commentDate = $commentDate;
+		$this->commentDate = $commentDate;
 	}
 
 	public function setComment($comment)
 	{
 		if (is_string($comment)) {
-			$this->_comment = $comment;
+			$this->comment = $comment;
 		}
 		else {
 			trigger_error('Le commentaire doit etre une chaine de caractères', E_USER_WARNING);

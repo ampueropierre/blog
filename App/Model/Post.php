@@ -3,10 +3,10 @@ namespace App\Model;
 
 class Post
 {
-	private $_id;
-    private $_title;
-    private$_content;
-    private$_dateCreation;
+	protected $id;
+    protected $title;
+    protected $content;
+    protected $dateCreation;
 	
 	function __construct(array $data)
 	{
@@ -25,22 +25,22 @@ class Post
 
 	public function id()
 	{
-		return $this->_id;
+		return $this->id;
 	}
 
 	public function title()
 	{
-		return $this->_title;
+		return $this->title;
 	}
 
 	public function content()
 	{
-		return $this->_content;
+		return $this->content;
 	}
 
 	public function dateCreation()
 	{
-		return $this->_dateCreation;
+		return $this->dateCreation;
 	}
 
 	public function setId($id)
@@ -48,7 +48,7 @@ class Post
 		$id = (int) $id;
 
 		if (is_int($id) && $id > 0) {
-			$this->_id = $id;
+			$this->id = $id;
 		}
 		else {
 			trigger_error('L\'id doit etre un nombre entier et supérieur à 0', E_USER_WARNING);
@@ -58,7 +58,7 @@ class Post
 	public function setTitle($title)
 	{
 		if (is_string($title) && strlen($title) <= 100) {
-			$this->_title = $title;
+			$this->title = $title;
 		}
 		else {
 			trigger_error('Le titre doit etre une chaine de caractères et etre inférieur à 100 caractères',E_USER_WARNING);
@@ -68,7 +68,7 @@ class Post
 	public function setContent($content)
 	{
 		if (is_string($content)) {
-			$this->_content = $content;
+			$this->content = $content;
 		}
 		else {
 			trigger_error('Le contenu doit etre une chaine de caractères',E_USER_WARNING);
@@ -77,7 +77,7 @@ class Post
 
 	public function setDateCreation(\DateTime $dateCreation)
 	{
-		$this->_dateCreation = $dateCreation;
+		$this->dateCreation = $dateCreation;
 	}
 
 }
