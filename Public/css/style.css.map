@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,CAAE;EACD,eAAe,EAAE,IAAI;EACrB,OAAQ;IACP,eAAe,EAAE,IAAI;;ACFtB,OAAE;EACD,KAAK,EAAE,OAAO;EACd,aAAQ;IACP,KAAK,EAAE,OAAO;AAGhB,iBAAY;EACX,SAAS,EAAE,IAAI;;ACRjB,MAAO;EACN,gBAAgB,EAAG,KAAK;EACxB,QAAE;IACD,SAAS,EAAE,IAAI;;ACFhB,4BAAY;EACX,OAAO,EAAE,SAAS;EAClB,gBAAgB,EAAE,KAAK;EACvB,cAAc,EAAE,SAAS;EACzB,cAAc,EAAE,IAAI;EACpB,SAAS,EAAE,IAAI",
+"sources": ["../scss/_clean.scss","../scss/_news.scss","../scss/_footer.scss","../scss/_bloc-title-page.scss"],
+"names": [],
+"file": "style.css"
+}

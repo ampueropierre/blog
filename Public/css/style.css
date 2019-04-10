@@ -1,3 +1,25 @@
-body {
-	background: red;
-}
+a {
+  text-decoration: none; }
+  a:hover {
+    text-decoration: none; }
+
+.news a {
+  color: #212529; }
+  .news a:hover {
+    color: #0085a1; }
+.news .news-title {
+  font-size: 36px; }
+
+footer {
+  background-color: beige; }
+  footer p {
+    font-size: 15px; }
+
+.bloc-title-page .title-page {
+  padding: 15px 30px;
+  background-color: white;
+  text-transform: uppercase;
+  letter-spacing: 20px;
+  font-size: 40px; }
+
+/*# sourceMappingURL=style.css.map */
