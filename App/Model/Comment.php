@@ -43,7 +43,8 @@ class Comment
 	{
 		return $this->comment;
 	
-
+	}
+	
 	public function commentDate()
 	{
 		return $this->commentDate;

@@ -3,6 +3,9 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+date_default_timezone_set('Europe/Paris');
+setlocale (LC_TIME, 'fr_FR.utf8','fra');
+
 require __DIR__ . '/vendor/autoload.php';
 
 use App\Controller\Frontend;

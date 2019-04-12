@@ -5,23 +5,23 @@ ob_start();
 foreach ($posts as $post)
 {
 ?>
-<div class="news">
-	<a href="">
-		<h3 class="news-title">
+<div class="post-preview">
+	<a href="post.html">
+		<h2 class="post-title">
 			<?= htmlspecialchars($post->title()) ?>
-		</h3>
+		</h2>
 		<p>
-			<?= nl2br(htmlspecialchars($post->content())) ?>
+			<?= substr(nl2br(htmlspecialchars($post->content())),0, 100) ?>
 		</p>
-		
 	</a>
-	<p class="news-meta">
-		<em>Publié le <?= $post->dateCreation()->format('d/m/Y à H:i:s') ?></em>
-		<br>
-		<em><a href="index.php?action=post&id=<?= $post->id() ?>">Commentaires</a></em>
+	<p class="post-meta">
+		Posté le <?= $post->dateCreation()->format('d F Y à H:i:s') ?>
 	</p>
-	<hr>
+	<p>
+		<a href="index.php?action=post&id=<?= $post->id() ?>">Commentaires</a>
+	</p>
 </div>
+<hr>
 <?php
 }
 
