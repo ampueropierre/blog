@@ -6,10 +6,17 @@ use App\Manager\CommentManager;
 
 class Frontend {
 
+	public function home()
+	{
+		$title = 'Accueil';
+		require 'view/frontend/home.php';
+	}
+
 	public function listPosts()
 	{	
 		$postManager = new PostManager();
 
+		$title = 'Blog';
 		$posts = $postManager->getPosts();
 
 		require('view/frontend/listPostView.php');

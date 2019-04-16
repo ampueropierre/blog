@@ -64,7 +64,7 @@ try {
 
 	}
 	else {
-		$frontend->listPosts();
+		$frontend->home();
 	}
 
 }

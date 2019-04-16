@@ -1,5 +1,4 @@
 <?php
-$title = 'Mon blog';
 ob_start();
 
 foreach ($posts as $post)
