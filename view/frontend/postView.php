@@ -11,21 +11,24 @@ ob_start();
 		<?= nl2br(htmlspecialchars($post->content())); ?>
 	</p>
 
-	<h3>Commentaire</h3>
+	<div class="bloc-add-comment">
+		<h3>Commenter cet article</h3>
 
-	<form action="index.php?action=addComment&amp;id=<?= $post->id() ?>" method="post">
-		<div>
-			<label for="author">Auteur</label>
-			<input type="text" id="author" name="author"/>
-		</div>
-		<div>
-			<label for="comment">Commentaire</label>
-			<textarea name="comment" id="comment" cols="20" rows="5"></textarea>
-		</div>
-		<div>
-			<input type="submit"/>
-		</div>
-	</form>
+		<form action="index.php?action=addComment&amp;id=<?= $post->id() ?>" method="post">
+			<div>
+				<label for="author">Auteur</label>
+				<input type="text" id="author" name="author"/>
+			</div>
+			<div>
+				<label for="comment">Commentaire</label>
+				<textarea name="comment" id="comment" cols="20" rows="5"></textarea>
+			</div>
+			<div>
+				<input type="submit" class="btn btn-comment" value="publier" />
+			</div>
+		</form>
+	</div>
+	
 	<?php
 foreach ($comments as $comment)
 {

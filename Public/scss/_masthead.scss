@@ -33,7 +33,8 @@ header.masthead {
   }
   .post-heading {
     h1 {
-      font-size: 35px;
+      text-align: center;
+      font-size: 25px;
     }
     .meta,
     .subheading {
@@ -57,7 +58,7 @@ header.masthead {
     }
     @media only screen and (min-width: 768px) {
       h1 {
-        font-size: 55px;
+        font-size: 35px;
       }
       .subheading {
         font-size: 30px;

@@ -171,7 +171,8 @@ header.masthead {
         position: relative;
         top: 0px; } }
   header.masthead .post-heading h1 {
-    font-size: 35px; }
+    text-align: center;
+    font-size: 25px; }
   header.masthead .post-heading .meta,
   header.masthead .post-heading .subheading {
     line-height: 1.1;
@@ -190,7 +191,7 @@ header.masthead {
       color: #fff; }
   @media only screen and (min-width: 768px) {
     header.masthead .post-heading h1 {
-      font-size: 55px; }
+      font-size: 35px; }
     header.masthead .post-heading .subheading {
       font-size: 30px; } }
   @media only screen and (min-width: 768px) {
@@ -367,5 +368,21 @@ footer {
 .btn-lg {
   font-size: 16px;
   padding: 25px 35px; }
+
+.bloc-add-comment {
+  background-color: #f0f0f0;
+  padding: 10px 30px; }
+  .bloc-add-comment h3 {
+    font-size: 25px;
+    letter-spacing: -1px; }
+  .bloc-add-comment .btn-comment {
+    font-size: 20px;
+    line-height: 20px;
+    font-weight: 400;
+    color: #fff;
+    padding: 7px 10px;
+    background: #202020;
+    margin-top: 10px;
+    cursor: pointer; }
 
 /*# sourceMappingURL=style.css.map */
