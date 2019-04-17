@@ -71,6 +71,7 @@ img::-moz-selection {
   background-color: white;
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; }
   #mainNav .navbar-brand {
+    font-size: 1rem;
     color: black;
     font-family: 'Libre Baskerville', serif; }
   #mainNav .navbar-toggler {

@@ -5,6 +5,7 @@
   background-color: white;
   @include sans-serif-font;
   .navbar-brand {
+    font-size: 1rem;
     color: black;
     font-family: 'Libre Baskerville', serif;
   }

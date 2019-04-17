@@ -61,6 +61,10 @@ try {
 				throw new Exception('Aucun id n\'a été envoyé');
 			}
 		}
+		elseif ($_GET['action'] == 'contact')
+		{
+			$frontend->contact();
+		}
 
 	}
 	else {

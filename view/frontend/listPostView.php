@@ -5,7 +5,7 @@ foreach ($posts as $post)
 {
 ?>
 <div class="post-preview">
-	<a href="post.html">
+	<a href="?action=post&id=<?= $post->id() ?>">
 		<h2 class="post-title">
 			<?= htmlspecialchars($post->title()) ?>
 		</h2>
@@ -15,9 +15,6 @@ foreach ($posts as $post)
 	</a>
 	<p class="post-meta">
 		Posté le <?= $post->dateCreation()->format('d F Y à H:i:s') ?>
-	</p>
-	<p>
-		<a href="index.php?action=post&id=<?= $post->id() ?>">Commentaires</a>
 	</p>
 </div>
 <hr>

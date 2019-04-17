@@ -12,6 +12,12 @@ class Frontend {
 		require 'view/frontend/home.php';
 	}
 
+	public function contact()
+	{
+		$title = 'Contact';
+		require 'view/frontend/contact.php';
+	}
+
 	public function listPosts()
 	{	
 		$postManager = new PostManager();
