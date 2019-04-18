@@ -8,8 +8,8 @@ class Frontend {
 
 	public function home()
 	{
-		$title = 'Accueil';
-		require 'view/frontend/home.php';
+		$title = 'Home';
+		require 'view/frontend/template/home.php';
 	}
 
 	public function contact()
@@ -35,6 +35,8 @@ class Frontend {
 
 		$post = $postManager->getPost($_GET['id']);
 		$comments = $commentManager->getComments($_GET['id']);
+
+		$title = $post->title();
 
 		require('view/frontend/postView.php');
 	}

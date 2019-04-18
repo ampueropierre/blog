@@ -1,6 +1,4 @@
 <?php
-$title = $post->title();
-$titlePost = $post->title();
 ob_start();
 ?>
 <div class="post-view">
