@@ -6,6 +6,13 @@ use App\Manager\CommentManager;
 
 class Frontend {
 
+	public function connexion()
+	{
+		$title = 'Connexion';
+		var_dump($_POST);
+		require 'view/frontend/connexion.php';
+	}
+
 	public function home()
 	{
 		$title = 'Home';

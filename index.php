@@ -65,6 +65,10 @@ try {
 		{
 			$frontend->contact();
 		}
+		elseif ($_GET['action'] == 'connexion')
+		{
+			$frontend->connexion();
+		}
 
 	}
 	else {

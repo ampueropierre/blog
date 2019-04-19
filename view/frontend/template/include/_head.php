@@ -34,7 +34,7 @@
         Menu
         <i class="fas fa-bars"></i>
       </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
+      <div class="collapse navbar-collapse justify-content-between" id="navbarResponsive">
         <ul class="navbar-nav">
           <li class="nav-item">
             <a class="nav-link" href=".">Home</a>
@@ -44,6 +44,11 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="?action=contact">Contact</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="?action=connexion">Connexion</a>
           </li>
         </ul>
       </div>
