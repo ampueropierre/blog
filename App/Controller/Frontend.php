@@ -10,14 +10,15 @@ class Frontend {
 
 	public function connexion()
 	{
-		$title = 'Connexion';
+		$title = 'connexion';
 		$userManager = new UserManager();
 		if (isset($_POST['connexion']))
 		{
 			$user = $userManager->getLoggedUser($_POST['mail'], $_POST['password']);
 			if ($user && $user->isValid())
-			{
-				$_SESSION['user'] = $user;
+			{	
+				$_SESSION['user'] = serialize($user);
+
 			}
 		}
 		
@@ -28,6 +29,12 @@ class Frontend {
 	public function home()
 	{
 		$title = 'Home';
+		$user = null;
+
+		if (isset($_SESSION['user']))
+		{
+			$user = unserialize($_SESSION['user']);
+		}
 		require 'view/frontend/template/home.php';
 	}
 
@@ -39,6 +46,12 @@ class Frontend {
 
 	public function listPosts()
 	{	
+		$user = null;
+
+		if (isset($_SESSION['user']))
+		{
+			$user = unserialize($_SESSION['user']);
+		}
 		$postManager = new PostManager();
 
 		$title = 'Blog';

@@ -10,7 +10,7 @@ ob_start();
 	<label>Mot de passe</label>
 	<input type="password" name="password"><br>
 
-	<input type="submit" value="Connexion">
+	<input type="submit" value="connexion" name="connexion">
 </form>
 <?php
 $content = ob_get_clean();

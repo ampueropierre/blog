@@ -48,8 +48,11 @@
         </ul>
         <ul class="navbar-nav">
           <li class="nav-item">
-            <?php ?>
+            <?php if (!isset($user)) : ?>
             <a class="nav-link" href="?action=connexion">Connexion</a>
+            <?php else :?>
+            <p><?= $user->mail() ?></p>
+            <?php endif; ?>
           </li>
         </ul>
       </div>
