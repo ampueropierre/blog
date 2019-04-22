@@ -29,29 +29,24 @@ class Frontend {
 	public function home()
 	{
 		$title = 'Home';
-		$user = null;
+		$user = $this->getUser();
 
-		if (isset($_SESSION['user']))
-		{
-			$user = unserialize($_SESSION['user']);
-		}
 		require 'view/frontend/template/home.php';
 	}
 
 	public function contact()
 	{
 		$title = 'Contact';
+        $user = $this->getUser();
+
 		require 'view/frontend/contact.php';
 	}
 
 	public function listPosts()
 	{	
 		$user = null;
+        $user = $this->getUser();
 
-		if (isset($_SESSION['user']))
-		{
-			$user = unserialize($_SESSION['user']);
-		}
 		$postManager = new PostManager();
 
 		$title = 'Blog';
@@ -111,6 +106,17 @@ class Frontend {
 		}
 
 	}
+
+	private function getUser() {
+        $user = null;
+
+        if (isset($_SESSION['user']))
+        {
+            $user = unserialize($_SESSION['user']);
+        }
+
+        return $user;
+    }
 }
 
 
