@@ -17,11 +17,6 @@ class User
 	const MAIL_INVALID = 1;
 	const PASSWORD_INVALID = 2;
 
-	public function __construct(array $data)
-	{
-		$this->hydrate($data);
-	}
-
 	public function hydrate($data)
 	{
 		foreach ($data as $key => $value)
@@ -32,6 +27,8 @@ class User
 				$this->$setter($value);
 			}
 		}
+
+		return $this;
 	}
 
 	public function id()

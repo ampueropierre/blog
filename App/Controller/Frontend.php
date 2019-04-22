@@ -14,14 +14,11 @@ class Frontend {
 		$userManager = new UserManager();
 		if (isset($_POST['connexion']))
 		{
-			$user = new User($_POST);
-			var_dump($user);
-			if ($user->isValid())
+			$user = $userManager->getLoggedUser($_POST['mail'], $_POST['password']);
+			if ($user && $user->isValid())
 			{
-				$user = $userManager->getUser($user);
+				$_SESSION['user'] = $user;
 			}
-
-			var_dump($user);
 		}
 		
 
