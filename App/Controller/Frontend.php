@@ -3,13 +3,28 @@ namespace App\Controller;
 
 use App\Manager\PostManager;
 use App\Manager\CommentManager;
+use App\Manager\UserManager;
+use App\Model\User;
 
 class Frontend {
 
 	public function connexion()
 	{
 		$title = 'Connexion';
-		var_dump($_POST);
+		$userManager = new UserManager();
+		if (isset($_POST['connexion']))
+		{
+			$user = new User($_POST);
+			var_dump($user);
+			if ($user->isValid())
+			{
+				$user = $userManager->getUser($user);
+			}
+
+			var_dump($user);
+		}
+		
+
 		require 'view/frontend/connexion.php';
 	}
 
@@ -35,13 +50,13 @@ class Frontend {
 		require('view/frontend/listPostView.php');
 	}
 
-	public function post()
+	public function post($id)
 	{
 		$postManager = new PostManager();
 		$commentManager = new CommentManager();
 
-		$post = $postManager->getPost($_GET['id']);
-		$comments = $commentManager->getComments($_GET['id']);
+		$post = $postManager->getPost($id);
+		$comments = $commentManager->getComments($id);
 
 		$title = $post->title();
 

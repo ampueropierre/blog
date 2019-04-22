@@ -1,4 +1,9 @@
 <?php
+session_start();
+if (isset($_SESSION['user']))
+{
+	$user = $_SESSION['user'];
+}
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -20,7 +25,7 @@ try {
 		}
 		elseif ($_GET['action'] == 'post') {
 			if (isset($_GET['id']) && $_GET['id'] > 0) {
-				$frontend->post();
+				$frontend->post($_GET['id']);
 			}
 			else {
 				throw new Exception('Aucun id n\'a été envoyé');

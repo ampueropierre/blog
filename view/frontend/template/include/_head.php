@@ -48,6 +48,7 @@
         </ul>
         <ul class="navbar-nav">
           <li class="nav-item">
+            <?php ?>
             <a class="nav-link" href="?action=connexion">Connexion</a>
           </li>
         </ul>

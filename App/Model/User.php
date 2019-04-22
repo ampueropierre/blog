@@ -1,6 +1,8 @@
 <?php
 namespace App\Model;
 
+session_start();
+
 /**
  * 
  */
@@ -10,8 +12,12 @@ class User
 	protected $firstname;
 	protected $lastname;
 	protected $mail;
+	protected $password;
 
-	public function __construct()
+	const MAIL_INVALID = 1;
+	const PASSWORD_INVALID = 2;
+
+	public function __construct(array $data)
 	{
 		$this->hydrate($data);
 	}
@@ -21,7 +27,7 @@ class User
 		foreach ($data as $key => $value)
 		{
 			$setter = 'set'.ucfirst($key);
-			if (method_exists($setter))
+			if (method_exists($this, $setter))
 			{
 				$this->$setter($value);
 			}
@@ -48,12 +54,17 @@ class User
 		return $this->mail;
 	}
 
+	public function password()
+	{
+		return $this->password;
+	}
+
 	public function setId(int $id)
 	{
 		$this->id = $id;
 	}
 
-	public function setFirsname($firstname)
+	public function setFirstname($firstname)
 	{
 		if (is_string($firstname))
 		{
@@ -71,9 +82,28 @@ class User
 
 	public function setMail($mail)
 	{
-		if (filter_var($mail, FILTER_VALIDATE_EMAIL))
+		if (!filter_var($mail, FILTER_VALIDATE_EMAIL) || empty($mail))
 		{
-			$this->mail = $mail;	
+			$error = self::MAIL_INVALID;
 		}
+
+		$this->mail = $mail;
 	}
+
+	public function setPassword($password)
+	{
+		if (!is_string($password) || empty($password))
+		{
+			$error = self::PASSWORD_INVALID;
+		}
+
+		$this->password = $password;
+	}
+
+	public function isValid()
+	{
+		return !(empty($this->mail) || empty($this->password));
+	}
+
+
 }
