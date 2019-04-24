@@ -5,6 +5,7 @@ ob_start();
 	<div class="form-group">
 		<label>Prénom</label>
 		<input class="form-control" type="text" name="firstname">
+		<span class="text-danger">Invalid</span>
 	</div>
 	<div class="form-group">
 		<label>Nom</label>
@@ -15,7 +16,7 @@ ob_start();
 		<input class="form-control" type="text" name="mail">
 	</div>
 	<div class="form-group">
-		<label>Mot de Pass</label>
+		<label>Mot de Passe</label>
 		<input class="form-control" type="password" name="password">
 	</div>
 	<div class="form-group">

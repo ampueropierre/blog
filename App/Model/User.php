@@ -11,10 +11,12 @@ class User
 	protected $lastname;
 	protected $mail;
 	protected $password;
+	protected $error = [];
 
 	const MAIL_INVALID = 1;
 	const PASSWORD_INVALID = 2;
 	const FIRSTNAME_INVALID = 3;
+	const LASTNAME_INVALID = 4;
 
 	public function hydrate($data)
 	{
@@ -26,6 +28,7 @@ class User
 				$this->$setter($value);
 			}
 		}
+		$error[] = 1;
 
 		return $this;
 	}
@@ -55,6 +58,11 @@ class User
 		return $this->password;
 	}
 
+	public function error()
+	{
+		return $this->error;
+	}
+
 	public function setId(int $id)
 	{
 		$this->id = $id;
@@ -62,25 +70,31 @@ class User
 
 	public function setFirstname($firstname)
 	{
-		if (is_string($firstname))
+		if (!is_string($firstname) || empty($firstname))
 		{
-			$this->firstname = $firstname;
+			$error[] = self::FIRSTNAME_INVALID;
+			var_dump($error);
 		}
+
+		$this->firstname = $firstname;
 	}
 
 	public function setLastname($lastname)
 	{
-		if (is_string($lastname))
+		if (!is_string($lastname) || empty($lastname))
 		{
-			$this->lastname = $lastname;
+			$error[] = self::LASTNAME_INVALID;
+			var_dump($error);
 		}
+
+		$this->lastname = $lastname;
 	}
 
 	public function setMail($mail)
 	{
 		if (!filter_var($mail, FILTER_VALIDATE_EMAIL) || empty($mail))
 		{
-			$error = self::MAIL_INVALID;
+			$error[] = self::MAIL_INVALID;
 		}
 
 		$this->mail = $mail;
@@ -90,7 +104,7 @@ class User
 	{
 		if (!is_string($password) || empty($password))
 		{
-			$error = self::PASSWORD_INVALID;
+			$error[] = self::PASSWORD_INVALID;
 		}
 
 		$this->password = $password;

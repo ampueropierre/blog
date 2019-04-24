@@ -131,6 +131,15 @@ class Frontend {
 	public function createUser()
 	{
 		$title = 'Créer un compte';
+		
+		if (isset($_POST['create']))
+		{
+			var_dump($_POST);
+			$userCreate = new User();
+			$userCreate->hydrate($_POST);
+			var_dump($userCreate);
+		}
+
 		require('view/frontend/createUser.php');
 	}
 
