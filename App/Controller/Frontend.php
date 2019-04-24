@@ -39,6 +39,7 @@ class Frontend {
 	{
 		$title = 'Contact';
 		$user = $this->userSession();
+
 		require 'view/frontend/contact.php';
 	}
 
@@ -100,8 +101,7 @@ class Frontend {
 				'comment' => $_POST['comment'],
 				'id' => $comment->id()
 			]);
-			var_dump($comment);
-			var_dump($update);
+
 			$manager->updateComment($update);
 			header('Location: index.php?action=post&id='.$comment->postId());
 		}
