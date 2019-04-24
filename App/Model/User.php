@@ -1,7 +1,6 @@
 <?php
 namespace App\Model;
 
-
 /**
  * 
  */
@@ -15,6 +14,7 @@ class User
 
 	const MAIL_INVALID = 1;
 	const PASSWORD_INVALID = 2;
+	const FIRSTNAME_INVALID = 3;
 
 	public function hydrate($data)
 	{

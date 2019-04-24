@@ -26,6 +26,11 @@
         letter-spacing: 1px;
         text-transform: uppercase;
       }
+      .nav-deco {
+        color: $red;
+        text-transform: capitalize;
+        text-decoration: none;
+      }
     }
   }
   @media only screen and (min-width: 992px) {
@@ -49,6 +54,11 @@
           //   color: fade-out($white, .2);
           // }
         }
+        // .nav-deco {
+        //   color: $red;
+        //   text-transform: capitalize;
+        //   text-decoration: none;
+        // }
       }
     }
   }
@@ -100,4 +110,17 @@
       transform: translate3d(0, 100%, 0);
     }
   }
+}
+
+
+.nav-info {
+  color: $black;
+  font-size: 12px;
+  @media only screen and (min-width: 992px) {
+    color: $white;
+  }
+}
+
+.nav-deco {
+  color: $red;
 }

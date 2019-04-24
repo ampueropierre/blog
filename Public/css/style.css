@@ -87,6 +87,10 @@ img::-moz-selection {
     font-size: 12px;
     letter-spacing: 1px;
     text-transform: uppercase; }
+  #mainNav .navbar-nav > li.nav-item .nav-deco {
+    color: #dc3545;
+    text-transform: capitalize;
+    text-decoration: none; }
   @media only screen and (min-width: 992px) {
     #mainNav {
       border-bottom: 1px solid transparent;
@@ -135,6 +139,16 @@ img::-moz-selection {
         -ms-transform: translate3d(0, 100%, 0);
         -o-transform: translate3d(0, 100%, 0);
         transform: translate3d(0, 100%, 0); } }
+
+.nav-info {
+  color: #000;
+  font-size: 12px; }
+  @media only screen and (min-width: 992px) {
+    .nav-info {
+      color: #fff; } }
+
+.nav-deco {
+  color: #dc3545; }
 
 header.masthead {
   height: 250px;

@@ -47,13 +47,21 @@
           </li>
         </ul>
         <ul class="navbar-nav">
+          <?php if (!isset($user)): ?>
           <li class="nav-item">
-            <?php if (!isset($user)) : ?>
             <a class="nav-link" href="?action=connexion">Connexion</a>
-            <?php else :?>
-            <p><?= $user->mail() ?></p>
-            <?php endif; ?>
           </li>
+          <li class="nav-item">
+            <a href="?action=createUser">Créer un compte</a>
+          </li>
+          <?php else: ?>
+          <li class="nav-item">
+            <span class="nav-info"><?= $user->mail() ?></span>
+          </li>
+          <li class="nav-item">
+            <a class="nav-deco" href="?action=destroy">Déconnexion</a>
+          </li>
+          <?php endif; ?>
         </ul>
       </div>
     </div>

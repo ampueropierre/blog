@@ -14,14 +14,13 @@ class UserManager extends Manager
 		$req->bindValue(':mail', $mail);
 		$req->execute();
 
-		$q =  $req->fetch();
+		$q =  $req->fetch(\PDO::FETCH_ASSOC);
 
 		if ($q && password_verify($password, $q['password']))
 		{
 			$user = new User();
-
-			return $user->hydrate($q);
-
+			$user->hydrate($q);
+			return $user;
 		}
 
 		return null;

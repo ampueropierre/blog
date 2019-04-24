@@ -28,23 +28,34 @@ class CommentManager extends Manager
 
 		return $affectedLines;
 	}
+
 	// Modifier des commentaire
-	public function updateComment($commentId, $author, $comment)
+	public function updateComment(Comment $comment)
 	{
 		$db = $this->dbConnect();
-		$update = $db->prepare('UPDATE comments SET author = ?, comment = ?, comment_date = NOW() WHERE id = ?');
-		$affectedLines = $update->execute(array($author,$comment,$commentId));
+		$req = $db->prepare('UPDATE comments SET author = :author, comment = :comment, comment_date = NOW() WHERE id = :id');
+		$req->bindValue(':author', $comment->author());
+		$req->bindValue(':comment', $comment->comment());
+		$req->bindValue(':id', $comment->id());
 
-		return $affectedLines;
+		$req->execute();
+
 	}
 
 	public function getComment($commentId)
 	{
 		$db = $this->dbConnect();
-		$comment = $db->prepare('SELECT id, author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr FROM comments WHERE id = ?');
-		$comment->execute(array($commentId));
+		$q = $db->prepare('SELECT id, post_id AS postId, author, comment, comment_date AS commentDate FROM comments WHERE id = :id');
+		$q->bindValue(':id', $commentId);
+		$q->execute();
 
-		return $comment->fetch();
+		$tab = $q->fetch(\PDO::FETCH_ASSOC);
+
+		$tab['commentDate'] = new \DateTime($tab['commentDate']);
+
+		$comment = new Comment($tab);
+
+		return $comment;
 	}
 
 }

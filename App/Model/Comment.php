@@ -9,9 +9,13 @@ class Comment
 	protected $comment;
 	protected $commentDate;
 
-	public function __construct(array $data)
+	public function __construct(array $data = [])
 	{
-		$this->hydrate($data);
+		if (!empty($data))
+		{
+			$this->hydrate($data);
+		}
+		
 	}
 
 	public function hydrate(array $data)
@@ -56,9 +60,6 @@ class Comment
 		if (is_int($id) && $id > 0) {
 			$this->id = $id;
 		}
-		else {
-			trigger_error('L\'id doit etre un nombre entier et superieur à 0', E_USER_WARNING);
-		}
 	}
 
 	public function setPostId($postId)
@@ -67,18 +68,12 @@ class Comment
 		if (is_int($postId) && $postId > 0) {
 			$this->postId = $postId;
 		}
-		else {
-			trigger_error('L\'id du poste doit etre un nombre entier et superieur à 0', E_USER_WARNING);
-		}
 	}
 
 	public function setAuthor($author)
 	{
 		if (is_string($author)) {
 			$this->author = $author;
-		}
-		else {
-			trigger_error('L\'auteur doit etre une chaine de caractères', E_USER_WARNING);
 		}
 	}
 
@@ -91,9 +86,6 @@ class Comment
 	{
 		if (is_string($comment)) {
 			$this->comment = $comment;
-		}
-		else {
-			trigger_error('Le commentaire doit etre une chaine de caractères', E_USER_WARNING);
 		}
 	}
 	

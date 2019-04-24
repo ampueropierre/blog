@@ -5,11 +5,13 @@ use App\Manager\PostManager;
 use App\Manager\CommentManager;
 use App\Manager\UserManager;
 use App\Model\User;
+use App\Model\Comment;
 
 class Frontend {
 
 	public function connexion()
 	{
+		$user = $this->userSession();
 		$title = 'connexion';
 		$userManager = new UserManager();
 		if (isset($_POST['connexion']))
@@ -21,37 +23,29 @@ class Frontend {
 
 			}
 		}
-		
 
 		require 'view/frontend/connexion.php';
 	}
 
 	public function home()
 	{
+		$user = $this->userSession();
 		$title = 'Home';
-		$user = null;
 
-		if (isset($_SESSION['user']))
-		{
-			$user = unserialize($_SESSION['user']);
-		}
 		require 'view/frontend/template/home.php';
 	}
 
 	public function contact()
 	{
 		$title = 'Contact';
+		$user = $this->userSession();
 		require 'view/frontend/contact.php';
 	}
 
 	public function listPosts()
 	{	
-		$user = null;
+		$user = $this->userSession();
 
-		if (isset($_SESSION['user']))
-		{
-			$user = unserialize($_SESSION['user']);
-		}
 		$postManager = new PostManager();
 
 		$title = 'Blog';
@@ -62,6 +56,8 @@ class Frontend {
 
 	public function post($id)
 	{
+		$user = $this->userSession();
+
 		$postManager = new PostManager();
 		$commentManager = new CommentManager();
 
@@ -75,6 +71,8 @@ class Frontend {
 
 	public function addComment($postId,$author,$comment)
 	{
+		$user = $this->userSession();
+
 		$commentManager = new CommentManager();
 		$affectedLines = $commentManager->postComment($postId,$author,$comment);
 
@@ -89,11 +87,24 @@ class Frontend {
 	// Modifier des commentaire
 	public function comment($idComment,$idPost)
 	{
+		$user = $this->userSession();
+		$title = 'Modifier le commentaire';
 		$manager = new CommentManager();
-		$idComment = $idComment;
-		$idPost = $idPost;
 
 		$comment = $manager->getComment($idComment);
+
+		if (isset($_POST['update']))
+		{
+			$update = new Comment([
+				'author' => $_POST['author'],
+				'comment' => $_POST['comment'],
+				'id' => $comment->id()
+			]);
+			var_dump($comment);
+			var_dump($update);
+			$manager->updateComment($update);
+			header('Location: index.php?action=post&id='.$comment->postId());
+		}
 
 		require('view/frontend/commentView.php');
 	}
@@ -110,6 +121,27 @@ class Frontend {
 			header('Location: index.php?action=post&id='.$postId);
 		}
 
+	}
+
+	public function destroy()
+	{
+		require('view/frontend/destroy.php');
+	}
+
+	public function createUser()
+	{
+		$title = 'Créer un compte';
+		require('view/frontend/createUser.php');
+	}
+
+	private function userSession()
+	{
+		$user = null;
+
+		if (isset($_SESSION['user']))
+		{
+			return unserialize($_SESSION['user']);
+		}
 	}
 }
 

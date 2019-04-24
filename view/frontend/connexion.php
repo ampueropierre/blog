@@ -1,18 +1,20 @@
 <?php
 ob_start();
 ?>
-<h2>Connexion</h2>
-
 <form action="" method="post">
-	<label>Email</label>
-	<input type="text" name="mail"><br>
-
-	<label>Mot de passe</label>
-	<input type="password" name="password"><br>
-
-	<input type="submit" value="connexion" name="connexion">
+	<div class="form-group">
+		<label>Email</label>
+		<input class="form-control" type="text" name="mail">
+	</div>
+	<div class="form-group">
+		<label>Mot de Pass</label>
+		<input class="form-control" type="text" name="password">
+	</div>
+	<div class="form-group">
+		<input class="btn btn-primary" type="submit" name="connexion">
+	</div>
 </form>
 <?php
 $content = ob_get_clean();
-require 'view/frontend/template/page.php';
+require 'view/frontend/template/post.php';
 ?>

@@ -1,12 +1,5 @@
 <?php
 session_start();
-if (isset($_SESSION['user']))
-{
-	$user = $_SESSION['user'];
-}
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
 date_default_timezone_set('Europe/Paris');
 setlocale (LC_TIME, 'fr_FR.utf8','fra');
@@ -73,6 +66,14 @@ try {
 		elseif ($_GET['action'] == 'connexion')
 		{
 			$frontend->connexion();
+		}
+		elseif ($_GET['action'] == 'destroy')
+		{
+			$frontend->destroy();
+		}
+		elseif($_GET['action'] == 'createUser')
+		{
+			$frontend->createUser();
 		}
 
 	}
