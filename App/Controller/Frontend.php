@@ -20,7 +20,8 @@ class Frontend {
 			if ($user && $user->isValid())
 			{	
 				$_SESSION['user'] = serialize($user);
-
+				header('Location: index.php?action=listPost');
+				die;
 			}
 		}
 
@@ -131,13 +132,28 @@ class Frontend {
 	public function createUser()
 	{
 		$title = 'Créer un compte';
+		$userManager = new UserManager();
 		
 		if (isset($_POST['create']))
 		{
-			var_dump($_POST);
 			$userCreate = new User();
 			$userCreate->hydrate($_POST);
-			var_dump($userCreate);
+			if (!empty($userCreate->error()))
+			{
+				$error = $userCreate->error();
+			}
+			elseif ($userManager->mailExist($userCreate->mail()))
+			{
+				$error[] = 5;
+			}
+			else
+			{
+				$user = $userManager->add($userCreate);
+				$_SESSION['user'] = serialize($user);
+				header('Location: index.php?action=listPost');
+				die;
+			}
+			
 		}
 
 		require('view/frontend/createUser.php');

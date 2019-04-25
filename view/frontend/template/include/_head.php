@@ -45,6 +45,9 @@
           <li class="nav-item">
             <a class="nav-link" href="?action=contact">Contact</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="?action=admin">Administration</a>
+          </li>
         </ul>
         <ul class="navbar-nav">
           <?php if (!isset($user)): ?>

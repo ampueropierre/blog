@@ -28,7 +28,6 @@ class User
 				$this->$setter($value);
 			}
 		}
-		$error[] = 1;
 
 		return $this;
 	}
@@ -72,8 +71,7 @@ class User
 	{
 		if (!is_string($firstname) || empty($firstname))
 		{
-			$error[] = self::FIRSTNAME_INVALID;
-			var_dump($error);
+			$this->error[] = self::FIRSTNAME_INVALID;
 		}
 
 		$this->firstname = $firstname;
@@ -83,8 +81,7 @@ class User
 	{
 		if (!is_string($lastname) || empty($lastname))
 		{
-			$error[] = self::LASTNAME_INVALID;
-			var_dump($error);
+			$this->error[] = self::LASTNAME_INVALID;
 		}
 
 		$this->lastname = $lastname;
@@ -94,7 +91,7 @@ class User
 	{
 		if (!filter_var($mail, FILTER_VALIDATE_EMAIL) || empty($mail))
 		{
-			$error[] = self::MAIL_INVALID;
+			$this->error[] = self::MAIL_INVALID;
 		}
 
 		$this->mail = $mail;
@@ -104,7 +101,7 @@ class User
 	{
 		if (!is_string($password) || empty($password))
 		{
-			$error[] = self::PASSWORD_INVALID;
+			$this->error[] = self::PASSWORD_INVALID;
 		}
 
 		$this->password = $password;

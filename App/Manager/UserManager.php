@@ -26,14 +26,34 @@ class UserManager extends Manager
 		return null;
 	}
 
-	public function addUser(array $data)
+	public function add(User $user)
 	{
 		$db =$this->dbConnect();
 		$req = $db->prepare('INSERT INTO users(firstname, lastname, mail, password) VALUES (:firstname, :lastname, :mail, :password)');
-		$req->bindValue(':firstname', $data['firstname']);
-		$req->bindValue(':lastname', $data['lastname']);
-		$req->bindValue(':mail', $data['mail']);
-		$req->bindValue(':password', password_hash($data['password'], PASSWORD_DEFAULT));
+		$req->bindValue(':firstname', $user->firstname());
+		$req->bindValue(':lastname', $user->lastname());
+		$req->bindValue(':mail', $user->mail());
+		$req->bindValue(':password', password_hash($user->password(), PASSWORD_DEFAULT));
 		$req->execute();
+
+		$user->setId($db->lastInsertId());
+
+		return $user;
+
+	}
+
+	public function mailExist($mail)
+	{
+		$db= $this->dbConnect();
+		$req = $db->prepare('SELECT mail FROM users WHERE mail = :mail');
+		$req->bindValue(':mail', $mail);
+		$req->execute();
+		
+		if ($req->fetch(\PDO::FETCH_ASSOC) > 0)
+		{
+			return true;
+			
+		}
+		return false;
 	}
 }

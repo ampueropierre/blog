@@ -8,7 +8,7 @@ ob_start();
 	</div>
 	<div class="form-group">
 		<label>Mot de Pass</label>
-		<input class="form-control" type="text" name="password">
+		<input class="form-control" type="password" name="password">
 	</div>
 	<div class="form-group">
 		<input class="btn btn-primary" type="submit" name="connexion">
