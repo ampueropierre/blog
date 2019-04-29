@@ -7,33 +7,45 @@ setlocale (LC_TIME, 'fr_FR.utf8','fra');
 require __DIR__ . '/vendor/autoload.php';
 
 use App\Controller\Frontend;
+use App\Controller\Backend;
 
 $frontend = new Frontend;
+$backend = new Backend;
 
-try {
-
-	if (isset($_GET['action'])) {
-		if ($_GET['action'] == 'listPost') {
+try
+{
+	if (isset($_GET['action']))
+	{
+		if ($_GET['action'] == 'listPost')
+		{
 			$frontend->listPosts();
 		}
-		elseif ($_GET['action'] == 'post') {
-			if (isset($_GET['id']) && $_GET['id'] > 0) {
+		elseif ($_GET['action'] == 'post')
+		{
+			if (isset($_GET['id']) && $_GET['id'] > 0)
+			{
 				$frontend->post($_GET['id']);
 			}
-			else {
+			else
+			{
 				throw new Exception('Aucun id n\'a été envoyé');
 			}
 		}
-		elseif ($_GET['action'] == 'addComment') {
-			if (isset($_GET['id']) && $_GET['id'] > 0) {
-				if (!empty($_POST['author']) && !empty($_POST['comment'])) {
+		elseif ($_GET['action'] == 'addComment')
+		{
+			if (isset($_GET['id']) && $_GET['id'] > 0)
+			{
+				if (!empty($_POST['author']) && !empty($_POST['comment']))
+				{
 					$frontend->addComment($_GET['id'],$_POST['author'],$_POST['comment']);
 				}
-				else {
+				else
+				{
 					throw new Exception("Tous les champs ne sont pas remplis !");
 				}
 			}
-			else {
+			else
+			{
 				throw new Exception('Aucun id n\'a été envoyé');
 			}
 		}
@@ -75,9 +87,25 @@ try {
 		{
 			$frontend->createUser();
 		}
+		elseif ($_GET['action'] == 'admin')
+		{
+			$backend->admin();
+		}
+		elseif ($_GET['action'] == 'addPost')
+		{
+			$backend->addPost();
+		}
+		elseif ($_GET['action'] == 'deletePost')
+		{
+			if (isset($_GET['id']))
+			{
+				$backend->deletePost($_GET['id']);
+			}
+		}
 
 	}
-	else {
+	else
+	{
 		$frontend->home();
 	}
 

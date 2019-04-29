@@ -30,4 +30,29 @@ class PostManager extends Manager
 		$post['dateCreation'] = new \DateTime($post['dateCreation']);
 		return $post = new Post($post);
 	}
+
+	public function add(Post $post)
+	{
+		$db = $this->dbConnect();
+		$req = $db->prepare('INSERT INTO posts(title, content, date_creation) VALUES (:title, :content, NOW())');
+		$req->bindValue(':title', $post->title());
+		$req->bindValue(':content', $post->content());
+		$req->execute();
+	}
+
+	public function delete($id)
+	{
+		$db = $this->dbConnect();
+		$req = $db->exec('DELETE FROM posts WHERE id = '.(int) $id);
+	}
+
+	public function update(Post $post)
+	{
+		$db = $this->dbConnect();
+		$req = $db->prepare('UPDATE posts SET title = :title, content = :content WHERE id = :id');
+		$req->bindValue(':title', $post->title());
+		$req->bindValue(':content', $post->content());
+		$req->bindValue(':id', $post->id());
+		$req->execute();
+	}
 }

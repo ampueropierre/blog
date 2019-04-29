@@ -7,6 +7,10 @@ class Post
     protected $title;
     protected $content;
     protected $dateCreation;
+    protected $error = [];
+
+    const TITLE_INVALID = 1;
+    const CONTENT_INVALID = 2;
 	
 	function __construct(array $data)
 	{
@@ -43,6 +47,11 @@ class Post
 		return $this->dateCreation;
 	}
 
+	public function error()
+	{
+		return $this->error;
+	}
+
 	public function setId($id)
 	{
 		$id = (int) $id;
@@ -50,29 +59,27 @@ class Post
 		if (is_int($id) && $id > 0) {
 			$this->id = $id;
 		}
-		else {
-			trigger_error('L\'id doit etre un nombre entier et supérieur à 0', E_USER_WARNING);
-		}
 	}
 
 	public function setTitle($title)
 	{
-		if (is_string($title) && strlen($title) <= 100) {
-			$this->title = $title;
+		if (!is_string($title) || empty($title))
+		{
+			$this->error[] = self::TITLE_INVALID;
 		}
-		else {
-			trigger_error('Le titre doit etre une chaine de caractères et etre inférieur à 100 caractères',E_USER_WARNING);
-		}
+
+		$this->title = $title;
 	}
 
 	public function setContent($content)
 	{
-		if (is_string($content)) {
-			$this->content = $content;
+		if (!is_string($content) || empty($content))
+		{
+			$this->error[] = self::CONTENT_INVALID;
 		}
-		else {
-			trigger_error('Le contenu doit etre une chaine de caractères',E_USER_WARNING);
-		}
+
+		$this->content = $content;
+
 	}
 
 	public function setDateCreation(\DateTime $dateCreation)
