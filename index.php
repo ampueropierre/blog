@@ -102,6 +102,13 @@ try
 				$backend->deletePost($_GET['id']);
 			}
 		}
+		elseif ($_GET['action'] == 'updatePost')
+		{
+			if (isset($_GET['id'])) {
+				$backend->updatePost($_GET['id']);
+			}
+			
+		}
 
 	}
 	else

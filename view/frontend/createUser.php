@@ -5,31 +5,33 @@ ob_start();
 	<div class="form-group">
 		<label>Prénom</label>
 		<input class="form-control" type="text" name="firstname" value="<?php if (isset($_POST['firstname'])) echo $_POST['firstname'] ?>">
-		<?php if (isset($error) && in_array($userCreate::FIRSTNAME_INVALID, $error)): ?>
+		<?php if (isset($errors) && in_array($userValidator::FIRSTNAME_INVALID, $errors)): ?>
 		<span class="text-danger">Invalid</span>
 		<?php endif; ?>
 	</div>
 	<div class="form-group">
 		<label>Nom</label>
 		<input class="form-control" type="text" name="lastname" value="<?php if (isset($_POST['lastname'])) echo $_POST['lastname'] ?>">
-		<?php if (isset($error) && in_array($userCreate::LASTNAME_INVALID, $error)): ?>
+		<?php if (isset($errors) && in_array($userValidator::LASTNAME_INVALID, $errors)): ?>
 		<span class="text-danger">Invalid</span>
 		<?php endif; ?>
 	</div>
 	<div class="form-group">
 		<label>Email</label>
 		<input class="form-control" type="text" name="mail" value="<?php if (isset($_POST['mail'])) echo $_POST['mail'] ?>">
-		<?php if (isset($error) && in_array($userCreate::MAIL_INVALID, $error)): ?>
+		<?php if (isset($errors) && in_array($userValidator::MAIL_INVALID, $errors)): ?>
 		<span class="text-danger">Invalid</span>
-		<?php elseif (isset($error) && in_array(5, $error)): ?>
+		<?php elseif (isset($errors) && in_array($userValidator::MAIL_EXIST, $errors)): ?>
 		<span class="text-danger">Ce mail est déjà utilié</span>
 		<?php endif; ?>
 	</div>
 	<div class="form-group">
 		<label>Mot de Passe</label>
 		<input class="form-control" type="password" name="password">
-		<?php if (isset($error) && in_array($userCreate::PASSWORD_INVALID, $error)): ?>
+		<?php if (isset($errors) && in_array($userValidator::PASSWORD_INVALID, $errors)): ?>
 		<span class="text-danger">Invalid</span>
+		<?php elseif (isset($errors) && in_array($userValidator::PASSWORD_LENGHT, $errors)): ?>
+		<span class="text-danger">Le mot de passe doit contenir au minimum 8 caractères</span>
 		<?php endif; ?>
 	</div>
 	<div class="form-group">

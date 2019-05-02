@@ -45,8 +45,12 @@
           <li class="nav-item">
             <a class="nav-link" href="?action=contact">Contact</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="?action=admin">Administration</a>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Administration</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="?action=admin">Liste des Postes</a>
+              <a class="dropdown-item" href="#">Liste des Commentaires</a>
+            </div>
           </li>
         </ul>
         <ul class="navbar-nav">

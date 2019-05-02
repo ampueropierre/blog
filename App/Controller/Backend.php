@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Manager\PostManager;
 use App\Model\Post;
+use App\Validator\PostValidator;
 
 /**
  * 
@@ -12,7 +13,7 @@ class Backend
 	public function admin()
 	{
 		$postManager = new PostManager();
-		$title = 'Administration';
+		$title = 'Liste des Postes';
 		$posts = $postManager->getPosts();
 		require 'view/backend/admin.php';
 	}
@@ -20,19 +21,17 @@ class Backend
 	public function addPost()
 	{
 		$title = 'Ajouter un Poste';
-		$postManager = new PostManager();
-		if (isset($_POST['add']))
-		{
-			$post = new Post([
-				'title' => $_POST['title'],
-				'content' => $_POST['content']
-			]);
+		
+		if (isset($_POST['add'])) {
+			$postValidator = new PostValidator($_POST);
 
-			if (empty($post->error()))
-			{
+			if (empty($postValidator->errors())) {
+				$post = new Post($_POST);
+				$postManager = new PostManager();
 				$postManager->add($post);
-				header('Location: index.php?action=admin');
-				die;
+				header('Location: index.php?action=admin&success=add');
+			} else {
+				$errors = $postValidator->errors();
 			}
 		}
 		require 'view/backend/addPost.php';
@@ -43,6 +42,13 @@ class Backend
 		$postManager = new PostManager();
 		$postManager->delete($id);
 		header('Location: index.php?action=admin');
-		die;
+	}
+
+	public function updatePost($id)
+	{
+		$title = 'Modifier un Poste';
+		$postManager = new PostManager();
+		$post = $postManager->getPost($id);
+		require 'view/backend/updatePost.php';
 	}
 }

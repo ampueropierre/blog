@@ -23,8 +23,9 @@ class PostManager extends Manager
 	public function getPost($postId)
 	{
 		$db = $this->dbConnect();
-		$req = $db->prepare('SELECT id, title, content, date_creation as dateCreation FROM posts WHERE id=?');
-		$req->execute(array($postId));
+		$req = $db->prepare('SELECT id, title, content, date_creation as dateCreation FROM posts WHERE id=:id');
+		$req->bindValue(':id', $postId);
+		$req->execute();
 		$post = $req->fetch();
 
 		$post['dateCreation'] = new \DateTime($post['dateCreation']);

@@ -6,23 +6,30 @@ use App\Manager\CommentManager;
 use App\Manager\UserManager;
 use App\Model\User;
 use App\Model\Comment;
+use App\Validator\UserValidator;
+use App\Validator\ConnexionValidator;
 
 class Frontend {
 
 	public function connexion()
 	{
-		$user = $this->userSession();
 		$title = 'connexion';
-		$userManager = new UserManager();
-		if (isset($_POST['connexion']))
-		{
-			$user = $userManager->getLoggedUser($_POST['mail'], $_POST['password']);
-			if ($user && $user->isValid())
-			{	
-				$_SESSION['user'] = serialize($user);
-				header('Location: index.php?action=listPost');
-				die;
+
+		if (isset($_POST['connexion'])) {
+			$userManager = new UserManager();
+			$connexionValidator = new ConnexionValidator($_POST);
+			if (empty($connexionValidator->errors())) {
+				$user = $userManager->getLoggedUser($_POST['mail'], $_POST['password']);
+				if ($user) {	
+					$_SESSION['user'] = serialize($user);
+					header('Location: index.php?action=listPost');
+				} else {
+					$errorIdentifiant = true;
+				}
+			} else {
+				$errors = $connexionValidator->errors();
 			}
+
 		}
 
 		require 'view/frontend/connexion.php';
@@ -126,32 +133,31 @@ class Frontend {
 
 	public function destroy()
 	{
-		require('view/frontend/destroy.php');
+		session_destroy();
+		header("Location: ".$_SERVER["HTTP_REFERER"]);
 	}
 
 	public function createUser()
 	{
 		$title = 'Créer un compte';
-		$userManager = new UserManager();
 		
 		if (isset($_POST['create']))
 		{
-			$userCreate = new User();
-			$userCreate->hydrate($_POST);
-			if (!empty($userCreate->error()))
-			{
-				$error = $userCreate->error();
-			}
-			elseif ($userManager->mailExist($userCreate->mail()))
-			{
-				$error[] = 5;
-			}
-			else
-			{
-				$user = $userManager->add($userCreate);
+			// $userManager = new UserManager();
+			// $userCreate = new User();
+			// $userCreate->hydrate($_POST);
+			$userValidator = new UserValidator($_POST);
+
+			if (!empty($userValidator->errors())) {
+				$errors = $userValidator->errors();
+			} else {
+				$userManager = new UserManager();
+				$user = new User();
+				$user->hydrate($_POST);
+				$user = $userManager->add($user);
+
 				$_SESSION['user'] = serialize($user);
 				header('Location: index.php?action=listPost');
-				die;
 			}
 			
 		}
