@@ -5,12 +5,13 @@ class Post
 {
 	protected $id;
     protected $title;
+    protected $authorId;
+    protected $firstname;
+    protected $lastname;
+    protected $chapo;
     protected $content;
     protected $dateCreation;
-    protected $error = [];
-
-    const TITLE_INVALID = 1;
-    const CONTENT_INVALID = 2;
+    protected $dateModification;
 	
 	function __construct(array $data)
 	{
@@ -37,6 +38,26 @@ class Post
 		return $this->title;
 	}
 
+	public function authorId()
+	{
+		return $this->authorId;
+	}
+
+	public function firstname()
+	{
+		return $this->firstname;
+	}
+
+	public function lastname()
+	{
+		return $this->lastname;
+	}
+
+	public function chapo()
+	{
+		return $this->chapo;
+	}
+
 	public function content()
 	{
 		return $this->content;
@@ -47,9 +68,9 @@ class Post
 		return $this->dateCreation;
 	}
 
-	public function error()
+	public function dateModification()
 	{
-		return $this->error;
+		return $this->dateModification;
 	}
 
 	public function setId($id)
@@ -61,6 +82,21 @@ class Post
 		}
 	}
 
+	public function setAuthorId(int $authorId)
+	{
+		$this->authorId = $authorId;
+	}
+
+	public function setFirstname(string $firstname)
+	{
+		$this->firstname = $firstname;
+	}
+
+	public function setLastname($lastname)
+	{
+		$this->lastname = $lastname;
+	}
+
 	public function setTitle($title)
 	{
 		if (!is_string($title) || empty($title))
@@ -69,6 +105,11 @@ class Post
 		}
 
 		$this->title = $title;
+	}
+
+	public function setChapo(string $chapo)
+	{
+		$this->chapo = $chapo;
 	}
 
 	public function setContent($content)
@@ -85,6 +126,11 @@ class Post
 	public function setDateCreation(\DateTime $dateCreation)
 	{
 		$this->dateCreation = $dateCreation;
+	}
+
+	public function setDateModification(\DateTime $dateModification)
+	{
+		$this->dateModification = $dateModification;
 	}
 
 }

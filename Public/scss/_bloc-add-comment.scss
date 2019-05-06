@@ -1,18 +1,11 @@
 .bloc-add-comment {
 	background-color: #f0f0f0;
-	padding: 10px 30px;
+	padding: 40px 20px;
 	h3 {
 		font-size: 25px;
 		letter-spacing: -1px;
 	}
-	.btn-comment {
-		font-size: 20px;
-		line-height: 20px;
-		font-weight: 400;
-		color: #fff;
-		padding: 7px 10px;
-		background: #202020;
-		margin-top: 10px;
-		cursor: pointer;
+	form {
+		width: 300px;
 	}
 }

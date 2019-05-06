@@ -71,7 +71,7 @@ class Frontend {
 		$commentManager = new CommentManager();
 
 		$post = $postManager->getPost($id);
-		$comments = $commentManager->getComments($id);
+		$comments = $commentManager->getCommentsValide($id);
 
 		$title = $post->title();
 
@@ -163,6 +163,13 @@ class Frontend {
 		}
 
 		require('view/frontend/createUser.php');
+	}
+
+	public function profil($id)
+	{
+		$user = $this->userSession(); 
+		$title = "Mon profil";
+		require('view/frontend/profil.php');
 	}
 
 	private function userSession()

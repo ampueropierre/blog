@@ -49,7 +49,7 @@
             <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Administration</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="?action=admin">Liste des Postes</a>
-              <a class="dropdown-item" href="#">Liste des Commentaires</a>
+              <a class="dropdown-item" href="?action=listComment">Liste des Commentaires</a>
             </div>
           </li>
         </ul>
@@ -63,7 +63,7 @@
           </li>
           <?php else: ?>
           <li class="nav-item">
-            <span class="nav-info"><?= $user->mail() ?></span>
+            <a href="?action=profil&id=<?= $user->id() ?>" class="nav-info"><?= $user->mail() ?></a>
           </li>
           <li class="nav-item">
             <a class="nav-deco" href="?action=destroy">Déconnexion</a>

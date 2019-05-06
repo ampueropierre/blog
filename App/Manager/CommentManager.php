@@ -5,12 +5,16 @@ use App\Model\Comment;
 
 class CommentManager extends Manager
 {
-	public function getComments($postId)
+	public function getCommentsValide($postId)
 	{
 		$tab = [];
+
 		$db = $this->dbConnect();
-		$comments = $db->prepare('SELECT id, author, comment, comment_date AS commentDate FROM comments WHERE post_id = ? ORDER BY commentDate DESC');
-		$comments->execute(array($postId));
+		$comments = $db->prepare('SELECT comments.id, firstname, lastname, status, comment, comment_date AS commentDate FROM comments INNER JOIN users ON comments.author_id = users.id WHERE post_id = :id AND status = 1 ORDER BY commentDate DESC');
+
+		$comments->bindValue(':id', $postId);
+
+		$comments->execute();
 
 		while ($data = $comments->fetch(\PDO::FETCH_ASSOC)) {
 			$data['commentDate'] = new \DateTime($data['commentDate']);
@@ -20,32 +24,37 @@ class CommentManager extends Manager
 		return $tab;
 	}
 
-	public function postComment($postId, $author, $comment)
+	public function add($postId, $authorId, $comment)
 	{
 		$db = $this->dbConnect();
-		$comments = $db->prepare('INSERT INTO comments(post_id, author, comment, comment_date) VALUES (?,?,?,NOW())');
+		$comments = $db->prepare('INSERT INTO comments(post_id, authorId, comment, comment_date) VALUES (?,?,?,NOW())');
 		$affectedLines = $comments->execute(array($postId,$author,$comment));
 
 		return $affectedLines;
 	}
 
 	// Modifier des commentaire
-	public function updateComment(Comment $comment)
+	public function update(array $comment)
 	{
 		$db = $this->dbConnect();
-		$req = $db->prepare('UPDATE comments SET author = :author, comment = :comment, comment_date = NOW() WHERE id = :id');
-		$req->bindValue(':author', $comment->author());
-		$req->bindValue(':comment', $comment->comment());
-		$req->bindValue(':id', $comment->id());
+		$req = $db->prepare('UPDATE comments SET status = :status WHERE id = :id');
+		$req->bindValue(':status', $comment['status']);
+		$req->bindValue(':id', $comment['id']);
 
 		$req->execute();
 
 	}
 
+	public function delete($id)
+	{
+		$db = $this->dbConnect();
+		$req = $db->exec('DELETE FROM comments WHERE id = '.(int) $id);
+	}
+
 	public function getComment($commentId)
 	{
 		$db = $this->dbConnect();
-		$q = $db->prepare('SELECT id, post_id AS postId, author, comment, comment_date AS commentDate FROM comments WHERE id = :id');
+		$q = $db->prepare('SELECT comments.id, firstname, lastname, author_id as authorId, status, comment, comment_date AS commentDate FROM comments INNER JOIN users ON comments.author_id = users.id WHERE comments.id = :id');
 		$q->bindValue(':id', $commentId);
 		$q->execute();
 
@@ -57,5 +66,23 @@ class CommentManager extends Manager
 
 		return $comment;
 	}
+
+	public function listComment()
+	{
+		$tab = [];
+		
+		$db = $this->dbConnect();
+		$comments = $db->query('SELECT id, author_id, status, comment, comment_date AS commentDate FROM comments ORDER BY commentDate AND status DESC');
+
+		$comments->execute();
+
+		while ($data = $comments->fetch(\PDO::FETCH_ASSOC)) {
+			$data['commentDate'] = new \DateTime($data['commentDate']);
+			$tab[] = new Comment($data);
+		}
+
+		return $tab;
+	}
+
 
 }

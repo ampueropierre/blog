@@ -20,8 +20,8 @@
 			<tr>
 				<th><?= $post->id() ?></th>
 				<td><?= $post->title() ?></td>
-				<td><?= $post->dateCreation()->format('d/m/Y à H:i:s') ?></td>
-				<td><a href="?action=updatePost&id=<?= $post->id() ?>" class="text-secondary mr-2">Modifier</a><a href="?action=deletePost&id=<?= $post->id() ?>" class="text-danger">Supprimer</a></td>
+				<td><?= $post->dateModification()->format('d/m/Y à H:i:s') ?></td>
+				<td><a href="?action=updatePost&id=<?= $post->id() ?>" class="text-primary mr-2">Modifier</a><a href="?action=deletePost&id=<?= $post->id() ?>" class="text-danger">Supprimer</a></td>
 			</tr>
 		<?php endforeach; ?>
 	</tbody>

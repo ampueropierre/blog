@@ -10,11 +10,11 @@ foreach ($posts as $post)
 			<?= htmlspecialchars($post->title()) ?>
 		</h2>
 		<p>
-			<?= substr(nl2br(htmlspecialchars($post->content())),0, 100) ?>
+			<?= htmlspecialchars($post->chapo()) ?>
 		</p>
 	</a>
 	<p class="post-meta">
-		Posté le <?= $post->dateCreation()->format('d F Y à H:i:s') ?>
+		Dernière modification le <?= $post->dateModification()->format('d F Y à H:i:s') ?>
 	</p>
 </div>
 <hr>

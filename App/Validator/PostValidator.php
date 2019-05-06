@@ -10,6 +10,8 @@ class PostValidator
 
 	const TITLE_INVALID = 1;
 	const CONTENT_INVALID = 2;
+	const CHAPO_INVALID = 3;
+	const AUTHOR_INVALID = 4;
 
 	public function __construct(array $data)
 	{
@@ -42,6 +44,20 @@ class PostValidator
 	{
 		if (empty($content)) {
 			$this->errors[] = self::CONTENT_INVALID;
+		}
+	}
+
+	public function setChapo($chapo)
+	{
+		if (empty($chapo)) {
+			$this->errors[] = self::CHAPO_INVALID;
+		}
+	}
+
+	public function setAuthorId($authorId)
+	{
+		if (empty($authorId)) {
+			$this->errors[] = self::AUTHOR_INVALID;
 		}
 	}
 }

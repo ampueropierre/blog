@@ -5,7 +5,9 @@ class Comment
 {
 	protected $id;
 	protected $postId;
-	protected $author;
+	protected $firstname;
+	protected $lastname;
+	protected $status;
 	protected $comment;
 	protected $commentDate;
 
@@ -38,15 +40,24 @@ class Comment
 		return $this->postId;
 	}
 
-	public function author()
+	public function status()
 	{
-		return $this->author;
+		return $this->status;
+	}
+
+	public function firstname()
+	{
+		return $this->firstname;
+	}
+
+	public function lastname()
+	{
+		return $this->lastname;
 	}
 
 	public function comment()
 	{
 		return $this->comment;
-	
 	}
 	
 	public function commentDate()
@@ -62,6 +73,11 @@ class Comment
 		}
 	}
 
+	public function setStatus(int $status)
+	{
+		$this->status = $status;
+	}
+
 	public function setPostId($postId)
 	{
 		$postId = (int) $postId;
@@ -70,11 +86,14 @@ class Comment
 		}
 	}
 
-	public function setAuthor($author)
+	public function setFirstname(string $firstname)
 	{
-		if (is_string($author)) {
-			$this->author = $author;
-		}
+		$this->firstname = $firstname;
+	}
+
+	public function setLastname(string $lastname)
+	{
+		$this->lastname = $lastname;
 	}
 
 	public function setCommentDate(\DateTime $commentDate)
@@ -82,11 +101,9 @@ class Comment
 		$this->commentDate = $commentDate;
 	}
 
-	public function setComment($comment)
+	public function setComment(string $comment)
 	{
-		if (is_string($comment)) {
-			$this->comment = $comment;
-		}
+		$this->comment = $comment;
 	}
 	
 }

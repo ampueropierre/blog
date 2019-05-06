@@ -10,33 +10,36 @@ class PostManager extends Manager
 		$posts = [];
 
 		$db = $this->dbConnect();
-		$req = $db->query('SELECT id, title, content, date_creation as dateCreation FROM posts ORDER BY dateCreation DESC LIMIT 0,5');
+		$req = $db->query('SELECT id, title, chapo, date_modification as dateModification FROM posts ORDER BY dateModification DESC LIMIT 0,5');
 
 		
 		while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {
-			$data['dateCreation'] = new \DateTime($data['dateCreation'], new \DateTimeZone('Europe/Paris'));
+			$data['dateModification'] = new \DateTime($data['dateModification'], new \DateTimeZone('Europe/Paris'));
 			$posts[] = new Post($data);
 		}
+
 		return $posts;
 	}
 
 	public function getPost($postId)
 	{
 		$db = $this->dbConnect();
-		$req = $db->prepare('SELECT id, title, content, date_creation as dateCreation FROM posts WHERE id=:id');
+		$req = $db->prepare('SELECT posts.id AS id, title, chapo, content, date_modification as dateModification, author_id as authorId, firstname, lastname FROM posts INNER JOIN users ON posts.author_id = users.id WHERE posts.id =:id');
 		$req->bindValue(':id', $postId);
 		$req->execute();
-		$post = $req->fetch();
+		$post = $req->fetch(\PDO::FETCH_ASSOC);
 
-		$post['dateCreation'] = new \DateTime($post['dateCreation']);
+		$post['dateModification'] = new \DateTime($post['dateModification']);
 		return $post = new Post($post);
 	}
 
 	public function add(Post $post)
 	{
 		$db = $this->dbConnect();
-		$req = $db->prepare('INSERT INTO posts(title, content, date_creation) VALUES (:title, :content, NOW())');
+		$req = $db->prepare('INSERT INTO posts(author_id, title, chapo, content, date_creation, date_modification) VALUES (:author_id, :title, :chapo, :content, NOW(), NOW())');
+		$req->bindValue(':author_id', $post->authorId());
 		$req->bindValue(':title', $post->title());
+		$req->bindValue(':chapo', $post->chapo());
 		$req->bindValue(':content', $post->content());
 		$req->execute();
 	}
@@ -50,8 +53,9 @@ class PostManager extends Manager
 	public function update(Post $post)
 	{
 		$db = $this->dbConnect();
-		$req = $db->prepare('UPDATE posts SET title = :title, content = :content WHERE id = :id');
+		$req = $db->prepare('UPDATE posts SET title = :title, chapo = :chapo, content = :content, date_modification = NOW() WHERE id = :id');
 		$req->bindValue(':title', $post->title());
+		$req->bindValue(':chapo', $post->chapo());
 		$req->bindValue(':content', $post->content());
 		$req->bindValue(':id', $post->id());
 		$req->execute();
