@@ -11,7 +11,7 @@
 		<tr>
 			<th scope="col">id</th>
 			<th scope="col">Titre</th>
-			<th scope="col">Date</th>
+			<th scope="col">Date (dernière modification)</th>
 			<th scope="col">Action</th>
 		</tr>
 	</thead>

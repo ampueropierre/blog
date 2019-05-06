@@ -58,19 +58,6 @@ try
 				throw new Exception('Aucun id n\'a été envoyé');
 			}
 		}
-		// elseif ($_GET['action'] == 'updateComment') {
-		// 	if (isset($_GET['idPost']) && $_GET['idPost'] > 0 && isset($_GET['idComment']) && $_GET['idComment'] > 0) {
-		// 		if (!empty($_POST['author']) && !empty($_POST['comment'])) {
-		// 			$frontend->updateComment($_GET['idPost'],$_GET['idComment'],$_POST['author'],$_POST['comment']);
-		// 		}
-		// 		else {
-		// 			throw new Exception("Tous les champs ne sont pas remplis");	
-		// 		}		
-		// 	}
-		// 	else {
-		// 		throw new Exception('Aucun id n\'a été envoyé');
-		// 	}
-		// }
 		elseif ($_GET['action'] == 'contact')
 		{
 			$frontend->contact();

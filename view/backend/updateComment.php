@@ -22,6 +22,7 @@ ob_start();
 		</select>
 	</div>
 	<input type="hidden" name="id" value="<?= $_GET['id'] ?>">
+	
 	<button type="submit" class="btn btn-primary" name="update">Modifier</button>
 </form>
 <?php
