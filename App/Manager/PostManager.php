@@ -12,7 +12,6 @@ class PostManager extends Manager
 		$db = $this->dbConnect();
 		$req = $db->query('SELECT id, title, chapo, date_modification as dateModification FROM posts ORDER BY dateModification DESC LIMIT 0,5');
 
-		
 		while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {
 			$data['dateModification'] = new \DateTime($data['dateModification'], new \DateTimeZone('Europe/Paris'));
 			$posts[] = new Post($data);
