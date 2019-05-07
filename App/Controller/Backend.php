@@ -26,7 +26,6 @@ class Backend
 		$user = $this->userSession();
 		if (isset($_POST['add'])) {
 			$postValidator = new PostValidator($_POST);
-
 			if (empty($postValidator->errors())) {
 				$post = new Post($_POST);
 				$postManager = new PostManager();
@@ -43,7 +42,7 @@ class Backend
 	{
 		$postManager = new PostManager();
 		$postManager->delete($id);
-		header('Location: index.php?action=admin');
+		header('Location: index.php?action=admin&success=delete');
 	}
 
 	public function updatePost($id)
@@ -56,9 +55,8 @@ class Backend
 			$postValidator = new PostValidator($_POST);
 			if (empty($postValidator->errors())) {
 				$post = new Post($_POST);
-				$postManager = new PostManager();
 				$postManager->update($post);
-				header('Location: index.php?action=admin&success=add');
+				header('Location: index.php?action=admin&success=update');
 			} else {
 				$errors = $postValidator->errors();
 			}

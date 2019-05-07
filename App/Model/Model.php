@@ -8,6 +8,11 @@ abstract class Model
 {
 	protected $id;
 
+	function __construct(array $data)
+	{
+		$this->hydrate($data);
+	}
+
 	public function hydrate($data)
 	{
 		foreach ($data as $key => $value)
@@ -20,5 +25,15 @@ abstract class Model
 		}
 
 		return $this;
+	}
+
+	public function getId()
+	{
+		return $this->id;
+	}
+
+	public function setId(int $id)
+	{
+		$this->id = $id;
 	}
 }

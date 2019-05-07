@@ -5,16 +5,16 @@ foreach ($posts as $post)
 {
 ?>
 <div class="post-preview">
-	<a href="?action=post&id=<?= $post->id() ?>">
+	<a href="?action=post&id=<?= $post->getId() ?>">
 		<h2 class="post-title">
-			<?= htmlspecialchars($post->title()) ?>
+			<?= htmlspecialchars($post->getTitle()) ?>
 		</h2>
 		<p>
-			<?= htmlspecialchars($post->chapo()) ?>
+			<?= htmlspecialchars($post->getChapo()) ?>
 		</p>
 	</a>
 	<p class="post-meta">
-		Dernière modification le <?= $post->dateModification()->format('d F Y à H:i:s') ?>
+		Dernière modification le <?= $post->getDateModification()->format('d F Y à H:i:s') ?>
 	</p>
 </div>
 <hr>

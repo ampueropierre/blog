@@ -1,85 +1,54 @@
 <?php
 namespace App\Model;
 
-class Post
+class Post extends Model
 {
-	protected $id;
     protected $title;
     protected $authorId;
-    protected $firstname;
-    protected $lastname;
+    protected $author;
     protected $chapo;
     protected $content;
     protected $dateCreation;
     protected $dateModification;
-	
-	function __construct(array $data)
-	{
-		$this->hydrate($data);
-	}
 
-	public function hydrate($data)
-	{
-		foreach ($data as $key => $value) {
-			$setter = 'set'.ucfirst($key);
-			if (method_exists($this, $setter)) {
-				$this->$setter($value);
-			}
-		}
-	}
-
-	public function id()
-	{
-		return $this->id;
-	}
-
-	public function title()
+	public function getTitle()
 	{
 		return $this->title;
 	}
 
-	public function authorId()
+	public function getAuthorId()
 	{
 		return $this->authorId;
 	}
 
-	public function firstname()
+	public function getAuthor()
 	{
-		return $this->firstname;
+		return $this->author;
 	}
 
-	public function lastname()
-	{
-		return $this->lastname;
-	}
-
-	public function chapo()
+	public function getChapo()
 	{
 		return $this->chapo;
 	}
 
-	public function content()
+	public function getContent()
 	{
 		return $this->content;
 	}
 
-	public function dateCreation()
+	public function getDateCreation()
 	{
 		return $this->dateCreation;
 	}
 
-	public function dateModification()
+	public function getDateModification()
 	{
 		return $this->dateModification;
 	}
 
-	public function setId($id)
+	public function setId(int $id)
 	{
-		$id = (int) $id;
-
-		if (is_int($id) && $id > 0) {
-			$this->id = $id;
-		}
+		$this->id = $id;
 	}
 
 	public function setAuthorId(int $authorId)
@@ -87,22 +56,13 @@ class Post
 		$this->authorId = $authorId;
 	}
 
-	public function setFirstname(string $firstname)
+	public function setAuthor(User $user)
 	{
-		$this->firstname = $firstname;
+		$this->author = $user;
 	}
 
-	public function setLastname($lastname)
+	public function setTitle(string $title)
 	{
-		$this->lastname = $lastname;
-	}
-
-	public function setTitle($title)
-	{
-		if (!is_string($title) || empty($title))
-		{
-			$this->error[] = self::TITLE_INVALID;
-		}
 
 		$this->title = $title;
 	}
@@ -112,15 +72,10 @@ class Post
 		$this->chapo = $chapo;
 	}
 
-	public function setContent($content)
+	public function setContent(string $content)
 	{
-		if (!is_string($content) || empty($content))
-		{
-			$this->error[] = self::CONTENT_INVALID;
-		}
 
 		$this->content = $content;
-
 	}
 
 	public function setDateCreation(\DateTime $dateCreation)

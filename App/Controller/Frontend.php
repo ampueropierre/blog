@@ -60,7 +60,7 @@ class Frontend {
 		$title = 'Blog';
 		$posts = $postManager->getPosts();
 
-		require('view/frontend/listPostView.php');
+		require('view/frontend/listPost.php');
 	}
 
 	public function post($id)
@@ -75,7 +75,7 @@ class Frontend {
 
 		$title = $post->title();
 
-		require('view/frontend/postView.php');
+		require('view/frontend/post.php');
 	}
 
 	public function addComment($postId,$author,$comment)

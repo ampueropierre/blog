@@ -4,60 +4,31 @@ namespace App\Validator;
 /**
  * 
  */
-class PostValidator
+class PostValidator extends Validator
 {
-	protected $errors = [];
+	const TITLE_EMPTY = 'le champ Titre est vide';
+	const CONTENT_EMPTY = 'le champ Contenu est vide';
+	const CHAPO_EMPTY = 'le champ Chapo est vide';
 
-	const TITLE_INVALID = 1;
-	const CONTENT_INVALID = 2;
-	const CHAPO_INVALID = 3;
-	const AUTHOR_INVALID = 4;
-
-	public function __construct(array $data)
-	{
-		$this->hydrate($data);
-	}
-
-	public function errors()
-	{
-		return $this->errors;
-	}
-
-	public function hydrate($data)
-	{
-		foreach ($data as $key => $value) {
-			$setter = 'set'.ucfirst($key);
-			if (method_exists($this, $setter)) {
-				$this->$setter($value);
-			}
-		}
-	}
-
-	public function setTitle($title)
+	public function checkTitle($title)
 	{
 		if (empty($title)) {
-			$this->errors[] = self::TITLE_INVALID;
+			$this->errors[] = self::TITLE_EMPTY;
 		}
 	}
 
-	public function setContent($content)
+	public function checkContent($content)
 	{
 		if (empty($content)) {
-			$this->errors[] = self::CONTENT_INVALID;
+			$this->errors[] = self::CONTENT_EMPTY;
 		}
 	}
 
-	public function setChapo($chapo)
+	public function checkChapo($chapo)
 	{
 		if (empty($chapo)) {
-			$this->errors[] = self::CHAPO_INVALID;
+			$this->errors[] = self::CHAPO_EMPTY;
 		}
 	}
 
-	public function setAuthorId($authorId)
-	{
-		if (empty($authorId)) {
-			$this->errors[] = self::AUTHOR_INVALID;
-		}
-	}
 }

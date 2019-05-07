@@ -63,7 +63,7 @@
           </li>
           <?php else: ?>
           <li class="nav-item">
-            <a href="?action=profil&id=<?= $user->id() ?>" class="nav-info"><?= $user->mail() ?></a>
+            <a href="?action=profil&id=<?= $user->getId() ?>" class="nav-info"><?= $user->getMail() ?></a>
           </li>
           <li class="nav-item">
             <a class="nav-deco" href="?action=destroy">Déconnexion</a>

@@ -5,45 +5,22 @@ namespace App\Validator;
 /**
  * 
  */
-class ConnexionValidator
+class ConnexionValidator extends Validator
 {
-	
-	protected $errors = [];
+	const MAIL_EMPTY = 'Le champ est vide';
+	const PASSWORD_EMPTY = 'Le champ est vide';
 
-	const MAIL_INVALID = 1;
-	const PASSWORD_INVALID = 2;
-
-	public function __construct(array $data)
-	{
-		$this->hydrate($data);
-	}
-
-	public function errors()
-	{
-		return $this->errors;
-	}
-
-	public function hydrate($data)
-	{
-		foreach ($data as $key => $value) {
-			$setter = 'set'.ucfirst($key);
-			if (method_exists($this, $setter)) {
-				$this->$setter($value);
-			}
-		}
-	}
-
-	public function setMail($mail)
+	public function checkMail($mail)
 	{
 		if (empty($mail)) {
-			$this->errors[] = self::MAIL_INVALID;
+			$this->errors[] = self::MAIL_EMPTY;
 		}
 	}
 
-	public function setPassword($password)
+	public function checkPassword($password)
 	{
 		if (empty($password)) {
-			$this->errors[] = self::PASSWORD_INVALID;
+			$this->errors[] = self::PASSWORD_EMPTY;
 		}
 	}
 

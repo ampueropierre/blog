@@ -4,50 +4,29 @@ namespace App\Model;
 /**
  * 
  */
-class User
+class User extends Model
 {
-	protected $id;
 	protected $firstname;
 	protected $lastname;
 	protected $mail;
 	protected $password;
 
-
-	public function hydrate($data)
-	{
-		foreach ($data as $key => $value)
-		{
-			$setter = 'set'.ucfirst($key);
-			if (method_exists($this, $setter))
-			{
-				$this->$setter($value);
-			}
-		}
-
-		return $this;
-	}
-
-	public function id()
-	{
-		return $this->id;
-	}
-
-	public function firstname()
+	public function getFirstname()
 	{
 		return $this->firstname;
 	}
 
-	public function lastname()
+	public function getLastname()
 	{
 		return $this->lastname;
 	}
 
-	public function mail()
+	public function getMail()
 	{
 		return $this->mail;
 	}
 
-	public function password()
+	public function getPassword()
 	{
 		return $this->password;
 	}
@@ -62,7 +41,7 @@ class User
 		$this->firstname = $firstname;
 	}
 
-	public function setLastname($lastname)
+	public function setLastname(string $lastname)
 	{
 		$this->lastname = $lastname;
 	}

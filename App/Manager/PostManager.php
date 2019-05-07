@@ -36,10 +36,10 @@ class PostManager extends Manager
 	{
 		$db = $this->dbConnect();
 		$req = $db->prepare('INSERT INTO posts(author_id, title, chapo, content, date_creation, date_modification) VALUES (:author_id, :title, :chapo, :content, NOW(), NOW())');
-		$req->bindValue(':author_id', $post->authorId());
-		$req->bindValue(':title', $post->title());
-		$req->bindValue(':chapo', $post->chapo());
-		$req->bindValue(':content', $post->content());
+		$req->bindValue(':author_id', $post->getAuthorId());
+		$req->bindValue(':title', $post->getTitle());
+		$req->bindValue(':chapo', $post->getChapo());
+		$req->bindValue(':content', $post->getContent());
 		$req->execute();
 	}
 
@@ -53,10 +53,10 @@ class PostManager extends Manager
 	{
 		$db = $this->dbConnect();
 		$req = $db->prepare('UPDATE posts SET title = :title, chapo = :chapo, content = :content, date_modification = NOW() WHERE id = :id');
-		$req->bindValue(':title', $post->title());
-		$req->bindValue(':chapo', $post->chapo());
-		$req->bindValue(':content', $post->content());
-		$req->bindValue(':id', $post->id());
+		$req->bindValue(':title', $post->getTitle());
+		$req->bindValue(':chapo', $post->getChapo());
+		$req->bindValue(':content', $post->getContent());
+		$req->bindValue(':id', $post->getId());
 		$req->execute();
 	}
 }
