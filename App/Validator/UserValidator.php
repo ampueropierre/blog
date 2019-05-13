@@ -35,7 +35,13 @@ class UserValidator extends Validator
 
 		if (empty($mail)) {
 			$this->errors[] = self::MAIL_EMPTY;
-		} elseif ($userManager->mailExist($mail)) {
+		}
+	}
+
+	public function checkMailExist($mail)
+	{
+		$userManager = new UserManager();
+		if ($userManager->mailExist($mail)) {
 			$this->errors[] = self::MAIL_EXIST;
 		}
 	}

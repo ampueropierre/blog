@@ -1,6 +1,8 @@
 <?php
 namespace App\Validator;
 
+use App\Manager\PostManager;
+
 /**
  * 
  */
@@ -9,6 +11,9 @@ class PostValidator extends Validator
 	const TITLE_EMPTY = 'le champ Titre est vide';
 	const CONTENT_EMPTY = 'le champ Contenu est vide';
 	const CHAPO_EMPTY = 'le champ Chapo est vide';
+	const IMG_INVALID = 'un problème est survenu sur l\'image';
+	const IMG_EXT = 'l\'extension doit etre un jpg ou png';
+	const IMG_NAME = 'Le nom de l\'image existe deja en BDD';
 
 	public function checkTitle($title)
 	{
@@ -29,6 +34,24 @@ class PostValidator extends Validator
 		if (empty($chapo)) {
 			$this->errors[] = self::CHAPO_EMPTY;
 		}
+	}
+
+	public function checkImg(array $img)
+	{
+		$path = 'private/img/';
+		$ext = ['jpg', 'png'];
+		$imgExt = strtolower(substr($img['name'], -3));
+		$file = $path.$img['name'];
+		$postManager = new PostManager();
+
+		if ($img['error'] > 0) {
+			$this->errors[] = self::IMG_INVALID;
+		} elseif (!in_array($imgExt, $ext)) {
+			$this->errors[] = self::IMG_EXT;
+		} elseif (!$postManager->imgValide($file)) {
+			$this->errors[] = self::IMG_NAME;
+		}
+
 	}
 
 }

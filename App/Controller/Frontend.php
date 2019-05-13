@@ -8,39 +8,16 @@ use App\Model\User;
 use App\Model\Comment;
 use App\Validator\UserValidator;
 use App\Validator\ConnexionValidator;
+use App\Validator\CommentValidator;
 
-class Frontend {
-
-	public function connexion()
-	{
-		$title = 'connexion';
-
-		if (isset($_POST['connexion'])) {
-			$userManager = new UserManager();
-			$connexionValidator = new ConnexionValidator($_POST);
-			if (empty($connexionValidator->errors())) {
-				$user = $userManager->getLoggedUser($_POST['mail'], $_POST['password']);
-				if ($user) {	
-					$_SESSION['user'] = serialize($user);
-					header('Location: index.php?action=listPost');
-				} else {
-					$errorIdentifiant = true;
-				}
-			} else {
-				$errors = $connexionValidator->errors();
-			}
-
-		}
-
-		require 'view/frontend/connexion.php';
-	}
-
+class Frontend
+{
 	public function home()
 	{
 		$user = $this->userSession();
 		$title = 'Home';
 
-		require 'view/frontend/template/home.php';
+		require 'view/template/home.php';
 	}
 
 	public function contact()
@@ -51,7 +28,7 @@ class Frontend {
 		require 'view/frontend/contact.php';
 	}
 
-	public function listPosts()
+	public function blog()
 	{	
 		$user = $this->userSession();
 
@@ -60,7 +37,7 @@ class Frontend {
 		$title = 'Blog';
 		$posts = $postManager->getPosts();
 
-		require('view/frontend/listPost.php');
+		require('view/frontend/blog.php');
 	}
 
 	public function post($id)
@@ -73,87 +50,69 @@ class Frontend {
 		$post = $postManager->getPost($id);
 		$comments = $commentManager->getCommentsValide($id);
 
-		$title = $post->title();
+		$title = $post->getTitle();
 
-		require('view/frontend/post.php');
+		if (isset($_POST['addComment'])) {
+			$commentValidator = new CommentValidator($_POST);
+			if (empty($commentValidator->errors())) {
+				$comment = new Comment([
+					'comment' => $_POST['comment'],
+					'authorId' => $user->getId(),
+					'postId' => $id
+				]);
+				$commentManager->add($comment);
+			} else {
+				$errors = $commentValidator->errors();
+			}
+		}
+
+		require('view/frontend/postView.php');
 	}
 
-	public function addComment($postId,$author,$comment)
+	public function connexion()
 	{
-		$user = $this->userSession();
+		$title = 'connexion';
 
-		$commentManager = new CommentManager();
-		$affectedLines = $commentManager->postComment($postId,$author,$comment);
+		if (isset($_POST['connexion'])) {
+			$userManager = new UserManager();
+			$connexionValidator = new ConnexionValidator($_POST);
+			if (empty($connexionValidator->getErrors())) {
+				$user = $userManager->getLoggedUser($_POST['mail'], $_POST['password']);
+				if ($user) {	
+					$_SESSION['user'] = serialize($user);
+					header('Location: index.php?action=listPost');
+				} else {
+					$errorIdentifiant = true;
+				}
+			} else {
+				$errors = $connexionValidator->getErrors();
+			}
 
-		if ($affectedLines == false) {
-			throw new Exception("Impossible d\'ajouter le commentaire !");
 		}
-		else {
-			header('Location: index.php?action=post&id='.$postId);
-		}
+
+		require 'view/frontend/connexion.php';
 	}
 
-	// Modifier des commentaire
-	public function comment($idComment,$idPost)
-	{
-		$user = $this->userSession();
-		$title = 'Modifier le commentaire';
-		$manager = new CommentManager();
-
-		$comment = $manager->getComment($idComment);
-
-		if (isset($_POST['update']))
-		{
-			$update = new Comment([
-				'author' => $_POST['author'],
-				'comment' => $_POST['comment'],
-				'id' => $comment->id()
-			]);
-
-			$manager->updateComment($update);
-			header('Location: index.php?action=post&id='.$comment->postId());
-		}
-
-		require('view/frontend/commentView.php');
-	}
-
-	public function updateComment($postId,$commentId,$author,$comment)
-	{
-		$commentManager = new CommentManager();
-		$affectedLines = $commentManager->updateComment($commentId, $author, $comment);
-
-		if($affectedLines == false) {
-			throw new Exception("Impossible d\'ajouter le commentaire !");
-		}
-		else {
-			header('Location: index.php?action=post&id='.$postId);
-		}
-
-	}
-
-	public function destroy()
-	{
-		session_destroy();
-		header("Location: ".$_SERVER["HTTP_REFERER"]);
-	}
+	
 
 	public function createUser()
 	{
 		$title = 'Créer un compte';
 		
-		if (isset($_POST['create']))
-		{
-			// $userManager = new UserManager();
-			// $userCreate = new User();
-			// $userCreate->hydrate($_POST);
-			$userValidator = new UserValidator($_POST);
+		if (isset($_POST['create'])) {
 
-			if (!empty($userValidator->errors())) {
-				$errors = $userValidator->errors();
+			$userValidator = new UserValidator([
+				'firstname' => $_POST['firstname'],
+				'lastname' => $_POST['lastname'],
+				'mail' => $_POST['mail'],
+				'mailExist' => $_POST['mail']
+			]);
+
+			if (!empty($userValidator->getErrors())) {
+				$errors = $userValidator->getErrors();
 			} else {
 				$userManager = new UserManager();
-				$user = new User();
-				$user->hydrate($_POST);
+				$user = new User($_POST);
 				$user = $userManager->add($user);
 
 				$_SESSION['user'] = serialize($user);
@@ -169,7 +128,36 @@ class Frontend {
 	{
 		$user = $this->userSession(); 
 		$title = "Mon profil";
+		$userManager = new UserManager();
+		$userProfil = $userManager->getUser($id);
+		if (isset($_POST['update'])) {
+			$userValidator = new UserValidator([
+				'firstname' => $_POST['firstname'],
+				'lastname' => $_POST['lastname'],
+				'mail' => $_POST['mail'],
+			]);
+			if (empty($userValidator->getErrors())) {
+				$userProfil = new User([
+					'firstname' => $_POST['firstname'],
+					'lastname' => $_POST['lastname'],
+					'mail' => $_POST['mail'],
+					'id' => $id
+				]);
+				$userManager->update($userProfil);
+				$update = true;
+
+			} else {
+				$errors = $userValidator->getErrors();
+			}
+
+		}
 		require('view/frontend/profil.php');
+	}
+
+	public function destroy()
+	{
+		session_destroy();
+		header("Location: ".$_SERVER["HTTP_REFERER"]);
 	}
 
 	private function userSession()

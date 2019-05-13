@@ -40,5 +40,5 @@ ob_start();
 </form>
 <?php
 $content = ob_get_clean();
-require 'view/frontend/template/post.php';
+require 'view/template/post.php';
 ?>

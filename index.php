@@ -14,113 +14,50 @@ $backend = new Backend;
 
 try
 {
-	if (isset($_GET['action']))
-	{
-		if ($_GET['action'] == 'listPost')
-		{
-			$frontend->listPosts();
+	if (isset($_GET['action'])) {
+		if ($_GET['action'] == 'blog') {
+			$frontend->blog();
 		}
-		elseif ($_GET['action'] == 'post')
-		{
-			if (isset($_GET['id']) && $_GET['id'] > 0)
-			{
-				$frontend->post($_GET['id']);
-			}
-			else
-			{
-				throw new Exception('Aucun id n\'a été envoyé');
-			}
+		elseif ($_GET['action'] == 'post' && isset($_GET['id'])) {
+			$frontend->post($_GET['id']);
 		}
-		elseif ($_GET['action'] == 'addComment')
-		{
-			if (isset($_GET['id']) && $_GET['id'] > 0)
-			{
-				if (!empty($_POST['author']) && !empty($_POST['comment']))
-				{
-					$frontend->addComment($_GET['id'],$_POST['author'],$_POST['comment']);
-				}
-				else
-				{
-					throw new Exception("Tous les champs ne sont pas remplis !");
-				}
-			}
-			else
-			{
-				throw new Exception('Aucun id n\'a été envoyé');
-			}
-		}
-		// Modifier des commentaire
-		elseif ($_GET['action'] == 'comment') {
-			if (isset($_GET['idPost']) && $_GET['idPost'] > 0 && isset($_GET['idComment']) && $_GET['idComment'] > 0) {
-				$frontend->comment($_GET['idComment'],$_GET['idPost']);
-			}
-			else {
-				throw new Exception('Aucun id n\'a été envoyé');
-			}
-		}
-		elseif ($_GET['action'] == 'contact')
-		{
+		elseif ($_GET['action'] == 'contact') {
 			$frontend->contact();
 		}
-		elseif ($_GET['action'] == 'connexion')
-		{
+		elseif ($_GET['action'] == 'connexion') {
 			$frontend->connexion();
 		}
-		elseif ($_GET['action'] == 'destroy')
-		{
+		elseif ($_GET['action'] == 'destroy') {
 			$frontend->destroy();
 		}
-		elseif($_GET['action'] == 'createUser')
-		{
+		elseif($_GET['action'] == 'createUser') {
 			$frontend->createUser();
 		}
-		elseif ($_GET['action'] == 'profil') {
-			if (isset($_GET['id']) && $_GET['id'] > 0) {
-				$frontend->profil($_GET['id']);
-			}
+		elseif ($_GET['action'] == 'profil' && isset($_GET['id'])) {
+			$frontend->profil($_GET['id']);
 		}
-		elseif ($_GET['action'] == 'admin')
-		{
-			$backend->admin();
+		elseif ($_GET['action'] == 'listPost') {
+			$backend->listPost();
 		}
-		elseif ($_GET['action'] == 'addPost')
-		{
+		elseif ($_GET['action'] == 'addPost') {
 			$backend->addPost();
 		}
-		elseif ($_GET['action'] == 'deletePost')
-		{
-			if (isset($_GET['id']))
-			{
-				$backend->deletePost($_GET['id']);
-			}
+		elseif ($_GET['action'] == 'deletePost' && isset($_GET['id'])) {
+			$backend->deletePost($_GET['id']);
 		}
-		elseif ($_GET['action'] == 'updatePost')
-		{
-			if (isset($_GET['id'])) {
-				$backend->updatePost($_GET['id']);
-			}
-			
+		elseif ($_GET['action'] == 'updatePost' && isset($_GET['id'])) {
+			$backend->updatePost($_GET['id']);	
 		}
-		elseif ($_GET['action'] == 'updateComment') {
-			if (isset($_GET['id'])) {
-				$backend->updateComment($_GET['id']);
-			}
-			
-		}
-		elseif ($_GET['action'] == 'listComment')
-		{
+		elseif ($_GET['action'] == 'listComment') {
 			$backend->listComment();	
 		}
-		elseif ($_GET['action'] == 'deleteComment')
-		{
-			if (isset($_GET['id'])) {
-				$backend->deleteComment($_GET['id']);
-			}
+		elseif ($_GET['action'] == 'updateComment' && isset($_GET['id'])) {
+			$backend->updateComment($_GET['id']);	
 		}
-
-	}
-	else
-	{
+		elseif ($_GET['action'] == 'deleteComment' && isset($_GET['id'])) {
+			$backend->deleteComment($_GET['id']);
+		}
+	} else {
 		$frontend->home();
 	}
 

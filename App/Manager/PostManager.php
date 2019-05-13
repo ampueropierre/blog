@@ -2,6 +2,7 @@
 namespace App\Manager;
 
 use App\Model\Post;
+use App\Manager\UserManager;
 
 class PostManager extends Manager
 {
@@ -11,7 +12,6 @@ class PostManager extends Manager
 
 		$db = $this->dbConnect();
 		$req = $db->query('SELECT id, title, chapo, date_modification as dateModification FROM posts ORDER BY dateModification DESC LIMIT 0,5');
-
 		while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {
 			$data['dateModification'] = new \DateTime($data['dateModification'], new \DateTimeZone('Europe/Paris'));
 			$posts[] = new Post($data);
@@ -23,22 +23,29 @@ class PostManager extends Manager
 	public function getPost($postId)
 	{
 		$db = $this->dbConnect();
-		$req = $db->prepare('SELECT posts.id AS id, title, chapo, content, date_modification as dateModification, author_id as authorId, firstname, lastname FROM posts INNER JOIN users ON posts.author_id = users.id WHERE posts.id =:id');
+		$req = $db->prepare('SELECT id, author_id AS authorId, title, chapo, img, content, date_modification as dateModification FROM posts WHERE id =:id');
 		$req->bindValue(':id', $postId);
 		$req->execute();
 		$post = $req->fetch(\PDO::FETCH_ASSOC);
 
 		$post['dateModification'] = new \DateTime($post['dateModification']);
-		return $post = new Post($post);
+
+		$userManager = new UserManager();
+		$post['author'] = $userManager->getUser($post['authorId']);
+		
+		$post = new Post($post);
+
+		return $post;
 	}
 
 	public function add(Post $post)
 	{
 		$db = $this->dbConnect();
-		$req = $db->prepare('INSERT INTO posts(author_id, title, chapo, content, date_creation, date_modification) VALUES (:author_id, :title, :chapo, :content, NOW(), NOW())');
+		$req = $db->prepare('INSERT INTO posts(author_id, title, chapo, img, content, date_creation, date_modification) VALUES (:author_id, :title, :chapo, :img, :content, NOW(), NOW())');
 		$req->bindValue(':author_id', $post->getAuthorId());
 		$req->bindValue(':title', $post->getTitle());
 		$req->bindValue(':chapo', $post->getChapo());
+		$req->bindValue(':img', $post->getImg());
 		$req->bindValue(':content', $post->getContent());
 		$req->execute();
 	}
@@ -59,4 +66,23 @@ class PostManager extends Manager
 		$req->bindValue(':id', $post->getId());
 		$req->execute();
 	}
+
+	public function imgValide($img)
+	{
+		$db = $this->dbConnect();
+		$req = $db->prepare('SELECT img FROM posts WHERE img = :img');
+		$req->bindValue(':img', $img);
+
+		$req->execute();
+
+		$img = $req->fetch(\PDO::FETCH_ASSOC);
+
+		if(!$img) {
+			return true;
+		}
+
+
+	}
+
+	
 }

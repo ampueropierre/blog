@@ -13,7 +13,7 @@ abstract class Validator
 		$this->hydrate($data);
 	}
 
-	public function errors()
+	public function getErrors()
 	{
 		return $this->errors;
 	}

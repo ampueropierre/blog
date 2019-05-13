@@ -11,13 +11,13 @@ use App\Validator\PostValidator;
  */
 class Backend
 {
-	public function admin()
+	public function listPost()
 	{
 		$user = $this->userSession();
 		$title = 'Liste des Postes';
 		$postManager = new PostManager();
 		$posts = $postManager->getPosts();
-		require 'view/backend/admin.php';
+		require 'view/backend/listPost.php';
 	}
 
 	public function addPost()
@@ -25,14 +25,30 @@ class Backend
 		$title = 'Ajouter un Poste';
 		$user = $this->userSession();
 		if (isset($_POST['add'])) {
-			$postValidator = new PostValidator($_POST);
-			if (empty($postValidator->errors())) {
-				$post = new Post($_POST);
-				$postManager = new PostManager();
-				$postManager->add($post);
-				header('Location: index.php?action=admin&success=add');
+			$postValidator = new PostValidator([
+				'title' => $_POST['title'],
+				'chapo' => $_POST['chapo'],
+				'content' => $_POST['content'],
+				'img' => $_FILES['img']
+			]);
+			if (empty($postValidator->getErrors())) {
+				$uploaddir = 'private/img/';
+				$uploadfile = $uploaddir.basename($_FILES['img']['name']);
+				$post = new Post([
+					'authorId' => $user->getId(),
+					'title' => $_POST['title'],
+					'chapo' => $_POST['chapo'],
+					'content' => $_POST['content'],
+					'img' => $uploadfile
+				]);
+				if(move_uploaded_file($_FILES['img']['tmp_name'], $uploadfile)) {
+					$postManager = new PostManager();
+					$postManager->add($post);
+					header('Location: ?action=listPost&success=add');
+				}
+				
 			} else {
-				$errors = $postValidator->errors();
+				$errors = $postValidator->getErrors();
 			}
 		}
 		require 'view/backend/addPost.php';
@@ -41,8 +57,11 @@ class Backend
 	public function deletePost($id)
 	{
 		$postManager = new PostManager();
-		$postManager->delete($id);
-		header('Location: index.php?action=admin&success=delete');
+		$imgName = $postManager->getPost($id)->getImg();
+		if (unlink($imgName)) {
+			$postManager->delete($id);
+			header('Location: index.php?action=listPost&success=delete');
+		}	
 	}
 
 	public function updatePost($id)
@@ -53,12 +72,12 @@ class Backend
 		$post = $postManager->getPost($id);
 		if (isset($_POST['update'])) {
 			$postValidator = new PostValidator($_POST);
-			if (empty($postValidator->errors())) {
+			if (empty($postValidator->getErrors())) {
 				$post = new Post($_POST);
 				$postManager->update($post);
 				header('Location: index.php?action=admin&success=update');
 			} else {
-				$errors = $postValidator->errors();
+				$errors = $postValidator->getErrors();
 			}
 		}
 

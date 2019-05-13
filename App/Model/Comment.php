@@ -1,76 +1,53 @@
 <?php
 namespace App\Model;
 
-class Comment
+class Comment extends Model
 {
-	protected $id;
 	protected $postId;
-	protected $firstname;
-	protected $lastname;
+	protected $authorId;
+	protected $author;
 	protected $status;
 	protected $comment;
 	protected $commentDate;
 
-	public function __construct(array $data = [])
-	{
-		if (!empty($data))
-		{
-			$this->hydrate($data);
-		}
-		
-	}
-
-	public function hydrate(array $data)
-	{
-		foreach ($data as $key => $value) {
-			$setter = 'set'.ucfirst($key);
-			if (method_exists($this, $setter)) {
-				$this->$setter($value);
-			}
-		}
-	}
-
-	public function id()
+	public function getId()
 	{
 		return $this->id;
 	}
 
-	public function postId()
+	public function getPostId()
 	{
 		return $this->postId;
 	}
 
-	public function status()
+	public function getStatus()
 	{
 		return $this->status;
 	}
 
-	public function firstname()
+	public function getAuthorId()
 	{
-		return $this->firstname;
+		return $this->authorId;
 	}
 
-	public function lastname()
+	public function getAuthor()
 	{
-		return $this->lastname;
+		return $this->author;
 	}
 
-	public function comment()
+	public function getComment()
 	{
 		return $this->comment;
 	}
 	
-	public function commentDate()
+	public function getCommentDate()
 	{
 		return $this->commentDate;
 	}
 
 	public function setId($id)
 	{
-		$id = (int) $id;
-		if (is_int($id) && $id > 0) {
-			$this->id = $id;
-		}
+		$this->id = $id;
 	}
 
 	public function setStatus(int $status)
@@ -78,22 +55,19 @@ class Comment
 		$this->status = $status;
 	}
 
-	public function setPostId($postId)
+	public function setPostId(int $postId)
 	{
-		$postId = (int) $postId;
-		if (is_int($postId) && $postId > 0) {
-			$this->postId = $postId;
-		}
+		$this->postId = $postId;
 	}
 
-	public function setFirstname(string $firstname)
+	public function setAuthorId(int $authorId)
 	{
-		$this->firstname = $firstname;
+		$this->authorId = $authorId;
 	}
 
-	public function setLastname(string $lastname)
+	public function setAuthor(User $user)
 	{
-		$this->lastname = $lastname;
+		$this->author = $user;
 	}
 
 	public function setCommentDate(\DateTime $commentDate)

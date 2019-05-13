@@ -23,5 +23,5 @@ foreach ($posts as $post)
 
 $content= ob_get_clean();
 
-require('view/frontend/template/page.php');
+require('view/template/page.php');
 ?>

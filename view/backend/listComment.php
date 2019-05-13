@@ -1,7 +1,7 @@
 <?php ob_start(); ?>
 <?php if (isset($_GET['success'])):?>
 <div class="alert alert-success" role="alert">
-  	Le poste a bien été ajouter
+  	Le commentaire a bien été ajouter
 </div>
 <?php endif; ?>
 <table class="table">
@@ -17,11 +17,16 @@
 	<tbody>
 		<?php foreach ($comments as $comment): ?>
 			<tr>
-				<th><?= $comment->id() ?></th>
-				<td><?= substr($comment->comment(),0,50) ?>...</td>
-				<td><?= $comment->commentDate()->format('d/m/Y à H:i:s') ?></td>
-				<td><?= ($comment->status() == 1) ? 'Valide' : 'Pas encore valide'?></td>
-				<td><a href="?action=updateComment&id=<?= $comment->id() ?>" class="text-primary mr-2">Modifier</a><a href="?action=deleteComment&id=<?= $comment->id() ?>" class="text-danger">Supprimer</a></td>
+				<th><?= $comment->getId() ?></th>
+				<td>
+					<?= substr($comment->getComment(),0,40) ?>
+					<?php if(strlen($comment->getComment()) > 40): ?>
+						...
+					<?php endif; ?>
+				</td>
+				<td><?= $comment->getCommentDate()->format('d/m/Y à H:i:s') ?></td>
+				<td><?= ($comment->getStatus() == 1) ? 'Valide' : 'Pas encore valide'?></td>
+				<td><a href="?action=updateComment&id=<?= $comment->getId() ?>" class="text-primary mr-2">Modifier</a><a href="?action=deleteComment&id=<?= $comment->getId() ?>" class="text-danger">Supprimer</a></td>
 			</tr>
 		<?php endforeach; ?>
 	</tbody>
@@ -29,5 +34,5 @@
 
 <?php
 $content = ob_get_clean();
-require('view/frontend/template/post.php');
+require('view/template/post.php');
 ?>

@@ -7,6 +7,7 @@ class Post extends Model
     protected $authorId;
     protected $author;
     protected $chapo;
+    protected $img;
     protected $content;
     protected $dateCreation;
     protected $dateModification;
@@ -29,6 +30,11 @@ class Post extends Model
 	public function getChapo()
 	{
 		return $this->chapo;
+	}
+
+	public function getImg()
+	{
+		return $this->img;
 	}
 
 	public function getContent()
@@ -70,6 +76,11 @@ class Post extends Model
 	public function setChapo(string $chapo)
 	{
 		$this->chapo = $chapo;
+	}
+
+	public function setImg(string $img)
+	{
+		$this->img = $img;
 	}
 
 	public function setContent(string $content)
