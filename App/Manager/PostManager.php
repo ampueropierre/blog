@@ -67,7 +67,7 @@ class PostManager extends Manager
 		$req->execute();
 	}
 
-	public function imgValide($img)
+	public function updateImg($img)
 	{
 		$db = $this->dbConnect();
 		$req = $db->prepare('SELECT img FROM posts WHERE img = :img');
@@ -84,5 +84,5 @@ class PostManager extends Manager
 
 	}
 
-	
+
 }

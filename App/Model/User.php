@@ -10,6 +10,7 @@ class User extends Model
 	protected $lastname;
 	protected $mail;
 	protected $password;
+	protected $role;
 
 	public function getFirstname()
 	{
@@ -31,9 +32,9 @@ class User extends Model
 		return $this->password;
 	}
 
-	public function setId(int $id)
+	public function getRole()
 	{
-		$this->id = $id;
+		return $this->role;
 	}
 
 	public function setFirstname(string $firstname)
@@ -54,6 +55,11 @@ class User extends Model
 	public function setPassword(string $password)
 	{
 		$this->password = $password;
+	}
+
+	public function setRole(int $role)
+	{
+		$this->role = $role;
 	}
 
 }

@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Manager\PostManager;
 use App\Manager\CommentManager;
+use App\Manager\UserManager;
 use App\Model\Post;
 use App\Validator\PostValidator;
 
@@ -32,8 +33,8 @@ class Backend
 				'img' => $_FILES['img']
 			]);
 			if (empty($postValidator->getErrors())) {
-				$uploaddir = 'private/img/';
-				$uploadfile = $uploaddir.basename($_FILES['img']['name']);
+				$uploaddir = $_ENV['IMG_DIR_POST'];
+				$uploadfile = $uploaddir.time().'-'.basename($_FILES['img']['name']);
 				$post = new Post([
 					'authorId' => $user->getId(),
 					'title' => $_POST['title'],
@@ -45,8 +46,7 @@ class Backend
 					$postManager = new PostManager();
 					$postManager->add($post);
 					header('Location: ?action=listPost&success=add');
-				}
-				
+				}	
 			} else {
 				$errors = $postValidator->getErrors();
 			}
@@ -111,6 +111,15 @@ class Backend
 		$commentManager = new CommentManager();
 		$commentManager->delete($id);
 		header('Location: index.php?action=listComment');
+	}
+
+	public function listUser()
+	{
+		$user = $this->userSession();
+		$title = 'Liste des Utilisateurs';
+		$userManager = new UserManager();
+		$userManager->getUsers();
+		require 'view/backend/listUser.php';
 	}
 
 	private function userSession()

@@ -23,8 +23,6 @@ ob_start();
 		<span class="text-danger"><?= $postValidator::IMG_INVALID ?></span>
 		<?php elseif (isset($errors) && in_array($postValidator::IMG_EXT, $errors)):?>
 		<span class="text-danger"><?= $postValidator::IMG_EXT ?></span>
-		<?php elseif (isset($errors) && in_array($postValidator::IMG_NAME, $errors)):?>
-		<span class="text-danger"><?= $postValidator::IMG_NAME ?></span>
 		<?php endif; ?>
 	</div>
 	<div class="form-group">

@@ -38,20 +38,14 @@ class PostValidator extends Validator
 
 	public function checkImg(array $img)
 	{
-		$path = 'private/img/';
 		$ext = ['jpg', 'png'];
 		$imgExt = strtolower(substr($img['name'], -3));
-		$file = $path.$img['name'];
-		$postManager = new PostManager();
 
 		if ($img['error'] > 0) {
 			$this->errors[] = self::IMG_INVALID;
 		} elseif (!in_array($imgExt, $ext)) {
 			$this->errors[] = self::IMG_EXT;
-		} elseif (!$postManager->imgValide($file)) {
-			$this->errors[] = self::IMG_NAME;
-		}
-
+		} 
 	}
 
 }

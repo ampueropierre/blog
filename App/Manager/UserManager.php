@@ -10,7 +10,7 @@ class UserManager extends Manager
 	public function getLoggedUser($mail, $password)
 	{
 		$db = $this->dbConnect();
-		$req = $db->prepare('SELECT id, firstname, lastname, mail, password FROM users WHERE mail = :mail');
+		$req = $db->prepare('SELECT id, firstname, lastname, mail, password, role FROM users WHERE mail = :mail');
 		$req->bindValue(':mail', $mail);
 		$req->execute();
 
@@ -28,7 +28,7 @@ class UserManager extends Manager
 	public function getUser($id)
 	{
 		$db = $this->dbConnect();
-		$req = $db->prepare('SELECT id, firstname, lastname, mail FROM users WHERE id = :id');
+		$req = $db->prepare('SELECT id, firstname, lastname, mail, role FROM users WHERE id = :id');
 		$req->bindValue(':id', $id);
 		$req->execute();
 
@@ -37,6 +37,19 @@ class UserManager extends Manager
 		$user = new User($q);
 
 		return $user;
+	}
+
+	public function getUsers()
+	{
+		$db = $this->dbConnect();
+		$req = $db->query('SELECT id, firstname, lastname, mail, password, role FROM users');
+		var_dump(1);
+		// $req->setFetchMode(\PDO::FETCH_CLASS, User::class);
+		var_dump(2);
+		$q = $req->fetchAll(\PDO::FETCH_CLASS, User::class);
+		// $q = $req->fetchAll();
+		var_dump($q);
+		die;
 	}
 
 	public function add(User $user)

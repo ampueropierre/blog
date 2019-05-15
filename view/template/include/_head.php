@@ -50,6 +50,7 @@
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="?action=listPost">Liste des Postes</a>
               <a class="dropdown-item" href="?action=listComment">Liste des Commentaires</a>
+              <a class="dropdown-item" href="?action=listUser">Liste des Utilisateurs</a>
             </div>
           </li>
         </ul>

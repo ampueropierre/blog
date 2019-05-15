@@ -6,6 +6,9 @@ setlocale (LC_TIME, 'fr_FR.utf8','fra');
 
 require __DIR__ . '/vendor/autoload.php';
 
+$dotenv = Dotenv\Dotenv::create(__DIR__);
+$dotenv->load();
+
 use App\Controller\Frontend;
 use App\Controller\Backend;
 
@@ -56,6 +59,9 @@ try
 		}
 		elseif ($_GET['action'] == 'deleteComment' && isset($_GET['id'])) {
 			$backend->deleteComment($_GET['id']);
+		}
+		elseif ($_GET['action'] == 'listUser') {
+			$backend->listUser();
 		}
 	} else {
 		$frontend->home();
