@@ -32,8 +32,6 @@ ob_start();
 		<span class="text-danger"><?= $postValidator::CONTENT_EMPTY ?></span>
 		<?php endif; ?>
 	</div>
-	<input type="hidden" name="authorId" value="<?= $userSession->getId() ?>">
-	
 	<button type="submit" class="btn btn-primary" name="add">Ajouter</button>
 </form>
 <?php

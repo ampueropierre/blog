@@ -13,7 +13,6 @@ class PostValidator extends Validator
 	const CHAPO_EMPTY = 'le champ Chapo est vide';
 	const IMG_INVALID = 'un problème est survenu sur l\'image';
 	const IMG_EXT = 'l\'extension doit etre un jpg ou png';
-	const IMG_NAME = 'Le nom de l\'image existe deja en BDD';
 
 	public function checkTitle($title)
 	{

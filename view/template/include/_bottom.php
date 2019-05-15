@@ -5,7 +5,6 @@
 
   <!-- Custom scripts for this template -->
   <script src="public/js/clean-blog.min.js"></script>
-  <script src="public/js/button.js"></script>
 </body>
 
 </html>

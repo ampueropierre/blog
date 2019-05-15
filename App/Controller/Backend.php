@@ -40,6 +40,7 @@ class Backend
 					'title' => $_POST['title'],
 					'chapo' => $_POST['chapo'],
 					'content' => $_POST['content'],
+					'idAuthor' => $userSession->getId(),
 					'img' => $uploadfile
 				]);
 				if(move_uploaded_file($_FILES['img']['tmp_name'], $uploadfile)) {
@@ -73,9 +74,31 @@ class Backend
 		if (isset($_POST['update'])) {
 			$postValidator = new PostValidator($_POST);
 			if (empty($postValidator->getErrors())) {
-				$post = new Post($_POST);
+				$post = new Post([
+					'title' => $_POST['title'],
+					'chapo' => $_POST['chapo'],
+					'content' => $_POST['content'],
+					'id' => $post->getId()
+				]);
 				$postManager->update($post);
-				header('Location: index.php?action=admin&success=update');
+				$updateSuccess = 'info';
+			} else {
+				$errors = $postValidator->getErrors();
+			}
+		}
+		if (isset($_POST['updateImg'])) {
+			$postValidator = new PostValidator(['img' => $_FILES['img']]);
+			if (empty($postValidator->getErrors())) {
+				$uploaddir = $_ENV['IMG_DIR_POST'];
+				$uploadfile = $uploaddir.time().'-'.basename($_FILES['img']['name']);
+				$img = new Post([
+					'id' => $post->getId(),
+					'img' => $uploadfile
+				]);
+				if (unlink($post->getImg()) && move_uploaded_file($_FILES['img']['tmp_name'], $img->getImg())) {
+					$postManager->updateImg($img);
+					$updateSuccess = 'img';
+				}
 			} else {
 				$errors = $postValidator->getErrors();
 			}
