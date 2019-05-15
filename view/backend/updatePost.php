@@ -1,6 +1,7 @@
 <?php
 ob_start();
 ?>
+<div class="title-form">Les informations</div>
 <form action="" method="POST">
 	<div class="form-group">
 		<label for="title">Titre</label>
@@ -25,6 +26,10 @@ ob_start();
 	</div>
 	<input type="hidden" name="id" value="<?= $_GET['id'] ?>">
 	<button type="submit" class="btn btn-primary" name="update">Modifier</button>
+</form>
+<div class="title-form">Les informations</div>
+<form action="" method="POST" enctype="">
+	
 </form>
 <?php
 $content = ob_get_clean();

@@ -8,26 +8,23 @@ class CommentManager extends Manager
 {
 	public function getCommentsValide($postId)
 	{
-		$tab = [];
-
 		$db = $this->dbConnect();
 		$req = $db->prepare('SELECT id, post_id AS postId, author_id AS authorId, status, comment, comment_date AS commentDate FROM comments WHERE post_id = :id AND status = 1 ORDER BY commentDate DESC');
 
 		$req->bindValue(':id', $postId);
-
 		$req->execute();
 
-		$comments = $req->fetchAll(\PDO::FETCH_ASSOC);
+		$req->setFetchMode(\PDO::FETCH_CLASS|\PDO::FETCH_PROPS_LATE, 'App\Model\Comment');
+		$comments =	$req->fetchAll();
 
 		$userManager = new UserManager();
 
 		foreach ($comments as $comment) {
-			$comment['commentDate'] = new \DateTime($comment['commentDate']);
-			$comment['author'] = $userManager->getUser($comment['authorId']);
-			$tab[] = new Comment($comment);
+			$comment->setCommentDate(new \DateTime($comment->getCommentDate()));
+			$comment->setAuthor($userManager->getUser($comment->getAuthorId()));
 		}
 
-		return $tab;
+		return $comments;
 	}
 
 	public function add(Comment $comment)
@@ -47,15 +44,12 @@ class CommentManager extends Manager
 		$req = $db->prepare('UPDATE comments SET status = :status WHERE id = :id');
 		$req->bindValue(':status', $comment['status']);
 		$req->bindValue(':id', $comment['id']);
-
 		$req->execute();
-
 	}
 
 	public function delete($id)
 	{
-		$db = $this->dbConnect();
-		$req = $db->exec('DELETE FROM comments WHERE id = '.(int) $id);
+		$this->dbConnect()->exec('DELETE FROM comments WHERE id = '.(int) $id);
 	}
 
 	public function getComment($id)
@@ -65,32 +59,30 @@ class CommentManager extends Manager
 		$req->bindValue(':id', $id);
 		$req->execute();
 
-		$tab = $req->fetch(\PDO::FETCH_ASSOC);
+		$req->setFetchMode(\PDO::FETCH_CLASS|\PDO::FETCH_PROPS_LATE, 'App\Model\Comment');
+		$comment =	$req->fetch();
 
-		$tab['commentDate'] = new \DateTime($tab['commentDate']);
 		$userManager = new UserManager();
-		$tab['author'] = $userManager->getUser($tab['authorId']);
 
-		$comment = new Comment($tab);
-		
-		return $comment;
+		$comment->setCommentDate(new \DateTime($comment->getCommentDate()));
+		$comment->setAuthor($userManager->getUser($comment->getAuthorId()));
+
+		return $comments;
 	}
 
 	public function listComment()
-	{
-		$tab = [];
-		
+	{	
 		$db = $this->dbConnect();
-		$comments = $db->query('SELECT id, author_id, status, comment, comment_date as commentDate FROM comments ORDER BY commentDate DESC, status ASC');
+		$req = $db->query('SELECT id, author_id, status, comment, comment_date as commentDate FROM comments ORDER BY commentDate DESC, status ASC');
 
-		$comments->execute();
-
-		while ($data = $comments->fetch(\PDO::FETCH_ASSOC)) {
-			$data['commentDate'] = new \DateTime($data['commentDate']);
-			$tab[] = new Comment($data);
+		$req->setFetchMode(\PDO::FETCH_CLASS|\PDO::FETCH_PROPS_LATE, 'App\Model\Comment');
+		$comments =	$req->fetchAll();
+		
+		foreach ($comments as $comment) {
+			$comment->setCommentDate(new \DateTime($comment->getCommentDate()));
 		}
 
-		return $tab;
+		return $comments;
 	}
 
 

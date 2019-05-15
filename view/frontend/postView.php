@@ -11,7 +11,7 @@
 
 	<div class="bloc-add-comment">
 		<h3>Commenter cet article</h3>
-		<?php if (isset($user)): ?>
+		<?php if (isset($userSession)): ?>
 		<form action="" method="post">
 			<div class="form-group">
 				<label for="comment" class="invisible">Commentaire</label>

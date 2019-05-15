@@ -45,17 +45,21 @@
           <li class="nav-item">
             <a class="nav-link" href="?action=contact">Contact</a>
           </li>
+          <?php if (isset($userSession) && $userSession->getRole() != 3): ?>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Administration</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="?action=listPost">Liste des Postes</a>
               <a class="dropdown-item" href="?action=listComment">Liste des Commentaires</a>
+              <?php if (isset($userSession) && $userSession->getRole() == 1): ?>
               <a class="dropdown-item" href="?action=listUser">Liste des Utilisateurs</a>
+              <?php endif ?>        
             </div>
-          </li>
+          </li> 
+          <?php endif; ?>     
         </ul>
         <ul class="navbar-nav">
-          <?php if (!isset($user)): ?>
+          <?php if (!isset($userSession)): ?>
           <li class="nav-item">
             <a class="nav-link" href="?action=connexion">Connexion</a>
           </li>
@@ -64,7 +68,7 @@
           </li>
           <?php else: ?>
           <li class="nav-item">
-            <a href="?action=profil&id=<?= $user->getId() ?>" class="nav-info"><?= $user->getMail() ?></a>
+            <a href="?action=profil&id=<?= $userSession->getId() ?>" class="nav-info"><?= $userSession->getMail() ?></a>
           </li>
           <li class="nav-item">
             <a class="nav-deco" href="?action=destroy">Déconnexion</a>

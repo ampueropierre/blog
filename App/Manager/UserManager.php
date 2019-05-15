@@ -32,9 +32,8 @@ class UserManager extends Manager
 		$req->bindValue(':id', $id);
 		$req->execute();
 
-		$q = $req->fetch(\PDO::FETCH_ASSOC);
-
-		$user = new User($q);
+		$req->setFetchMode(\PDO::FETCH_CLASS|\PDO::FETCH_PROPS_LATE, 'App\Model\User');
+		$user = $req->fetch();
 
 		return $user;
 	}
@@ -43,13 +42,10 @@ class UserManager extends Manager
 	{
 		$db = $this->dbConnect();
 		$req = $db->query('SELECT id, firstname, lastname, mail, password, role FROM users');
-		var_dump(1);
-		// $req->setFetchMode(\PDO::FETCH_CLASS, User::class);
-		var_dump(2);
-		$q = $req->fetchAll(\PDO::FETCH_CLASS, User::class);
-		// $q = $req->fetchAll();
-		var_dump($q);
-		die;
+		$req->setFetchMode(\PDO::FETCH_CLASS|\PDO::FETCH_PROPS_LATE, 'App\Model\User');
+		$users = $req->fetchAll();
+		
+		return $users;	
 	}
 
 	public function add(User $user)
@@ -79,6 +75,11 @@ class UserManager extends Manager
 
 		$req->execute();
 
+	}
+
+	public function delete($id)
+	{
+		$this->dbConnect()->exec('DELETE FROM users WHERE id = '.(int) $id);
 	}
 
 	public function mailExist($mail)

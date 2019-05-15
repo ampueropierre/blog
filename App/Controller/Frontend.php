@@ -14,7 +14,7 @@ class Frontend
 {
 	public function home()
 	{
-		$user = $this->userSession();
+		$userSession = $this->userSession();
 		$title = 'Home';
 
 		require 'view/template/home.php';
@@ -23,14 +23,14 @@ class Frontend
 	public function contact()
 	{
 		$title = 'Contact';
-		$user = $this->userSession();
+		$userSession = $this->userSession();
 
 		require 'view/frontend/contact.php';
 	}
 
 	public function blog()
 	{	
-		$user = $this->userSession();
+		$userSession = $this->userSession();
 
 		$postManager = new PostManager();
 
@@ -42,7 +42,7 @@ class Frontend
 
 	public function post($id)
 	{
-		$user = $this->userSession();
+		$userSession = $this->userSession();
 
 		$postManager = new PostManager();
 		$commentManager = new CommentManager();
@@ -77,10 +77,10 @@ class Frontend
 			$userManager = new UserManager();
 			$connexionValidator = new ConnexionValidator($_POST);
 			if (empty($connexionValidator->getErrors())) {
-				$user = $userManager->getLoggedUser($_POST['mail'], $_POST['password']);
-				if ($user) {	
-					$_SESSION['user'] = serialize($user);
-					header('Location: index.php?action=listPost');
+				$userSession = $userManager->getLoggedUser($_POST['mail'], $_POST['password']);
+				if ($userSession) {	
+					$_SESSION['user'] = serialize($userSession);
+					header('Location: index.php?action=blog');
 				} else {
 					$errorIdentifiant = true;
 				}
@@ -126,7 +126,7 @@ class Frontend
 
 	public function profil($id)
 	{
-		$user = $this->userSession(); 
+		$userSession = $this->userSession(); 
 		$title = "Mon profil";
 		$userManager = new UserManager();
 		$userProfil = $userManager->getUser($id);
@@ -157,12 +157,12 @@ class Frontend
 	public function destroy()
 	{
 		session_destroy();
-		header("Location: ".$_SERVER["HTTP_REFERER"]);
+		header("Location: ?action=connexion");
 	}
 
 	private function userSession()
 	{
-		$user = null;
+		$userSession = null;
 
 		if (isset($_SESSION['user']))
 		{

@@ -14,7 +14,7 @@ class Backend
 {
 	public function listPost()
 	{
-		$user = $this->userSession();
+		$userSession = $this->userSession();
 		$title = 'Liste des Postes';
 		$postManager = new PostManager();
 		$posts = $postManager->getPosts();
@@ -24,7 +24,7 @@ class Backend
 	public function addPost()
 	{
 		$title = 'Ajouter un Poste';
-		$user = $this->userSession();
+		$userSession = $this->userSession();
 		if (isset($_POST['add'])) {
 			$postValidator = new PostValidator([
 				'title' => $_POST['title'],
@@ -36,7 +36,7 @@ class Backend
 				$uploaddir = $_ENV['IMG_DIR_POST'];
 				$uploadfile = $uploaddir.time().'-'.basename($_FILES['img']['name']);
 				$post = new Post([
-					'authorId' => $user->getId(),
+					'authorId' => $userSession->getId(),
 					'title' => $_POST['title'],
 					'chapo' => $_POST['chapo'],
 					'content' => $_POST['content'],
@@ -66,7 +66,7 @@ class Backend
 
 	public function updatePost($id)
 	{
-		$user = $this->userSession();
+		$userSession = $this->userSession();
 		$title = 'Modifier un Poste';
 		$postManager = new PostManager();
 		$post = $postManager->getPost($id);
@@ -86,7 +86,7 @@ class Backend
 
 	public function listComment()
 	{
-		$user = $this->userSession();
+		$userSession = $this->userSession();
 		$title = 'Liste des Commentaires';
 		$commentManager = new CommentManager();
 		$comments = $commentManager->listComment();
@@ -95,7 +95,7 @@ class Backend
 
 	public function updateComment($id)
 	{
-		$user = $this->userSession();
+		$userSession = $this->userSession();
 		$title = 'Modifier un Commentaire';
 		$commentManager = new CommentManager();
 		$comment = $commentManager->getComment($id);
@@ -115,20 +115,32 @@ class Backend
 
 	public function listUser()
 	{
-		$user = $this->userSession();
+		$userSession = $this->userSession();
 		$title = 'Liste des Utilisateurs';
 		$userManager = new UserManager();
-		$userManager->getUsers();
+		$users = $userManager->getUsers();
+		if (isset($_POST['update'])) {
+			var_dump($_POST);
+		}
+
 		require 'view/backend/listUser.php';
+	}
+
+	public function deleteUser($id)
+	{
+		$commentManager = new UserManager();
+		$commentManager->delete($id);
+		header('Location: index.php?action=listUser&delete=success');
 	}
 
 	private function userSession()
 	{
-		$user = null;
+		$userSession = null;
 
 		if (isset($_SESSION['user']))
 		{
 			return unserialize($_SESSION['user']);
 		}
 	}
+
 }

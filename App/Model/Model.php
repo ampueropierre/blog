@@ -8,7 +8,7 @@ abstract class Model
 {
 	protected $id;
 
-	function __construct(array $data)
+	function __construct(array $data = [])
 	{
 		$this->hydrate($data);
 	}

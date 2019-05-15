@@ -8,13 +8,12 @@ class PostManager extends Manager
 {
 	public function getPosts()
 	{
-		$posts = [];
-
 		$db = $this->dbConnect();
 		$req = $db->query('SELECT id, title, chapo, date_modification as dateModification FROM posts ORDER BY dateModification DESC LIMIT 0,5');
-		while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {
-			$data['dateModification'] = new \DateTime($data['dateModification'], new \DateTimeZone('Europe/Paris'));
-			$posts[] = new Post($data);
+		$req->setFetchMode(\PDO::FETCH_CLASS|\PDO::FETCH_PROPS_LATE, 'App\Model\Post');
+		$posts = $req->fetchAll();
+		foreach ($posts as $post) {
+			$post->setDateModification(new \DateTime($post->getDateModification(), new \DateTimeZone('Europe/Paris')));
 		}
 
 		return $posts;
@@ -26,14 +25,14 @@ class PostManager extends Manager
 		$req = $db->prepare('SELECT id, author_id AS authorId, title, chapo, img, content, date_modification as dateModification FROM posts WHERE id =:id');
 		$req->bindValue(':id', $postId);
 		$req->execute();
-		$post = $req->fetch(\PDO::FETCH_ASSOC);
 
-		$post['dateModification'] = new \DateTime($post['dateModification']);
+		$req->setFetchMode(\PDO::FETCH_CLASS|\PDO::FETCH_PROPS_LATE, 'App\Model\Post');
+		$post = $req->fetch();
+
+		$post->setDateModification(new \DateTime($post->getDateModification(), new \DateTimeZone('Europe/Paris')));
 
 		$userManager = new UserManager();
-		$post['author'] = $userManager->getUser($post['authorId']);
-		
-		$post = new Post($post);
+		$post->setAuthor($userManager->getUser($post->getAuthorId()));
 
 		return $post;
 	}
@@ -67,22 +66,12 @@ class PostManager extends Manager
 		$req->execute();
 	}
 
-	public function updateImg($img)
+	public function updateImg(Post $post)
 	{
 		$db = $this->dbConnect();
-		$req = $db->prepare('SELECT img FROM posts WHERE img = :img');
-		$req->bindValue(':img', $img);
-
+		$req = $db->prepare('UPDATE posts SET img = :img WHERE id = :id');
+		$req->bindValue(':img', $post->getImg());
+		$req->bindValue(':id', $post->getId());
 		$req->execute();
-
-		$img = $req->fetch(\PDO::FETCH_ASSOC);
-
-		if(!$img) {
-			return true;
-		}
-
-
 	}
-
-
 }
