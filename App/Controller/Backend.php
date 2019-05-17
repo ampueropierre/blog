@@ -5,7 +5,11 @@ use App\Manager\PostManager;
 use App\Manager\CommentManager;
 use App\Manager\UserManager;
 use App\Model\Post;
+use App\Model\User;
+use App\Model\Comment;
 use App\Validator\PostValidator;
+use App\Validator\UserValidator;
+use App\Validator\CommentValidator;
 
 /**
  * 
@@ -69,8 +73,13 @@ class Backend
 	{
 		$userSession = $this->userSession();
 		$title = 'Modifier un Poste';
+
 		$postManager = new PostManager();
+		$userManager = new UserManager();
+
+		$usersAdmin = $userManager->getUsersAdmin();
 		$post = $postManager->getPost($id);
+
 		if (isset($_POST['update'])) {
 			$postValidator = new PostValidator($_POST);
 			if (empty($postValidator->getErrors())) {
@@ -78,6 +87,7 @@ class Backend
 					'title' => $_POST['title'],
 					'chapo' => $_POST['chapo'],
 					'content' => $_POST['content'],
+					'authorId' => $_POST['authorId'],
 					'id' => $post->getId()
 				]);
 				$postManager->update($post);
@@ -123,8 +133,17 @@ class Backend
 		$commentManager = new CommentManager();
 		$comment = $commentManager->getComment($id);
 		if (isset($_POST['update'])) {
-			$commentManager->update($_POST);
-			header('Location: index.php?action=listComment');
+			$commentValidator = new CommentValidator($_POST);
+			if (empty($commentValidator->getErrors())) {
+				$commentUpdate = new Comment([
+					'status' => $_POST['status'],
+					'id' => $comment->getId()
+				]);
+				$commentManager->update($commentUpdate);
+				header('Location: index.php?action=listComment');
+			} else {
+				$errors = $commentValidator->getErrors();
+			}
 		}
 		require 'view/backend/updateComment.php';
 	}
@@ -143,7 +162,18 @@ class Backend
 		$userManager = new UserManager();
 		$users = $userManager->getUsers();
 		if (isset($_POST['update'])) {
-			var_dump($_POST);
+			$userValidator = new UserValidator($_POST);
+			if (empty($userValidator->getErrors())) {
+				$user = new User([
+					'role' => $_POST['role'],
+					'id' => $_POST['id']
+				]);
+				$userManager->updateRole($user);
+				header('Location: ?action=listUser');
+				$updateRole = true;
+			} else {
+				$errors = $userValidator->getErrors();
+			}
 		}
 
 		require 'view/backend/listUser.php';

@@ -48,6 +48,16 @@ class UserManager extends Manager
 		return $users;	
 	}
 
+	public function getUsersAdmin()
+	{
+		$db = $this->dbConnect();
+		$req = $db->query('SELECT id, firstname, lastname FROM users WHERE role = 1 OR role = 2');
+		$req->setFetchMode(\PDO::FETCH_CLASS|\PDO::FETCH_PROPS_LATE, 'App\Model\User');
+		$users = $req->fetchAll();
+		
+		return $users;
+	}
+
 	public function add(User $user)
 	{
 		$db =$this->dbConnect();
@@ -71,6 +81,18 @@ class UserManager extends Manager
 		$req->bindValue(':firstname', $user->getFirstname());
 		$req->bindValue(':lastname', $user->getLastname());
 		$req->bindValue(':mail', $user->getMail());
+		$req->bindValue(':id', $user->getId());
+
+		$req->execute();
+
+	}
+
+	public function updateRole(User $user)
+	{
+
+		$db =$this->dbConnect();
+		$req = $db->prepare('UPDATE users SET role = :role WHERE id = :id');
+		$req->bindValue(':role', $user->getRole());
 		$req->bindValue(':id', $user->getId());
 
 		$req->execute();

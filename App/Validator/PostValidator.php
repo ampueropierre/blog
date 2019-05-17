@@ -13,6 +13,7 @@ class PostValidator extends Validator
 	const CHAPO_EMPTY = 'le champ Chapo est vide';
 	const IMG_INVALID = 'un problème est survenu sur l\'image';
 	const IMG_EXT = 'l\'extension doit etre un jpg ou png';
+	const AUTHOR_ID_INVALID = 'une erreur est survenu';
 
 	public function checkTitle($title)
 	{
@@ -32,6 +33,13 @@ class PostValidator extends Validator
 	{
 		if (empty($chapo)) {
 			$this->errors[] = self::CHAPO_EMPTY;
+		}
+	}
+
+	public function checkAuthorId($authorId)
+	{
+		if (empty($authorId)) {
+			$this->errors[] = self::AUTHOR_ID_INVALID;
 		}
 	}
 

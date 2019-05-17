@@ -10,10 +10,8 @@ class CommentManager extends Manager
 	{
 		$db = $this->dbConnect();
 		$req = $db->prepare('SELECT id, post_id AS postId, author_id AS authorId, status, comment, comment_date AS commentDate FROM comments WHERE post_id = :id AND status = 1 ORDER BY commentDate DESC');
-
 		$req->bindValue(':id', $postId);
 		$req->execute();
-
 		$req->setFetchMode(\PDO::FETCH_CLASS|\PDO::FETCH_PROPS_LATE, 'App\Model\Comment');
 		$comments =	$req->fetchAll();
 
@@ -38,12 +36,12 @@ class CommentManager extends Manager
 		$req->execute();
 	}
 
-	public function update(array $comment)
+	public function update(Comment $comment)
 	{
 		$db = $this->dbConnect();
 		$req = $db->prepare('UPDATE comments SET status = :status WHERE id = :id');
-		$req->bindValue(':status', $comment['status']);
-		$req->bindValue(':id', $comment['id']);
+		$req->bindValue(':status', $comment->getStatus());
+		$req->bindValue(':id', $comment->getId());
 		$req->execute();
 	}
 
@@ -58,7 +56,6 @@ class CommentManager extends Manager
 		$req = $db->prepare('SELECT id, post_id AS postId, author_id AS authorId, status, comment, comment_date AS commentDate FROM comments WHERE id = :id');
 		$req->bindValue(':id', $id);
 		$req->execute();
-
 		$req->setFetchMode(\PDO::FETCH_CLASS|\PDO::FETCH_PROPS_LATE, 'App\Model\Comment');
 		$comment =	$req->fetch();
 
@@ -67,14 +64,13 @@ class CommentManager extends Manager
 		$comment->setCommentDate(new \DateTime($comment->getCommentDate()));
 		$comment->setAuthor($userManager->getUser($comment->getAuthorId()));
 
-		return $comments;
+		return $comment;
 	}
 
 	public function listComment()
 	{	
 		$db = $this->dbConnect();
-		$req = $db->query('SELECT id, author_id, status, comment, comment_date as commentDate FROM comments ORDER BY commentDate DESC, status ASC');
-
+		$req = $db->query('SELECT id, author_id, status, comment, comment_date as commentDate FROM comments ORDER BY commentDate DESC');
 		$req->setFetchMode(\PDO::FETCH_CLASS|\PDO::FETCH_PROPS_LATE, 'App\Model\Comment');
 		$comments =	$req->fetchAll();
 		

@@ -1,30 +1,29 @@
 <?php
 ob_start();
 ?>
+<div>
+	<h3>Le commentaire</h3>
+</div>
+<p>L'auteur : </p>
+<p><?= $comment->getAuthor()->getFirstname().' '.$comment->getAuthor()->getLastname()?></p>
+<p>Le commentaire :</p>
+<p><?= $comment->getComment() ?></p>
+
 <form action="" method="POST">
-	<div class="form-group">
-		<label for="title">Prénom</label>
-		<input type="text" class="form-control" name="firstname" id="firstname" value="<?= $comment->getAuthor()->getFirstname() ?>" disabled>
-	</div>
-	<div class="form-group">
-		<label for="title">Nom</label>
-		<input type="text" class="form-control" name="lastname" id="lastname" value="<?= $comment->getAuthor()->getLastname() ?>" disabled>
-	</div>
-	<div class="form-group">
-		<label for="content">Commentaire</label>
-		<textarea name="content" id="content" class="form-control" rows="7" disabled><?= $comment->getComment() ?></textarea>
-	</div>
 	<div class="form-group">
 		<label for="status">Statut</label>
 		<select class="form-control" id="status" name="status">
-			<option value="1" <?= ($comment->getStatus()) == 1 ? 'selected' : '' ?>>Valide</option>
-			<option value="0" <?= ($comment->getStatus()) != 1 ? 'selected' : '' ?>>Pas valide</option>
+			<?php for($i = 0; $i < 2; $i++):?>
+			<option value="<?= $i ?>" <?= ($i == $comment->getStatus()) ? 'selected' : '' ?>><?= ($i == 0) ? 'Pas valide' : 'Valide' ?></option>
+			<?php endfor; ?>
 		</select>
+		<?php if (isset($errors) && in_array($commentValidator::STATUS_INVALID, $errors)):?>
+		<span class="text-danger"><?= $commentValidator::STATUS_INVALID ?></span>
+		<?php endif; ?>
 	</div>
-	<input type="hidden" name="id" value="<?= $_GET['id'] ?>">
 	
 	<button type="submit" class="btn btn-primary" name="update">Modifier</button>
-</form>
+</fosrm>
 <?php
 $content = ob_get_clean();
 require('view/template/post.php');

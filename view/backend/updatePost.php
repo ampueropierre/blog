@@ -29,6 +29,18 @@
 				<span class="text-danger"><?= $postValidator::CONTENT_EMPTY ?></span>
 				<?php endif; ?>
 			</div>
+			<div class="form-group">
+				<label for="content">Auteur</label>
+				
+				<select name="authorId" id="author" class="form-control">
+					<?php foreach ($usersAdmin as $user): ?>
+						<option value="<?= $user->getId() ?>" <?= ($user->getId() == $post->getAuthorId()) ? 'selected' : '' ?>><?= $user->getFirstname().' '.$user->getLastname() ?></option>
+					<?php endforeach ?>
+				</select>
+				<?php if (isset($errors) && in_array($postValidator::AUTHOR_ID_INVALID, $errors)):?>
+				<span class="text-danger"><?= $postValidator::AUTHOR_ID_INVALID ?></span>
+				<?php endif; ?>
+			</div>
 			<button type="submit" class="btn btn-primary" name="update">Modifier</button>
 		</form>
 	</div>
@@ -48,8 +60,6 @@
 		</form>
 	</div>
 </div>
-
-
 <?php
 $content = ob_get_clean();
 require('view/template/post.php');

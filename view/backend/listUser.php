@@ -1,5 +1,13 @@
 <?php ob_start(); ?>
-
+<?php if (isset($errors) && in_array($userValidator::ROLE_NOTEXIST, $errors)): ?>
+<div class="alert alert-danger">
+	Le role n'existe pas
+</div>
+<?php elseif(isset($updateRole)): ?>
+<div class="alert alert-success">
+	Le role a bien été modifié
+</div>
+<?php endif; ?>
 <table class="table">
 	<thead class="thead-light">
 		<tr>

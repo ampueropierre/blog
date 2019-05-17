@@ -14,6 +14,7 @@ class UserValidator extends Validator
 	const PASSWORD_EMPTY = 'Le champ est vide';
 	const MAIL_EXIST = 'Ce mail existe déjà';
 	const PASSWORD_LENGHT = 'Le mot de passe doit être supérieur ou égal à 8 caractères';
+	const ROLE_NOTEXIST = 'Ce role n\'existe pas';
 
 	public function checkFirstname($firstname)
 	{
@@ -52,6 +53,13 @@ class UserValidator extends Validator
 			$this->errors[] = self::PASSWORD_EMPTY;
 		} elseif (strlen($password) < 8) {
 			$this->errors[] = self::PASSWORD_LENGHT;
+		}
+	}
+
+	public function checkRole(int $role)
+	{
+		if ($role != 2 AND $role != 3) {
+			$this->errors[] = self::ROLE_NOTEXIST;
 		}
 	}
 

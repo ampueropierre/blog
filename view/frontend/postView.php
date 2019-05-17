@@ -1,5 +1,9 @@
 <?php ob_start(); ?>
-
+<?php if (isset($commentSuccess)): ?>
+<div class="alert alert-success">
+	Votre commentaire a bien été ajouté et en attente de validation.
+</div>
+<?php endif ?>
 <div class="post-view">
 	<p class="post-meta">Derniére modification le <?= $post->getDateModification()->format('d/m/Y à H:i:s'); ?> par <?= $post->getAuthor()->getFirstname().' '.$post->getAuthor()->getLastname() ?></p>
 	<p>
@@ -28,14 +32,14 @@
 		<?php endif; ?>
 	</div>
 	
-<?php foreach ($comments as $comment):?>
+	<?php foreach ($comments as $comment):?>
 	<p>le <?= $comment->getCommentDate()->format('d F Y à H:i:s') ?> par
 		<span class=''>
 			<?= $comment->getAuthor()->getFirstname().' '.$comment->getAuthor()->getLastname() ?>
 		</span>
 	</p>
 	<p><?= nl2br(htmlspecialchars($comment->getComment())) ?></p>
-<?php endforeach;?>
+	<?php endforeach;?>
 </div>
 
 <?php 

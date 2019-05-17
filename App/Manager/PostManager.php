@@ -49,16 +49,11 @@ class PostManager extends Manager
 		$req->execute();
 	}
 
-	public function delete($id)
-	{
-		$db = $this->dbConnect();
-		$req = $db->exec('DELETE FROM posts WHERE id = '.(int) $id);
-	}
-
 	public function update(Post $post)
 	{
 		$db = $this->dbConnect();
-		$req = $db->prepare('UPDATE posts SET title = :title, chapo = :chapo, content = :content, date_modification = NOW() WHERE id = :id');
+		$req = $db->prepare('UPDATE posts SET author_id = :author_id, title = :title, chapo = :chapo, content = :content, date_modification = NOW() WHERE id = :id');
+		$req->bindValue(':author_id', $post->getAuthorId());
 		$req->bindValue(':title', $post->getTitle());
 		$req->bindValue(':chapo', $post->getChapo());
 		$req->bindValue(':content', $post->getContent());
@@ -73,5 +68,11 @@ class PostManager extends Manager
 		$req->bindValue(':img', $post->getImg());
 		$req->bindValue(':id', $post->getId());
 		$req->execute();
+	}
+
+	public function delete($id)
+	{
+		$db = $this->dbConnect();
+		$req = $db->exec('DELETE FROM posts WHERE id = '.(int) $id);
 	}
 }

@@ -54,15 +54,16 @@ class Frontend
 
 		if (isset($_POST['addComment'])) {
 			$commentValidator = new CommentValidator($_POST);
-			if (empty($commentValidator->errors())) {
+			if (empty($commentValidator->getErrors())) {
 				$comment = new Comment([
 					'comment' => $_POST['comment'],
-					'authorId' => $user->getId(),
+					'authorId' => $userSession->getId(),
 					'postId' => $id
 				]);
 				$commentManager->add($comment);
+				$commentSuccess = true;
 			} else {
-				$errors = $commentValidator->errors();
+				$errors = $commentValidator->getErrors();
 			}
 		}
 
