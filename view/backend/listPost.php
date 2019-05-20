@@ -32,7 +32,7 @@
 				<th><?= $post->getId() ?></th>
 				<td><?= $post->getTitle() ?></td>
 				<td><?= $post->getDateModification()->format('d/m/Y à H:i:s') ?></td>
-				<td><a href="?action=updatePost&id=<?= $post->getId() ?>" class="text-primary mr-2">Modifier</a><a href="?action=deletePost&id=<?= $post->getId() ?>" class="text-danger">Supprimer</a></td>
+				<td><a href="admin/updatepost/<?= $post->getId() ?>" class="text-primary mr-2">Modifier</a><a href="?action=deletePost&id=<?= $post->getId() ?>" class="text-danger">Supprimer</a></td>
 			</tr>
 		<?php endforeach; ?>
 	</tbody>

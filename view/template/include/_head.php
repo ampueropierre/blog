@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <base href="/blog/">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Blog OpenClassroom">
@@ -40,19 +41,19 @@
             <a class="nav-link" href=".">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="?action=blog">Blog</a>
+            <a class="nav-link" href="posts">Blog</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="?action=contact">Contact</a>
+            <a class="nav-link" href="contact">Contact</a>
           </li>
           <?php if (isset($userSession) && $userSession->getRole() != 3): ?>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Administration</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="?action=listPost">Liste des Postes</a>
-              <a class="dropdown-item" href="?action=listComment">Liste des Commentaires</a>
+              <a class="dropdown-item" href="admin/posts">Liste des Postes</a>
+              <a class="dropdown-item" href="admin/comments">Liste des Commentaires</a>
               <?php if (isset($userSession) && $userSession->getRole() == 1): ?>
-              <a class="dropdown-item" href="?action=listUser">Liste des Utilisateurs</a>
+              <a class="dropdown-item" href="admin/users">Liste des Utilisateurs</a>
               <?php endif ?>        
             </div>
           </li> 
@@ -68,7 +69,7 @@
           </li>
           <?php else: ?>
           <li class="nav-item">
-            <a href="?action=profil&id=<?= $userSession->getId() ?>" class="nav-info"><?= $userSession->getMail() ?></a>
+            <a href="profil/<?= $userSession->getId() ?>" class="nav-info"><?= $userSession->getMail() ?></a>
           </li>
           <li class="nav-item">
             <a class="nav-deco" href="?action=destroy">Déconnexion</a>

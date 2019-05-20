@@ -18,7 +18,10 @@ $backend = new Backend;
 try
 {
 	if (isset($_GET['action'])) {
-		if ($_GET['action'] == 'blog') {
+		if ($_GET['action'] == 'home') {
+			$frontend->home();
+		}
+		if ($_GET['action'] == 'posts') {
 			$frontend->blog();
 		}
 		elseif ($_GET['action'] == 'post' && isset($_GET['id'])) {

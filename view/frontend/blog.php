@@ -5,7 +5,7 @@ foreach ($posts as $post)
 {
 ?>
 <div class="post-preview">
-	<a href="?action=post&id=<?= $post->getId() ?>">
+	<a href="posts/<?= $post->getId() ?>">
 		<h2 class="post-title">
 			<?= htmlspecialchars($post->getTitle()) ?>
 		</h2>
