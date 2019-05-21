@@ -1,11 +1,8 @@
 Options +FollowSymlinks
 RewriteEngine on
 
-RewriteRule posts ?action=posts
-RewriteRule posts/([0-9]+) ?action=post&id=$1
-RewriteRule contact ?action=contact
-RewriteRule admin/posts ?action=listPost
-RewriteRule admin/updateposts/([0-9]+) ?action=updatePost&id=$1
-RewriteRule admin/comments ?action=listComment
-RewriteRule admin/users ?action=listUser
-RewriteRule profil/([0-9]*) ?action=profil&id=$1
+RewriteRule ^([a-z]+)$ ?action=$1
+RewriteRule ^posts/([0-9]+)$ ?action=post&id=$1
+RewriteRule ^admin/([a-z]+)$ ?action=$1
+RewriteRule ^admin/updateposts/([0-9]+)$ ?action=updatePost&id=$1 
+RewriteRule ^profil/([0-9]*)$ ?action=profil&id=$1
