@@ -81,7 +81,7 @@ class Frontend
 				$userSession = $userManager->getLoggedUser($_POST['mail'], $_POST['password']);
 				if ($userSession) {	
 					$_SESSION['user'] = serialize($userSession);
-					header('Location: index.php?action=blog');
+					header('Location: posts');
 				} else {
 					$errorIdentifiant = true;
 				}
@@ -128,9 +128,17 @@ class Frontend
 	public function profil($id)
 	{
 		$userSession = $this->userSession(); 
+		
 		$title = "Mon profil";
 		$userManager = new UserManager();
 		$userProfil = $userManager->getUser($id);
+
+		if($userSession == null || $userSession->getId() != $userProfil->getId()) {
+			$title = '404';
+			require('view/404.php');
+			exit;
+		}
+
 		if (isset($_POST['update'])) {
 			$userValidator = new UserValidator([
 				'firstname' => $_POST['firstname'],
@@ -158,7 +166,7 @@ class Frontend
 	public function destroy()
 	{
 		session_destroy();
-		header("Location: ?action=connexion");
+		header("Location: login");
 	}
 
 	private function userSession()

@@ -1,7 +1,13 @@
+html {
+  height: 100%; }
+
 body {
+  height: 100%;
   font-size: 20px;
   color: #212529;
-  font-family: 'Lora', 'Times New Roman', serif; }
+  font-family: 'Lora', 'Times New Roman', serif;
+  display: flex;
+  flex-direction: column; }
 
 p {
   line-height: 1.5;
@@ -151,7 +157,7 @@ img::-moz-selection {
   color: #dc3545; }
 
 header.masthead {
-  height: 250px;
+  min-height: 250px;
   margin-bottom: 20px;
   background: no-repeat center center;
   background-color: #000;
@@ -210,7 +216,7 @@ header.masthead {
       font-size: 30px; } }
   @media only screen and (min-width: 768px) {
     header.masthead {
-      height: 350px;
+      min-height: 350px;
       margin-bottom: 50px; } }
 
 .home-heading {
@@ -350,7 +356,8 @@ form .form-group:first-child .floating-label-form-group {
   border-top: 1px solid #dee2e6; }
 
 footer {
-  padding: 25px 0; }
+  margin-top: auto;
+  padding: 10px 0; }
   footer .list-inline {
     font-size: 14px;
     margin: 0;

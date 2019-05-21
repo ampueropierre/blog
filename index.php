@@ -30,13 +30,13 @@ try
 		elseif ($_GET['action'] == 'contact') {
 			$frontend->contact();
 		}
-		elseif ($_GET['action'] == 'connexion') {
+		elseif ($_GET['action'] == 'login') {
 			$frontend->connexion();
 		}
 		elseif ($_GET['action'] == 'destroy') {
 			$frontend->destroy();
 		}
-		elseif($_GET['action'] == 'createUser') {
+		elseif($_GET['action'] == 'register') {
 			$frontend->createUser();
 		}
 		elseif ($_GET['action'] == 'profil' && isset($_GET['id'])) {

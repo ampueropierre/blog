@@ -158,6 +158,10 @@ class Backend
 	public function listUser()
 	{
 		$userSession = $this->userSession();
+		if($userSession == null || $userSession->getRole() != 1) {
+			require 'view/404.php';
+			exit;
+		}
 		$title = 'Liste des Utilisateurs';
 		$userManager = new UserManager();
 		$users = $userManager->getUsers();

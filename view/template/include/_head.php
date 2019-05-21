@@ -25,7 +25,7 @@
 
 </head>
 
-<body <?= ($title == "Home") ? 'style="height: 100vh"' : ''?>>
+<body>
 
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
@@ -62,10 +62,10 @@
         <ul class="navbar-nav">
           <?php if (!isset($userSession)): ?>
           <li class="nav-item">
-            <a class="nav-link" href="?action=connexion">Connexion</a>
+            <a class="nav-link" href="login">Connexion</a>
           </li>
           <li class="nav-item">
-            <a href="?action=createUser">Créer un compte</a>
+            <a href="register">Créer un compte</a>
           </li>
           <?php else: ?>
           <li class="nav-item">
