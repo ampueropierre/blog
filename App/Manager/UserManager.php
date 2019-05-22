@@ -99,9 +99,12 @@ class UserManager extends Manager
 
 	}
 
-	public function delete($id)
+	public function delete(int $id)
 	{
-		$this->dbConnect()->exec('DELETE FROM users WHERE id = '.(int) $id);
+		$db = $this->dbConnect();
+		$req = $db->prepare('DELETE FROM users WHERE id = :id');
+		$req->bindValue(':id', $id, /PDO::PARAM_INT);
+		$req->execute();
 	}
 
 	public function mailExist($mail)

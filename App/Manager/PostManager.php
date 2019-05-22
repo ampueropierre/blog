@@ -70,9 +70,11 @@ class PostManager extends Manager
 		$req->execute();
 	}
 
-	public function delete($id)
+	public function delete(int $id)
 	{
 		$db = $this->dbConnect();
-		$req = $db->exec('DELETE FROM posts WHERE id = '.(int) $id);
+		$req = $db->prepare('DELETE FROM posts WHERE id = :id');
+		$req->bindValue(':id', $id, /PDO::PARAM_INT);
+		$req->execute();
 	}
 }
