@@ -31,8 +31,12 @@ class Backend
 
 	public function addPost()
 	{
-		$title = 'Ajouter un Poste';
 		$userSession = $this->userSession();
+		if ($userSession == null || $userSession->getRole() != 1 || $userSession->getRole() != 2) {
+			require 'view/404.php';
+			exit;
+		}
+		$title = 'Ajouter un Poste';
 		if (isset($_POST['add'])) {
 			$postValidator = new PostValidator([
 				'title' => $_POST['title'],
@@ -65,6 +69,11 @@ class Backend
 
 	public function deletePost($id)
 	{
+		$userSession = $this->userSession();
+		if ($userSession == null || $userSession->getRole() != 1 || $userSession->getRole() != 2) {
+			require 'view/404.php';
+			exit;
+		}
 		$postManager = new PostManager();
 		$imgName = $postManager->getPost($id)->getImg();
 		if (unlink($imgName)) {
@@ -76,6 +85,11 @@ class Backend
 	public function updatePost($id)
 	{
 		$userSession = $this->userSession();
+		if ($userSession == null || $userSession->getRole() != 1 || $userSession->getRole() != 2) {
+			require 'view/404.php';
+			exit;
+		}
+
 		$title = 'Modifier un Poste';
 
 		$postManager = new PostManager();
@@ -124,6 +138,10 @@ class Backend
 	public function listComment()
 	{
 		$userSession = $this->userSession();
+		if ($userSession == null || $userSession->getRole() != 1 || $userSession->getRole() != 2) {
+			require 'view/404.php';
+			exit;
+		}
 		$title = 'Liste des Commentaires';
 		$commentManager = new CommentManager();
 		$comments = $commentManager->listComment();
@@ -133,6 +151,11 @@ class Backend
 	public function updateComment($id)
 	{
 		$userSession = $this->userSession();
+		if ($userSession == null || $userSession->getRole() != 1 || $userSession->getRole() != 2) {
+			require 'view/404.php';
+			exit;
+		}
+
 		$title = 'Modifier un Commentaire';
 		$commentManager = new CommentManager();
 		$comment = $commentManager->getComment($id);
@@ -154,6 +177,12 @@ class Backend
 
 	public function deleteComment($id)
 	{
+		$userSession = $this->userSession();
+		if ($userSession == null || $userSession->getRole() != 1 || $userSession->getRole() != 2) {
+			require 'view/404.php';
+			exit;
+		}
+
 		$commentManager = new CommentManager();
 		$commentManager->delete($id);
 		header('Location: index.php?action=listComment');
@@ -166,6 +195,7 @@ class Backend
 			require 'view/404.php';
 			exit;
 		}
+
 		$title = 'Liste des Utilisateurs';
 		$userManager = new UserManager();
 		$users = $userManager->getUsers();
@@ -189,6 +219,12 @@ class Backend
 
 	public function deleteUser($id)
 	{
+		$userSession = $this->userSession();
+		if($userSession == null || $userSession->getRole() != 1) {
+			require 'view/404.php';
+			exit;
+		}
+		
 		$commentManager = new UserManager();
 		$commentManager->delete($id);
 		header('Location: index.php?action=listUser&delete=success');
