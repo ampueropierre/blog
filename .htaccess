@@ -3,6 +3,10 @@ RewriteEngine on
 
 RewriteRule ^([a-z]+)$ ?action=$1
 RewriteRule ^posts/([0-9]+)$ ?action=post&id=$1
-RewriteRule ^admin/([a-z]+)$ ?action=$1
-RewriteRule ^admin/updateposts/([0-9]+)$ ?action=updatePost&id=$1 
+RewriteRule ^admin/users$ ?action=listUser
+RewriteRule ^admin/posts$ ?action=listPost
+RewriteRule ^admin/comments$ ?action=listComment
+RewriteRule ^admin/posts/add$ ?action=addPost
+RewriteRule ^admin/posts/update/([0-9]+)$ ?action=updatePost&id=$1
+RewriteRule ^admin/posts/delete/([0-9]+)$ ?action=updatePost&id=$1 
 RewriteRule ^profil/([0-9]*)$ ?action=profil&id=$1
