@@ -49,7 +49,7 @@ class CommentManager extends Manager
 	{
 		$db = $this->dbConnect();
 		$req = $db->prepare('DELETE FROM comments WHERE id = :id');
-		$req->bindValue(':id', $id, /PDO::PARAM_INT);
+		$req->bindValue(':id', $id, \PDO::PARAM_INT);
 		$req->execute();
 	}
 
