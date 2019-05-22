@@ -19,6 +19,10 @@ class Backend
 	public function listPost()
 	{
 		$userSession = $this->userSession();
+		if ($userSession == null || $userSession->getRole() != 1 || $userSession->getRole() != 2) {
+			require 'view/404.php';
+			exit;
+		}
 		$title = 'Liste des Postes';
 		$postManager = new PostManager();
 		$posts = $postManager->getPosts();
