@@ -78,7 +78,7 @@ class Backend
 		$imgName = $postManager->getPost($id)->getImg();
 		if (unlink($imgName)) {
 			$postManager->delete($id);
-			header('Location: index.php?action=listPost&success=delete');
+			header('Location: admin/posts?success=delete');
 		}	
 	}
 
@@ -185,7 +185,7 @@ class Backend
 
 		$commentManager = new CommentManager();
 		$commentManager->delete($id);
-		header('Location: index.php?action=listComment');
+		header('Location: admin/comments');
 	}
 
 	public function listUser()
@@ -227,7 +227,7 @@ class Backend
 
 		$commentManager = new UserManager();
 		$commentManager->delete($id);
-		header('Location: index.php?action=listUser&delete=success');
+		header('Location: admin/users?delete=success');
 	}
 
 	private function userSession()
