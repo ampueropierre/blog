@@ -134,7 +134,6 @@ class Frontend
 		$userProfil = $userManager->getUser($id);
 
 		if($userSession == null || $userSession->getId() != $userProfil->getId()) {
-			$title = '404';
 			require('view/404.php');
 			exit;
 		}

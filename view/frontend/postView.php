@@ -28,7 +28,7 @@
 		</form>
 		<?php else: ?>
 		<p>Vous devez être connecté pour laisser un commentaire</p>
-		<a href="?action=connexion" class="btn btn-primary">Se connecter</a>
+		<a href="login" class="btn btn-primary">Se connecter</a>
 		<?php endif; ?>
 	</div>
 	
