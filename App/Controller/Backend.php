@@ -19,7 +19,7 @@ class Backend
 	public function listPost()
 	{
 		$userSession = $this->userSession();
-		if ($userSession == null || $userSession->getRole() != 1 || $userSession->getRole() != 2) {
+		if ($userSession == null || $userSession->getRole() > 2) {
 			require 'view/404.php';
 			exit;
 		}
@@ -32,7 +32,7 @@ class Backend
 	public function addPost()
 	{
 		$userSession = $this->userSession();
-		if ($userSession == null || $userSession->getRole() != 1 || $userSession->getRole() != 2) {
+		if ($userSession == null || $userSession->getRole() > 2) {
 			require 'view/404.php';
 			exit;
 		}
@@ -70,7 +70,7 @@ class Backend
 	public function deletePost($id)
 	{
 		$userSession = $this->userSession();
-		if ($userSession == null || $userSession->getRole() != 1 || $userSession->getRole() != 2) {
+		if ($userSession == null || $userSession->getRole() > 2) {
 			require 'view/404.php';
 			exit;
 		}
@@ -85,7 +85,7 @@ class Backend
 	public function updatePost($id)
 	{
 		$userSession = $this->userSession();
-		if ($userSession == null || $userSession->getRole() != 1 || $userSession->getRole() != 2) {
+		if ($userSession == null || $userSession->getRole() > 2) {
 			require 'view/404.php';
 			exit;
 		}
@@ -138,7 +138,7 @@ class Backend
 	public function listComment()
 	{
 		$userSession = $this->userSession();
-		if ($userSession == null || $userSession->getRole() != 1 || $userSession->getRole() != 2) {
+		if ($userSession == null || $userSession->getRole() > 2) {
 			require 'view/404.php';
 			exit;
 		}
@@ -151,7 +151,7 @@ class Backend
 	public function updateComment($id)
 	{
 		$userSession = $this->userSession();
-		if ($userSession == null || $userSession->getRole() != 1 || $userSession->getRole() != 2) {
+		if ($userSession == null || $userSession->getRole() > 2) {
 			require 'view/404.php';
 			exit;
 		}
@@ -178,7 +178,7 @@ class Backend
 	public function deleteComment($id)
 	{
 		$userSession = $this->userSession();
-		if ($userSession == null || $userSession->getRole() != 1 || $userSession->getRole() != 2) {
+		if ($userSession == null || $userSession->getRole() > 2) {
 			require 'view/404.php';
 			exit;
 		}
@@ -191,7 +191,7 @@ class Backend
 	public function listUser()
 	{
 		$userSession = $this->userSession();
-		if($userSession == null || $userSession->getRole() != 1) {
+		if($userSession == null || $userSession->getRole() > 1) {
 			require 'view/404.php';
 			exit;
 		}
@@ -220,11 +220,11 @@ class Backend
 	public function deleteUser($id)
 	{
 		$userSession = $this->userSession();
-		if($userSession == null || $userSession->getRole() != 1) {
+		if($userSession == null || $userSession->getRole() > 1) {
 			require 'view/404.php';
 			exit;
 		}
-		
+
 		$commentManager = new UserManager();
 		$commentManager->delete($id);
 		header('Location: index.php?action=listUser&delete=success');
