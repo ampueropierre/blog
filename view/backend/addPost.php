@@ -1,6 +1,9 @@
-<?php
-ob_start();
-?>
+<?php ob_start();?>
+<?php if (isset($success)): ?>
+<div class="alert alert-success">
+	Le poste a bien été ajouté		
+</div>
+<?php endif ?>
 <form action="" method="POST" enctype="multipart/form-data">
 	<div class="form-group">
 		<label for="title">Titre</label>

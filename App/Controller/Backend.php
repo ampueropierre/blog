@@ -52,13 +52,13 @@ class Backend
 					'title' => $_POST['title'],
 					'chapo' => $_POST['chapo'],
 					'content' => $_POST['content'],
-					'idAuthor' => $userSession->getId(),
 					'img' => $uploadfile
 				]);
 				if(move_uploaded_file($_FILES['img']['tmp_name'], $uploadfile)) {
 					$postManager = new PostManager();
 					$postManager->add($post);
-					header('Location: ?action=listPost&success=add');
+					$success = true;
+					unset($_POST);
 				}	
 			} else {
 				$errors = $postValidator->getErrors();
