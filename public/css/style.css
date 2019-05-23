@@ -375,10 +375,16 @@ footer {
     margin: 0;
     text-align: center; }
 
-table {
-  font-size: 12px; }
-  table a:hover {
-    text-decoration: none; }
+.table {
+  font-size: 12px;
+  margin: 0; }
+  .table th {
+    vertical-align: inherit; }
+  .table td {
+    vertical-align: inherit; }
+  .table .btn {
+    font-size: 10px;
+    padding: 10px 14px; }
 
 .btn {
   font-size: 14px;

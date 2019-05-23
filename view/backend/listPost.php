@@ -21,7 +21,7 @@
 				<th><?= $post->getId() ?></th>
 				<td><?= $post->getTitle() ?></td>
 				<td><?= $post->getDateModification()->format('d/m/Y à H:i:s') ?></td>
-				<td><a href="admin/posts/update/<?= $post->getId() ?>" class="text-primary mr-2">Modifier</a><a href="admin/posts/delete/<?= $post->getId() ?>" class="text-danger">Supprimer</a></td>
+				<td><a href="admin/posts/update/<?= $post->getId() ?>" class="btn btn-outline-primary mr-2">Modifier</a><a href="admin/posts/delete/<?= $post->getId() ?>" class="btn btn-outline-danger">Supprimer</a></td>
 			</tr>
 		<?php endforeach; ?>
 	</tbody>

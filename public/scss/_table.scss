@@ -1,8 +1,14 @@
-table {
+.table {
 	font-size: 12px;
-	a {
-		&:hover {
-			text-decoration: none;
-		}
+	margin: 0;
+	th {
+		vertical-align: inherit;
+	}
+	td {
+		vertical-align: inherit;
+	}
+	.btn {
+		font-size: 10px;
+		padding: 10px 14px
 	}
 }
