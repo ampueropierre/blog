@@ -69,6 +69,9 @@ try
 		elseif ($_GET['action'] == 'deleteUser' && isset($_GET['id'])) {
 			$backend->deleteUser($_GET['id']);
 		}
+		else {
+			$frontend->page404();
+		}
 	} else {
 		$frontend->home();
 	}

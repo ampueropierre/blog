@@ -177,6 +177,11 @@ class Frontend
 			return unserialize($_SESSION['user']);
 		}
 	}
+
+	public function page404() {
+		$title = '404 Error';
+		require('view/404.php');
+	}
 }
 
 
