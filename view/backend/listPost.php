@@ -1,19 +1,8 @@
 <?php ob_start(); ?>
 <?php if (isset($_GET['success'])):?>
-	<div class="alert alert-success" role="alert">
-	<?php switch ($_GET['success']):
-		case 'add':
-			echo "Le poste a bien été ajouter";
-			break;
-		case 'update':
-			echo "Le poste a bien été modifier";
-			break;
-		case 'delete':
-			echo "Le poste a bien été supprimer";
-			break;
-	endswitch;
-  	?>
-	</div>
+<div class="alert alert-success" role="alert">
+	Le poste a bien été supprimer
+</div>
 <?php endif; ?>
 <a href="admin/posts/add" class="btn btn-primary mb-3">Ajouter un poste</a>
 
@@ -32,7 +21,7 @@
 				<th><?= $post->getId() ?></th>
 				<td><?= $post->getTitle() ?></td>
 				<td><?= $post->getDateModification()->format('d/m/Y à H:i:s') ?></td>
-				<td><a href="admin/posts/update/<?= $post->getId() ?>" class="text-primary mr-2">Modifier</a><a href="?action=deletePost&id=<?= $post->getId() ?>" class="text-danger">Supprimer</a></td>
+				<td><a href="admin/posts/update/<?= $post->getId() ?>" class="text-primary mr-2">Modifier</a><a href="admin/posts/delete/<?= $post->getId() ?>" class="text-danger">Supprimer</a></td>
 			</tr>
 		<?php endforeach; ?>
 	</tbody>
