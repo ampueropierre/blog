@@ -78,7 +78,7 @@ class Backend
 		$imgName = $postManager->getPost($id)->getImg();
 		if (unlink($imgName)) {
 			$postManager->delete($id);
-			header('Location: admin/posts?success=delete');
+			header('Location: admin/posts&success=delete');
 		}	
 	}
 
