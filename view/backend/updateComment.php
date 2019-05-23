@@ -1,9 +1,6 @@
-<?php
-ob_start();
-?>
-<div>
-	<h3>Le commentaire</h3>
-</div>
+<?php ob_start(); ?>
+<h3>Le commentaire</h3>
+
 <p>L'auteur : </p>
 <p><?= $comment->getAuthor()->getFirstname().' '.$comment->getAuthor()->getLastname()?></p>
 <p>Le commentaire :</p>
@@ -26,5 +23,5 @@ ob_start();
 </fosrm>
 <?php
 $content = ob_get_clean();
-require('view/template/post.php');
+require('view/template/page.php');
 ?>

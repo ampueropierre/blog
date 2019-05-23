@@ -29,5 +29,5 @@
 
 <?php
 $content = ob_get_clean();
-require('view/template/post.php');
+require('view/template/page.php');
 ?>

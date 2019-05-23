@@ -12,4 +12,5 @@ RewriteRule ^admin/comments$ ?action=listComment
 RewriteRule ^admin/comments/update/([0-9]+)$ ?action=updateComment&id=$1
 RewriteRule ^admin/comments/delete/([0-9]+)$ ?action=deleteComment&id=$1
 RewriteRule ^admin/users$ ?action=listUser
+RewriteRule ^admin/users/update/([0-9]+)$ ?action=updateUser&id=$1
 RewriteRule ^admin/users/delete/([0-9]+)$ ?action=deleteUser&id=$1

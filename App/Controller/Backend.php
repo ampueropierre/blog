@@ -199,22 +199,35 @@ class Backend
 		$title = 'Liste des Utilisateurs';
 		$userManager = new UserManager();
 		$users = $userManager->getUsers();
+
+		require 'view/backend/listUser.php';
+	}
+
+	public function updateUser($id) {
+		$userSession = $this->userSession();
+		if($userSession == null || $userSession->getRole() > 1) {
+			require 'view/404.php';
+			exit;
+		}
+
+		$title = 'Modifier un Utilisateur';
+		$userManager = new UserManager();
+		$user = $userManager->getUser($id);
 		if (isset($_POST['update'])) {
 			$userValidator = new UserValidator($_POST);
 			if (empty($userValidator->getErrors())) {
-				$user = new User([
+				$userUpdate = new User([
 					'role' => $_POST['role'],
-					'id' => $_POST['id']
+					'id' => $user->getId()
 				]);
-				$userManager->updateRole($user);
-				header('Location: ?action=listUser');
-				$updateRole = true;
+				$userManager->updateRole($userUpdate);
+				$success = true;
 			} else {
-				$errors = $userValidator->getErrors();
+				$errors = $commentValidator->getErrors();
 			}
 		}
 
-		require 'view/backend/listUser.php';
+		require 'view/backend/updateUser.php';
 	}
 
 	public function deleteUser($id)

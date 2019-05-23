@@ -63,6 +63,9 @@ try
 		elseif ($_GET['action'] == 'listUser') {
 			$backend->listUser();
 		}
+		elseif ($_GET['action'] == 'updateUser' && isset($_GET['id'])) {
+			$backend->updateUser($_GET['id']);
+		}
 		elseif ($_GET['action'] == 'deleteUser' && isset($_GET['id'])) {
 			$backend->deleteUser($_GET['id']);
 		}

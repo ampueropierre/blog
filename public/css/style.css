@@ -234,7 +234,7 @@ header.masthead {
     header.masthead .post-heading h1,
     header.masthead .page-heading h1 {
       display: inline-block;
-      font-size: 50px;
+      font-size: 30px;
       margin: 0;
       padding: 18px 40px;
       background-color: #000;
@@ -244,7 +244,7 @@ header.masthead {
     @media only screen and (min-width: 768px) {
       header.masthead .post-heading h1,
       header.masthead .page-heading h1 {
-        font-size: 80px;
+        font-size: 50px;
         position: relative;
         top: 0px; } }
   header.masthead .post-heading h1 {
