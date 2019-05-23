@@ -2,7 +2,6 @@
 header.masthead {
   // TIP: Background images are set within the HTML using inline CSS!
   min-height: 250px;
-  margin-bottom: 20px;
   background: no-repeat center center;
   background-color: $black;
   background-attachment: scroll;
@@ -67,6 +66,5 @@ header.masthead {
   }
   @media only screen and (min-width: 768px) {
     min-height: 350px;
-    margin-bottom: 50px;
   }
 }

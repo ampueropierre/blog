@@ -71,6 +71,9 @@ img::-moz-selection {
   color: #fff;
   background: transparent; }
 
+main {
+  padding: 50px 0; }
+
 #mainNav {
   position: absolute;
   border-bottom: 1px solid #e9ecef;
@@ -158,7 +161,6 @@ img::-moz-selection {
 
 header.masthead {
   min-height: 250px;
-  margin-bottom: 20px;
   background: no-repeat center center;
   background-color: #000;
   background-attachment: scroll;
@@ -216,8 +218,7 @@ header.masthead {
       font-size: 30px; } }
   @media only screen and (min-width: 768px) {
     header.masthead {
-      min-height: 350px;
-      margin-bottom: 50px; } }
+      min-height: 350px; } }
 
 .home-heading {
   color: white; }
@@ -304,6 +305,15 @@ header.masthead {
 @media only screen and (min-width: 768px) {
   .post-preview > a > .post-title {
     font-size: 36px; } }
+
+.bloc-add-comment {
+  background-color: #f0f0f0;
+  padding: 40px 20px; }
+  .bloc-add-comment h3 {
+    font-size: 25px;
+    letter-spacing: -1px; }
+  .bloc-add-comment form {
+    width: 300px; }
 
 .floating-label-form-group {
   font-size: 14px;
@@ -394,14 +404,5 @@ table {
 .btn-lg {
   font-size: 16px;
   padding: 25px 35px; }
-
-.bloc-add-comment {
-  background-color: #f0f0f0;
-  padding: 40px 20px; }
-  .bloc-add-comment h3 {
-    font-size: 25px;
-    letter-spacing: -1px; }
-  .bloc-add-comment form {
-    width: 300px; }
 
 /*# sourceMappingURL=style.css.map */
