@@ -3,7 +3,7 @@
   <header class="masthead d-flex align-items-center" style="background-image: url('public/img/home-bg.png')">
     <div class="container">
       <div class="row">
-          <div class="site-heading">
+          <div class="page-heading">
             <h1><?= $title ?></h1>
           </div>
         </div>
