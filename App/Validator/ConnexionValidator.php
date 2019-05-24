@@ -7,8 +7,8 @@ namespace App\Validator;
  */
 class ConnexionValidator extends Validator
 {
-	const MAIL_EMPTY = 'Le champ est vide';
-	const PASSWORD_EMPTY = 'Le champ est vide';
+	const MAIL_EMPTY = '*Le champ mail est vide';
+	const PASSWORD_EMPTY = '*Le champ mot de passe est vide';
 
 	public function checkMail($mail)
 	{

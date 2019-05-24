@@ -35,7 +35,7 @@ class Frontend
 		$postManager = new PostManager();
 
 		$title = 'Blog';
-		$posts = $postManager->getPosts();
+		$posts = $postManager->listPosts();
 
 		require('view/frontend/blog.php');
 	}

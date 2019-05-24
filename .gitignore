@@ -2,3 +2,5 @@ public/.sass-cache
 public/.sass-cache/*
 private/img/*
 public/css/style.css.map
+
+/vendor

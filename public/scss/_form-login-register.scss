@@ -1,0 +1,13 @@
+.form-login-register {
+	font-family: 'Raleway';
+	.title-form {
+		margin-bottom: 20px;
+	} 
+	label {
+		font-size: 13px;
+		text-transform: uppercase;
+		color: $gray-600;
+		font-weight: 800;
+		letter-spacing: 2px;
+	}
+}

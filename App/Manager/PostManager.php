@@ -6,14 +6,16 @@ use App\Manager\UserManager;
 
 class PostManager extends Manager
 {
-	public function getPosts()
+	public function ListPosts()
 	{
 		$db = $this->dbConnect();
-		$req = $db->query('SELECT id, title, chapo, date_modification as dateModification FROM posts ORDER BY dateModification DESC LIMIT 0,5');
+		$req = $db->query('SELECT id,author_id AS authorId, title, chapo, date_modification as dateModification FROM posts ORDER BY dateModification DESC');
 		$req->setFetchMode(\PDO::FETCH_CLASS|\PDO::FETCH_PROPS_LATE, 'App\Model\Post');
 		$posts = $req->fetchAll();
+		$userManager = new UserManager();
 		foreach ($posts as $post) {
 			$post->setDateModification(new \DateTime($post->getDateModification(), new \DateTimeZone('Europe/Paris')));
+			$post->setAuthor($userManager->getUser($post->getAuthorId()));
 		}
 
 		return $posts;

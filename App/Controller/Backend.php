@@ -25,7 +25,7 @@ class Backend
 		}
 		$title = 'Liste des Postes';
 		$postManager = new PostManager();
-		$posts = $postManager->getPosts();
+		$posts = $postManager->listPosts();
 		require 'view/backend/listPost.php';
 	}
 

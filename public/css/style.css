@@ -74,6 +74,9 @@ img::-moz-selection {
 main {
   padding: 50px 0; }
 
+.msg-error {
+  font-size: 12px; }
+
 #mainNav {
   position: absolute;
   border-bottom: 1px solid #e9ecef;
@@ -437,5 +440,16 @@ footer {
 .btn-lg {
   font-size: 16px;
   padding: 25px 35px; }
+
+.form-login-register {
+  font-family: 'Raleway'; }
+  .form-login-register .title-form {
+    margin-bottom: 20px; }
+  .form-login-register label {
+    font-size: 13px;
+    text-transform: uppercase;
+    color: #868e96;
+    font-weight: 800;
+    letter-spacing: 2px; }
 
 /*# sourceMappingURL=style.css.map */
