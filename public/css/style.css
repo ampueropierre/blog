@@ -24,7 +24,7 @@ h4,
 h5,
 h6 {
   font-weight: 800;
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+  font-family: 'Raleway', 'Helvetica Neue', Helvetica, Arial, sans-serif; }
 
 a {
   color: #212529;
@@ -81,7 +81,7 @@ main {
   position: absolute;
   border-bottom: 1px solid #e9ecef;
   background-color: white;
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+  font-family: 'Raleway', 'Helvetica Neue', Helvetica, Arial, sans-serif; }
   #mainNav .navbar-brand {
     font-size: 1rem;
     color: black;
@@ -94,13 +94,27 @@ main {
     color: black; }
   #mainNav .navbar-nav > li.nav-item > a {
     color: black;
-    font-family: 'Raleway', sans-serif;
     font-weight: 500;
     font-size: 12px;
     letter-spacing: 1px;
     text-transform: uppercase; }
+  #mainNav .navbar-nav > li.nav-item .nav-connexion {
+    color: #fff;
+    background: #015a8e;
+    text-decoration: none;
+    padding: 10px 15px; }
+  #mainNav .navbar-nav > li.nav-item .nav-mail {
+    color: #000;
+    font-size: 12px;
+    text-transform: lowercase;
+    text-decoration: none; }
+    @media only screen and (min-width: 992px) {
+      #mainNav .navbar-nav > li.nav-item .nav-mail {
+        color: #fff; } }
   #mainNav .navbar-nav > li.nav-item .nav-deco {
-    color: #dc3545;
+    background: #dc3545;
+    color: white;
+    padding: 10px 15px;
     text-transform: capitalize;
     text-decoration: none; }
   @media only screen and (min-width: 992px) {
@@ -114,6 +128,8 @@ main {
           color: rgba(255, 255, 255, 0.8); }
       #mainNav .navbar-nav > li.nav-item > a {
         padding: 10px 20px;
+        color: #fff; }
+      #mainNav .navbar-nav > li.nav-item .nav-connexion {
         color: #fff; } }
   @media only screen and (min-width: 992px) {
     #mainNav {
@@ -142,8 +158,14 @@ main {
             color: #0275D3; }
         #mainNav.is-fixed .navbar-nav > li.nav-item > a {
           color: black; }
-          #mainNav.is-fixed .navbar-nav > li.nav-item > a:focus, #mainNav.is-fixed .navbar-nav > li.nav-item > a:hover {
-            color: #0275D3; }
+        #mainNav.is-fixed .navbar-nav > li.nav-item .nav-deco {
+          background: #dc3545;
+          color: white;
+          padding: 10px 15px;
+          text-transform: capitalize;
+          text-decoration: none; }
+        #mainNav.is-fixed .navbar-nav > li.nav-item .nav-connexion {
+          color: #fff; }
       #mainNav.is-visible {
         /* if the user changes the scrolling direction, we show the header */
         -webkit-transform: translate3d(0, 100%, 0);
@@ -151,16 +173,6 @@ main {
         -ms-transform: translate3d(0, 100%, 0);
         -o-transform: translate3d(0, 100%, 0);
         transform: translate3d(0, 100%, 0); } }
-
-.nav-info {
-  color: #000;
-  font-size: 12px; }
-  @media only screen and (min-width: 992px) {
-    .nav-info {
-      color: #fff; } }
-
-.nav-deco {
-  color: #dc3545; }
 
 header.masthead {
   min-height: 250px;
@@ -259,7 +271,7 @@ header.masthead {
     font-weight: 300;
     position: relative;
     top: 25px;
-    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+    font-family: 'Raleway', 'Helvetica Neue', Helvetica, Arial, sans-serif; }
   @media only screen and (min-width: 768px) {
     header.masthead .post-heading h1 {
       font-size: 40px; }
@@ -427,7 +439,7 @@ footer {
   letter-spacing: 1px;
   text-transform: uppercase;
   border-radius: 0;
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+  font-family: 'Raleway', 'Helvetica Neue', Helvetica, Arial, sans-serif; }
 
 .btn-primary {
   background-color: #0275D3;

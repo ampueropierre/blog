@@ -20,14 +20,30 @@
     > li.nav-item {
       > a {
         color:black;
-        font-family: 'Raleway', sans-serif;
         font-weight: 500;
         font-size: 12px;
         letter-spacing: 1px;
         text-transform: uppercase;
       }
+      .nav-connexion {
+        color: $white;
+        background: rgb(1, 90, 142);
+        text-decoration:none;
+        padding: 10px 15px
+      }
+      .nav-mail {
+        color: $black;
+        font-size: 12px;
+        text-transform: lowercase;
+        text-decoration: none;
+        @media only screen and (min-width: 992px) {
+          color: $white;
+        }
+      }
       .nav-deco {
-        color: $red;
+        background: $red;
+        color: white;
+        padding: 10px 15px;
         text-transform: capitalize;
         text-decoration: none;
       }
@@ -49,16 +65,10 @@
         > a {
           padding: 10px 20px;
           color: $white;
-          // &:focus,
-          // &:hover {
-          //   color: fade-out($white, .2);
-          // }
         }
-        // .nav-deco {
-        //   color: $red;
-        //   text-transform: capitalize;
-        //   text-decoration: none;
-        // }
+        .nav-connexion {
+          color:$white;
+        }
       }
     }
   }
@@ -93,10 +103,20 @@
         > li.nav-item {
           > a {
             color: black;
-            &:focus,
-            &:hover {
-              color: $primary;
-            }
+            // &:focus,
+            // &:hover {
+            //   color: $primary;
+            // }
+          }
+          .nav-deco {
+            background: $red;
+            color: white;
+            padding: 10px 15px;
+            text-transform: capitalize;
+            text-decoration: none;
+          }
+          .nav-connexion {
+            color:$white;
           }
         }
       }
@@ -110,17 +130,4 @@
       transform: translate3d(0, 100%, 0);
     }
   }
-}
-
-
-.nav-info {
-  color: $black;
-  font-size: 12px;
-  @media only screen and (min-width: 992px) {
-    color: $white;
-  }
-}
-
-.nav-deco {
-  color: $red;
 }
