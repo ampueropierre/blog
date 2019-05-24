@@ -5,6 +5,7 @@
       <div class="row">
           <div class="post-heading">
             <h1><?= $title ?></h1>
+            <h2 class="subheading"><?= $post->getChapo() ?></h2>
           </div>
         </div>
       </div>

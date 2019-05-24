@@ -14,7 +14,7 @@ class CommentManager extends Manager
 		$req->execute();
 		$req->setFetchMode(\PDO::FETCH_CLASS|\PDO::FETCH_PROPS_LATE, 'App\Model\Comment');
 		$comments =	$req->fetchAll();
-
+		
 		$userManager = new UserManager();
 
 		foreach ($comments as $comment) {
