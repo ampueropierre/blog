@@ -72,7 +72,7 @@ class Frontend
 
 	public function connexion()
 	{
-		$title = 'connexion';
+		$title = 'Connexion';
 
 		if (isset($_POST['connexion'])) {
 			$userManager = new UserManager();
