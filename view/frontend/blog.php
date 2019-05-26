@@ -10,7 +10,7 @@
 		</h3>
 	</a>
 	<p class="post-meta">
-		Dernière modification le <?= $post->getDateModification()->format('d F Y à H:i:s') ?>
+		Dernière modification le <?= $post->getDateModification()->format('d F Y') ?>
 	</p>
 </div>
 <hr>

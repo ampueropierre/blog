@@ -6,7 +6,7 @@
 <?php endif ?>
 <div class="post-view">
 	<div class="information">
-		<p class="meta mb-4">Posté par <?= $post->getAuthor()->getFirstname().' '.$post->getAuthor()->getLastname() ?> - <?= $post->getDateModification()->format('d F Y') ?>
+		<p class="meta mb-4">Posté par <?= $post->getAuthor()->getFirstname().' '.$post->getAuthor()->getLastname() ?> - <?= $post->getDateCreation()->format('d F Y') ?>
 		</p>
 	</div>
 	<div class="img-post">

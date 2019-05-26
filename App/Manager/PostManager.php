@@ -6,10 +6,10 @@ use App\Manager\UserManager;
 
 class PostManager extends Manager
 {
-	public function ListPosts()
+	public function getListOf()
 	{
 		$db = $this->dbConnect();
-		$req = $db->query('SELECT id,author_id AS authorId, title, chapo, date_modification as dateModification FROM posts ORDER BY dateModification DESC');
+		$req = $db->query('SELECT id,author_id AS authorId, title, chapo, date_modification AS dateModification FROM posts ORDER BY dateModification DESC');
 		$req->setFetchMode(\PDO::FETCH_CLASS|\PDO::FETCH_PROPS_LATE, 'App\Model\Post');
 		$posts = $req->fetchAll();
 		$userManager = new UserManager();
@@ -24,14 +24,14 @@ class PostManager extends Manager
 	public function getPost($postId)
 	{
 		$db = $this->dbConnect();
-		$req = $db->prepare('SELECT id, author_id AS authorId, title, chapo, img, content, date_modification as dateModification FROM posts WHERE id =:id');
+		$req = $db->prepare('SELECT id, author_id AS authorId, title, chapo, img, content, date_creation as dateCreation FROM posts WHERE id =:id');
 		$req->bindValue(':id', $postId);
 		$req->execute();
 
 		$req->setFetchMode(\PDO::FETCH_CLASS|\PDO::FETCH_PROPS_LATE, 'App\Model\Post');
 		$post = $req->fetch();
 
-		$post->setDateModification(new \DateTime($post->getDateModification(), new \DateTimeZone('Europe/Paris')));
+		$post->setDateCreation(new \DateTime($post->getDateCreation(), new \DateTimeZone('Europe/Paris')));
 
 		$userManager = new UserManager();
 		$post->setAuthor($userManager->getUser($post->getAuthorId()));

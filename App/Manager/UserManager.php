@@ -28,7 +28,7 @@ class UserManager extends Manager
 	public function getUser($id)
 	{
 		$db = $this->dbConnect();
-		$req = $db->prepare('SELECT id, firstname, lastname, mail, role FROM users WHERE id = :id');
+		$req = $db->prepare('SELECT id, firstname, lastname, password, mail, role FROM users WHERE id = :id');
 		$req->bindValue(':id', $id);
 		$req->execute();
 
@@ -38,7 +38,7 @@ class UserManager extends Manager
 		return $user;
 	}
 
-	public function getUsers()
+	public function getListOf()
 	{
 		$db = $this->dbConnect();
 		$req = $db->query('SELECT id, firstname, lastname, mail, password, role FROM users');
@@ -68,10 +68,9 @@ class UserManager extends Manager
 		$req->bindValue(':password', password_hash($user->getPassword(), PASSWORD_DEFAULT));
 		$req->execute();
 
-		$user->setId($db->lastInsertId());
+		$user = $this->getUser($db->lastInsertId());
 
 		return $user;
-
 	}
 
 	public function update(User $user)
@@ -84,7 +83,6 @@ class UserManager extends Manager
 		$req->bindValue(':id', $user->getId());
 
 		$req->execute();
-
 	}
 
 	public function updateRole(User $user)
@@ -96,7 +94,6 @@ class UserManager extends Manager
 		$req->bindValue(':id', $user->getId());
 
 		$req->execute();
-
 	}
 
 	public function delete(int $id)

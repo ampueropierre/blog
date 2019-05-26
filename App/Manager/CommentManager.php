@@ -6,7 +6,7 @@ use App\Manager\UserManager;
 
 class CommentManager extends Manager
 {
-	public function getCommentsValide($postId)
+	public function getListOfValide($postId)
 	{
 		$db = $this->dbConnect();
 		$req = $db->prepare('SELECT id, post_id AS postId, author_id AS authorId, status, comment, comment_date AS commentDate FROM comments WHERE post_id = :id AND status = 1 ORDER BY commentDate DESC');
@@ -70,7 +70,7 @@ class CommentManager extends Manager
 		return $comment;
 	}
 
-	public function listComment()
+	public function getListOf()
 	{	
 		$db = $this->dbConnect();
 		$req = $db->query('SELECT id, author_id, status, comment, comment_date as commentDate FROM comments ORDER BY commentDate DESC');

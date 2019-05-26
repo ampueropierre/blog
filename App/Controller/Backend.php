@@ -25,7 +25,7 @@ class Backend
 		}
 		$title = 'Liste des Postes';
 		$postManager = new PostManager();
-		$posts = $postManager->listPosts();
+		$posts = $postManager->getListOf();
 		require 'view/backend/listPost.php';
 	}
 
@@ -78,7 +78,6 @@ class Backend
 		$imgName = $postManager->getPost($id)->getImg();
 		if (unlink($imgName)) {
 			$postManager->delete($id);
-			header('Location: admin/posts&success=delete');
 		}	
 	}
 
@@ -144,7 +143,7 @@ class Backend
 		}
 		$title = 'Liste des Commentaires';
 		$commentManager = new CommentManager();
-		$comments = $commentManager->listComment();
+		$comments = $commentManager->getListOf();
 		require 'view/backend/listComment.php';
 	}
 
@@ -185,7 +184,6 @@ class Backend
 
 		$commentManager = new CommentManager();
 		$commentManager->delete($id);
-		header('Location: admin/comments');
 	}
 
 	public function listUser()
@@ -198,7 +196,7 @@ class Backend
 
 		$title = 'Liste des Utilisateurs';
 		$userManager = new UserManager();
-		$users = $userManager->getUsers();
+		$users = $userManager->getListOf();
 
 		require 'view/backend/listUser.php';
 	}
@@ -239,8 +237,7 @@ class Backend
 		}
 
 		$commentManager = new UserManager();
-		$commentManager->delete($id);
-		header('Location: admin/users?delete=success');
+		$commentManager->delete($id);	
 	}
 
 	private function userSession()

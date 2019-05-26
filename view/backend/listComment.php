@@ -22,7 +22,7 @@
 				<td><?= $comment->getCommentDate()->format('d/m/Y à H:i:s') ?></td>
 				<td>
 					<a href="admin/comments/update/<?= $comment->getId() ?>" class="btn btn-outline-primary mr-2">Modifier</a>
-					<a href="admin/comments/delete/<?= $comment->getId() ?>" class="btn btn-outline-danger">Supprimer</a>
+					<a href="admin/comments/delete/<?= $comment->getId() ?>" class="btn btn-outline-danger delete-comment">Supprimer</a>
 				</td>
 			</tr>
 			<?php endif ?>
@@ -55,7 +55,7 @@
 				<td><?= $comment->getCommentDate()->format('d/m/Y à H:i:s') ?></td>
 				<td>
 					<a href="admin/comments/update/<?= $comment->getId() ?>" class="btn btn-outline-primary mr-2">Modifier</a>
-					<a href="admin/comments/delete/<?= $comment->getId() ?>" class="btn btn-outline-danger">Supprimer</a>
+					<a href="admin/comments/delete/<?= $comment->getId() ?>" class="btn btn-outline-danger delete-comment">Supprimer</a>
 				</td>
 			</tr>
 			<?php endif ?>

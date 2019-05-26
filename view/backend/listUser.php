@@ -33,7 +33,7 @@
 				<td>
 					<?php if ($user->getRole() != 1): ?>
 					<a href="admin/users/update/<?= $user->getId() ?>" class="btn btn-outline-primary mr-2">Modifier</a>
-					<a href="admin/users/delete/<?= $user->getId() ?>" class="btn btn-outline-danger">Supprimer</a>
+					<a href="admin/users/delete/<?= $user->getId() ?>" class="btn btn-outline-danger delete-user" data-id=<?= $user->getId() ?>>Supprimer</a>
 					<?php endif ?>	
 				</td>
 			</tr>

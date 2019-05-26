@@ -21,7 +21,9 @@
 				<td><?= $post->getTitle() ?></td>
 				<td><?= $post->getAuthor()->getFirstname().' '.$post->getAuthor()->getLastname()[0] ?></td>
 				<td><?= $post->getDateModification()->format('d/m/Y à H:i:s') ?></td>
-				<td><a href="admin/posts/update/<?= $post->getId() ?>" class="btn btn-outline-primary mr-2">Modifier</a><a href="admin/posts/delete/<?= $post->getId() ?>" class="btn btn-outline-danger">Supprimer</a></td>
+				<td>
+					<a href="admin/posts/update/<?= $post->getId() ?>" class="btn btn-outline-primary mr-2">Modifier</a>
+					<a href="admin/posts/delete/<?= $post->getId() ?>" class="btn btn-outline-danger delete-post">Supprimer</a></td>
 			</tr>
 		<?php endforeach; ?>
 	</tbody>
