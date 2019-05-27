@@ -1,87 +1,36 @@
-# Project Title
+# Créer votre premier blog en PHP - P5
 
-One Paragraph of project description goes here
+Projet réalisé dans le cadre de la formation Développeur d'application - PHP / Symfony.
 
-## Getting Started
+## Pour commencer
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+Ces instructions vous fourniront une copie du projet opérationnel sur votre ordinateur local à des fins de développement et de test. 
 
-### Prerequisites
+### Prérequis
 
-What things you need to install the software and how to install them
-
-```
-Give examples
-```
-
-### Installing
-
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
+Environement nécessaire
 
 ```
-Give the example
+php 7, mysql, apache avec mod rewrite
 ```
 
-And repeat
+### Installation
+
+Cloné ce repo dans un dossier
 
 ```
-until finished
+git clone git@github.com:ampueropierre/blog.git
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
+Et
 
 ```
-Give an example
-```
+autre manip
 
-### And coding style tests
+## Logiciel utilisé
 
-Explain what these tests test and why
+* [Sublime Text](https://www.sublimetext.com/) - Éditeur de texte
 
-```
-Give an example
-```
+## Mentor
 
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
-## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
-
-## Authors
-
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+Benoit Lanselle
