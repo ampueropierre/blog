@@ -3,6 +3,7 @@ namespace App\Manager;
 
 use App\Model\Post;
 use App\Manager\UserManager;
+use App\Datetime\DateTimeFrench;
 
 class PostManager extends Manager
 {
@@ -14,7 +15,7 @@ class PostManager extends Manager
 		$posts = $req->fetchAll();
 		$userManager = new UserManager();
 		foreach ($posts as $post) {
-			$post->setDateModification(new \DateTime($post->getDateModification(), new \DateTimeZone('Europe/Paris')));
+			$post->setDateModification(new DateTimeFrench($post->getDateModification()));
 			$post->setAuthor($userManager->getUser($post->getAuthorId()));
 		}
 
@@ -31,7 +32,7 @@ class PostManager extends Manager
 		$req->setFetchMode(\PDO::FETCH_CLASS|\PDO::FETCH_PROPS_LATE, 'App\Model\Post');
 		$post = $req->fetch();
 
-		$post->setDateCreation(new \DateTime($post->getDateCreation(), new \DateTimeZone('Europe/Paris')));
+		$post->setDateCreation(new DateTimeFrench($post->getDateCreation()));
 
 		$userManager = new UserManager();
 		$post->setAuthor($userManager->getUser($post->getAuthorId()));

@@ -1,6 +1,8 @@
 <?php
 namespace App\Model;
 
+use App\Datetime\DateTimeFrench;
+
 class Post extends Model
 {
     protected $title;
@@ -89,12 +91,12 @@ class Post extends Model
 		$this->content = $content;
 	}
 
-	public function setDateCreation(\DateTime $dateCreation)
+	public function setDateCreation(DateTimeFrench $dateCreation)
 	{
 		$this->dateCreation = $dateCreation;
 	}
 
-	public function setDateModification(\DateTime $dateModification)
+	public function setDateModification(DateTimeFrench $dateModification)
 	{
 		$this->dateModification = $dateModification;
 	}

@@ -3,6 +3,7 @@ namespace App\Manager;
 
 use App\Model\Comment;
 use App\Manager\UserManager;
+use App\Datetime\DateTimeFrench;
 
 class CommentManager extends Manager
 {
@@ -18,7 +19,7 @@ class CommentManager extends Manager
 		$userManager = new UserManager();
 
 		foreach ($comments as $comment) {
-			$comment->setCommentDate(new \DateTime($comment->getCommentDate()));
+			$comment->setCommentDate(new DateTimeFrench($comment->getCommentDate()));
 			$comment->setAuthor($userManager->getUser($comment->getAuthorId()));
 		}
 
@@ -64,7 +65,7 @@ class CommentManager extends Manager
 
 		$userManager = new UserManager();
 
-		$comment->setCommentDate(new \DateTime($comment->getCommentDate()));
+		$comment->setCommentDate(new DateTimeFrench($comment->getCommentDate()));
 		$comment->setAuthor($userManager->getUser($comment->getAuthorId()));
 
 		return $comment;
@@ -78,7 +79,7 @@ class CommentManager extends Manager
 		$comments =	$req->fetchAll();
 		
 		foreach ($comments as $comment) {
-			$comment->setCommentDate(new \DateTime($comment->getCommentDate()));
+			$comment->setCommentDate(new DateTimeFrench($comment->getCommentDate()));
 		}
 
 		return $comments;

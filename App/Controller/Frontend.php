@@ -12,14 +12,15 @@ use App\Validator\CommentValidator;
 use App\Validator\ContactValidator;
 use PHPMailer\PHPMailer\PHPMailer;
 
-class Frontend
+class Frontend extends Controller
 {
 	public function home()
 	{
 		$userSession = $this->userSession();
 		$title = 'Home';
 
-		require 'view/template/home.php';
+		$this->render('','App/View/template/home.php');
+		// require 'App/View/template/home.php';
 	}
 
 	public function contact()
@@ -99,7 +100,7 @@ class Frontend
 		$postManager = new PostManager();
 		$posts = $postManager->getListOf();
 
-		require('view/frontend/blog.php');
+		$this->render('App/View/frontend/blog.php','App/View/template/page.php', compact('title','posts'));
 	}
 
 	public function post($id)
@@ -179,7 +180,7 @@ class Frontend
 				$user = $userManager->add($user);
 
 				$_SESSION['user'] = serialize($user);
-				
+
 				header('Location: posts');
 			}
 			

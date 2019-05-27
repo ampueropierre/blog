@@ -1,6 +1,8 @@
 <?php
 namespace App\Model;
 
+use App\Datetime\DateTimeFrench;
+
 class Comment extends Model
 {
 	protected $postId;
@@ -70,7 +72,7 @@ class Comment extends Model
 		$this->author = $user;
 	}
 
-	public function setCommentDate(\DateTime $commentDate)
+	public function setCommentDate(DateTimeFrench $commentDate)
 	{
 		$this->commentDate = $commentDate;
 	}

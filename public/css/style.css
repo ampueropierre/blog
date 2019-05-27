@@ -175,6 +175,7 @@ main {
         transform: translate3d(0, 100%, 0); } }
 
 header.masthead {
+  flex: 1;
   min-height: 250px;
   background: no-repeat center center;
   background-color: #000;
