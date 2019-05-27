@@ -1,9 +1,7 @@
 <?php
+
 namespace App\Model;
 
-/**
- * 
- */
 class User extends Model
 {
 	protected $firstname;
@@ -61,5 +59,4 @@ class User extends Model
 	{
 		$this->role = $role;
 	}
-
 }

@@ -1,11 +1,7 @@
 <?php
+
 namespace App\Validator;
 
-use App\Manager\PostManager;
-
-/**
- * 
- */
 class PostValidator extends Validator
 {
 	const TITLE_EMPTY = 'le champ Titre est vide';
@@ -54,5 +50,4 @@ class PostValidator extends Validator
 			$this->errors[] = self::IMG_EXT;
 		} 
 	}
-
 }

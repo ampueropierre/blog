@@ -2,7 +2,6 @@
 namespace App\Manager;
 
 use App\Model\Post;
-use App\Manager\UserManager;
 use App\Datetime\DateTimeFrench;
 
 class PostManager extends Manager

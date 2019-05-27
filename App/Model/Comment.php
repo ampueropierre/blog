@@ -81,5 +81,4 @@ class Comment extends Model
 	{
 		$this->comment = $comment;
 	}
-	
 }

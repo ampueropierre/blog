@@ -1,9 +1,7 @@
 <?php
+
 namespace App\Validator;
 
-/**
- * 
- */
 class ContactValidator extends Validator
 {
 	const NAME_EMPTY = 'Le champ Nom est vide';

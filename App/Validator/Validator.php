@@ -1,9 +1,7 @@
 <?php
+
 namespace App\Validator;
 
-/**
- * 
- */
 abstract class Validator
 {
 	protected $errors = [];
@@ -27,5 +25,4 @@ abstract class Validator
 			}
 		}
 	}
-
 }

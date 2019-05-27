@@ -1,10 +1,10 @@
 <?php
+
 namespace App\Manager;
 
 use App\Model\User;
-/**
- * 
- */
+
+
 class UserManager extends Manager
 {
 	public function getLoggedUser($mail, $password)
@@ -114,8 +114,8 @@ class UserManager extends Manager
 		if ($req->fetch(\PDO::FETCH_ASSOC) > 0)
 		{
 			return true;
-			
 		}
+
 		return false;
 	}
 }

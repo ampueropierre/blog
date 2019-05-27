@@ -2,9 +2,6 @@
 
 namespace App\Validator;
 
-/**
- * 
- */
 class ConnexionValidator extends Validator
 {
 	const MAIL_EMPTY = '*Le champ mail est vide';

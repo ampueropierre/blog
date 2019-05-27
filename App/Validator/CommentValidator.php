@@ -1,9 +1,7 @@
 <?php
+
 namespace App\Validator;
 
-/**
- * 
- */
 class CommentValidator extends Validator
 {
 	const COMMENT_EMPTY = 'le champ Commentaire est vide';

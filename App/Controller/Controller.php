@@ -1,10 +1,8 @@
 <?php
+
 namespace App\Controller;
 
-/**
- * 
- */
-class Controller
+abstract class Controller
 {
 	public function render($view,$template,$variable = [])
 	{	
@@ -18,16 +16,14 @@ class Controller
 			extract($variable);
 			require $template;
 		}
-		
 	}
 
 	protected function userSession()
 	{
-		$userSession = null;
-
-		if (isset($_SESSION['user']))
-		{
+		if (isset($_SESSION['user'])) {
 			return unserialize($_SESSION['user']);
 		}
+
+		return null;
 	}
 }

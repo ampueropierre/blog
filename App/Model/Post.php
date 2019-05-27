@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model;
 
 use App\Datetime\DateTimeFrench;
@@ -100,5 +101,4 @@ class Post extends Model
 	{
 		$this->dateModification = $dateModification;
 	}
-
 }

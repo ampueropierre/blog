@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\Manager\PostManager;
@@ -11,9 +12,6 @@ use App\Validator\PostValidator;
 use App\Validator\UserValidator;
 use App\Validator\CommentValidator;
 
-/**
- * 
- */
 class Backend extends Controller
 {
 	public function listPost()
@@ -37,6 +35,7 @@ class Backend extends Controller
 			require 'view/404.php';
 			exit;
 		}
+
 		$title = 'Ajouter un Poste';
 		if (isset($_POST['add'])) {
 			$postValidator = new PostValidator([
@@ -225,7 +224,7 @@ class Backend extends Controller
 				$userManager->updateRole($userUpdate);
 				$success = true;
 			} else {
-				$errors = $commentValidator->getErrors();
+				$errors = $userValidator->getErrors();
 			}
 		}
 
@@ -243,5 +242,4 @@ class Backend extends Controller
 		$commentManager = new UserManager();
 		$commentManager->delete($id);	
 	}
-
 }

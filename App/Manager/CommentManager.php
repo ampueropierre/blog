@@ -1,8 +1,8 @@
 <?php
+
 namespace App\Manager;
 
 use App\Model\Comment;
-use App\Manager\UserManager;
 use App\Datetime\DateTimeFrench;
 
 class CommentManager extends Manager
@@ -84,6 +84,4 @@ class CommentManager extends Manager
 
 		return $comments;
 	}
-
-
 }

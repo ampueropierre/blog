@@ -1,11 +1,9 @@
 <?php
+
 namespace App\Validator;
 
 use App\Manager\UserManager;
 
-/**
- * 
- */
 class UserValidator extends Validator
 {
 	const FIRSTNAME_EMPTY = '*Le champ prénom est vide';
