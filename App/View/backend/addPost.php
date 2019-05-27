@@ -1,4 +1,3 @@
-<?php ob_start();?>
 <?php if (isset($success)): ?>
 <div class="alert alert-success">
 	Le poste a bien été ajouté		
@@ -39,7 +38,3 @@
 		<button type="submit" class="btn btn-primary" name="add">Ajouter</button>
 	</form>
 </div>
-<?php
-$content = ob_get_clean();
-require('view/template/page.php');
-?>

@@ -19,14 +19,25 @@ class Frontend extends Controller
 		$userSession = $this->userSession();
 		$title = 'Home';
 
-		$this->render('','App/View/template/home.php');
-		// require 'App/View/template/home.php';
+		$this->render('','App/View/template/home.php',compact('userSession','title'));
+	}
+
+	public function blog()
+	{	
+		$userSession = $this->userSession();
+		$title = 'Blog';
+
+		$postManager = new PostManager();
+		$posts = $postManager->getListOf();
+
+		$this->render('App/View/frontend/blog.php','App/View/template/page.php', compact('userSession','title','posts'));
 	}
 
 	public function contact()
 	{
-		$title = 'Contact';
 		$userSession = $this->userSession();
+
+		$title = 'Contact';
 
 		if (isset($_POST['contact'])) {
 			$contactValidator = new ContactValidator($_POST);
@@ -77,11 +88,6 @@ class Frontend extends Controller
 				} else {
 					unset($_POST);
 				    $success = true;
-				    //Section 2: IMAP
-				    //Uncomment these to save your message in the 'Sent Mail' folder.
-				    #if (save_mail($mail)) {
-				    #    echo "Message saved!";
-				    #}
 				}
 			}
 			else {
@@ -89,18 +95,7 @@ class Frontend extends Controller
 			}
 		}
 
-		require 'view/frontend/contact.php';
-	}
-
-	public function blog()
-	{	
-		$userSession = $this->userSession();
-		$title = 'Blog';
-
-		$postManager = new PostManager();
-		$posts = $postManager->getListOf();
-
-		$this->render('App/View/frontend/blog.php','App/View/template/page.php', compact('title','posts'));
+		$this->render('App/View/frontend/contact.php','App/View/template/page.php', compact('userSession','title','posts','success','errors','contactValidator'));
 	}
 
 	public function post($id)
@@ -130,7 +125,7 @@ class Frontend extends Controller
 			}
 		}
 
-		require('view/frontend/postView.php');
+		$this->render('App/View/frontend/postView.php','App/View/template/post.php', compact('userSession','title','post','comments','commentSuccess','errors','commentValidator'));
 	}
 
 	public function connexion()
@@ -154,7 +149,7 @@ class Frontend extends Controller
 
 		}
 
-		require 'view/frontend/connexion.php';
+		$this->render('App/View/frontend/connexion.php','App/View/template/page.php', compact('title','userManager','connexionValidator','errors'));
 	}
 
 	
@@ -169,9 +164,9 @@ class Frontend extends Controller
 				'firstname' => $_POST['firstname'],
 				'lastname' => $_POST['lastname'],
 				'mail' => $_POST['mail'],
-				'mailExist' => $_POST['mail']
+				'mailExist' => $_POST['mail'],
+				'password' => $_POST['password']
 			]);
-
 			if (!empty($userValidator->getErrors())) {
 				$errors = $userValidator->getErrors();
 			} else {
@@ -186,7 +181,7 @@ class Frontend extends Controller
 			
 		}
 
-		require('view/frontend/createUser.php');
+		$this->render('App/View/frontend/createUser.php','App/View/template/page.php', compact('title','userValidator','errors'));
 	}
 
 	public function profil($id)
@@ -223,23 +218,14 @@ class Frontend extends Controller
 			}
 
 		}
-		require('view/frontend/profil.php');
+
+		$this->render('App/View/frontend/profil.php','App/View/template/page.php', compact('userSession','title','userManager','userValidator','userProfil','update','errors'));
 	}
 
 	public function destroy()
 	{
 		session_destroy();
-		header("Location: login");
-	}
-
-	private function userSession()
-	{
-		$userSession = null;
-
-		if (isset($_SESSION['user']))
-		{
-			return unserialize($_SESSION['user']);
-		}
+		header('Location: login');
 	}
 
 	public function page404() {

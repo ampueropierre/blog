@@ -1,4 +1,3 @@
-<?php ob_start(); ?>
 <h3 class="text-center mb-4">Liste des commentaires en attente</h3>
 
 <table class="table mb-4">
@@ -62,7 +61,3 @@
 		<?php endforeach; ?>
 	</tbody>
 </table>
-<?php
-$content = ob_get_clean();
-require('view/template/page.php');
-?>

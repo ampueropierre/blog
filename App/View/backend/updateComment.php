@@ -1,4 +1,3 @@
-<?php ob_start(); ?>
 <h3>Le commentaire</h3>
 
 <p>L'auteur : </p>
@@ -20,8 +19,4 @@
 	</div>
 	
 	<button type="submit" class="btn btn-primary" name="update">Modifier</button>
-</fosrm>
-<?php
-$content = ob_get_clean();
-require('view/template/page.php');
-?>
+</form>

@@ -1,6 +1,3 @@
-<?php
-ob_start();
-?>
 <?php if (isset($success)): ?>  
 <div class="alert alert-success">
   Le message a bien été envoyé
@@ -39,7 +36,3 @@ ob_start();
     <button type="submit" class="btn btn-primary" id="sendMessageButton" name="contact">Envoyer</button>
   </div>
 </form>
-<?php
-$content = ob_get_clean();
-require('view/template/page.php');
-?>

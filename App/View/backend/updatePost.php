@@ -1,4 +1,3 @@
-<?php ob_start();?>
 <?php if (isset($updateSuccess)): ?>
 <div class="alert alert-success">
 	<?= ($updateSuccess == 'info') ? 'Les informations ont bien été modifié' : 'L\'image a bien été modifié' ?>
@@ -58,7 +57,3 @@
 		<button type="submit" class="btn btn-primary" name="updateImg">Modifier</button>
 	</form>
 </div>
-<?php
-$content = ob_get_clean();
-require('view/template/page.php');
-?>

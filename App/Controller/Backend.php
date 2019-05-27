@@ -14,7 +14,7 @@ use App\Validator\CommentValidator;
 /**
  * 
  */
-class Backend
+class Backend extends Controller
 {
 	public function listPost()
 	{
@@ -26,7 +26,8 @@ class Backend
 		$title = 'Liste des Postes';
 		$postManager = new PostManager();
 		$posts = $postManager->getListOf();
-		require 'view/backend/listPost.php';
+
+		$this->render('App/View/backend/listPost.php','App/View/template/page.php', compact('userSession','title','posts'));
 	}
 
 	public function addPost()
@@ -64,7 +65,8 @@ class Backend
 				$errors = $postValidator->getErrors();
 			}
 		}
-		require 'view/backend/addPost.php';
+
+		$this->render('App/View/backend/addPost.php','App/View/template/page.php', compact('userSession','title','errors', 'postValidator','success'));
 	}
 
 	public function deletePost($id)
@@ -131,7 +133,7 @@ class Backend
 			}
 		}
 
-		require 'view/backend/updatePost.php';
+		$this->render('App/View/backend/updatePost.php','App/View/template/page.php', compact('userSession','title','usersAdmin','post','errors', 'postValidator','updateSuccess'));
 	}
 
 	public function listComment()
@@ -144,7 +146,8 @@ class Backend
 		$title = 'Liste des Commentaires';
 		$commentManager = new CommentManager();
 		$comments = $commentManager->getListOf();
-		require 'view/backend/listComment.php';
+		
+		$this->render('App/View/backend/listComment.php','App/View/template/page.php', compact('userSession','title','usersAdmin','comments'));
 	}
 
 	public function updateComment($id)
@@ -171,7 +174,8 @@ class Backend
 				$errors = $commentValidator->getErrors();
 			}
 		}
-		require 'view/backend/updateComment.php';
+
+		$this->render('App/View/backend/updateComment.php','App/View/template/page.php', compact('userSession','title','comment','commentValidator','errors'));
 	}
 
 	public function deleteComment($id)
@@ -198,7 +202,7 @@ class Backend
 		$userManager = new UserManager();
 		$users = $userManager->getListOf();
 
-		require 'view/backend/listUser.php';
+		$this->render('App/View/backend/listUser.php','App/View/template/page.php', compact('userSession','title','users'));
 	}
 
 	public function updateUser($id) {
@@ -225,7 +229,7 @@ class Backend
 			}
 		}
 
-		require 'view/backend/updateUser.php';
+		$this->render('App/View/backend/updateUser.php','App/View/template/page.php', compact('userSession','title','user','errors','userValidator'));
 	}
 
 	public function deleteUser($id)
@@ -238,16 +242,6 @@ class Backend
 
 		$commentManager = new UserManager();
 		$commentManager->delete($id);	
-	}
-
-	private function userSession()
-	{
-		$userSession = null;
-
-		if (isset($_SESSION['user']))
-		{
-			return unserialize($_SESSION['user']);
-		}
 	}
 
 }

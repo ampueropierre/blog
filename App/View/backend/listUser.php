@@ -1,4 +1,3 @@
-<?php ob_start(); ?>
 <table class="table">
 	<thead class="thead-light">
 		<tr>
@@ -40,7 +39,3 @@
 		<?php endforeach; ?>
 	</tbody>
 </table>
-<?php
-$content = ob_get_clean();
-require('view/template/page.php');
-?>

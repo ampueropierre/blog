@@ -1,9 +1,3 @@
-<?php ob_start(); ?>
-<?php if (isset($_GET['success'])):?>
-<div class="alert alert-success" role="alert">
-	Le poste a bien été supprimer
-</div>
-<?php endif; ?>
 <a href="admin/posts/add" class="btn btn-primary mb-3">Ajouter un poste</a>
 
 <table class="table">
@@ -28,8 +22,3 @@
 		<?php endforeach; ?>
 	</tbody>
 </table>
-
-<?php
-$content = ob_get_clean();
-require('view/template/page.php');
-?>

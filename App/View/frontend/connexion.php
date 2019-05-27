@@ -1,4 +1,3 @@
-<?php ob_start(); ?>
 <div class="form-login-register">
 	<div class="row justify-content-center">
 		<div class="col-md-8">
@@ -29,9 +28,3 @@
 		</div>
 	</div>
 </div>
-
-
-<?php
-$content = ob_get_clean();
-require 'view/template/page.php';
-?>
