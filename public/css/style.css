@@ -116,7 +116,8 @@ main {
     color: white;
     padding: 10px 15px;
     text-transform: capitalize;
-    text-decoration: none; }
+    text-decoration: none;
+    border-radius: 6px; }
   @media only screen and (min-width: 992px) {
     #mainNav {
       border-bottom: 1px solid transparent;

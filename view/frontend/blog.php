@@ -1,4 +1,3 @@
-<?php ob_start();?>
 <?php foreach ($posts as $post): ?>
 <div class="post-preview">
 	<a href="posts/<?= $post->getId() ?>">
@@ -15,7 +14,3 @@
 </div>
 <hr>
 <?php endforeach ?>
-<?php
-$content= ob_get_clean();
-require('view/template/page.php');
-?>

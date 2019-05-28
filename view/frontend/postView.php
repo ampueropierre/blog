@@ -1,4 +1,3 @@
-<?php ob_start(); ?>
 <?php if (isset($commentSuccess)): ?>
 <div class="alert alert-success">
 	Votre commentaire a bien été ajouté et en attente de validation.
@@ -51,10 +50,4 @@
 	<?php endforeach;?>
 	</div>
 </div>
-
-<?php 
-$content= ob_get_clean();
-require('view/template/post.php');
-?>
-
 

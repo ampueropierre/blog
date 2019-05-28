@@ -1,4 +1,3 @@
-<?php ob_start(); ?>
 <?php if (isset($update)):?>
 <div class="alert alert-success" role="alert">
 	le compte a bien été modifié
@@ -38,7 +37,3 @@
 		</div>
 	</div>
 </div>
-<?php
-$content = ob_get_clean();
-require 'view/template/page.php';
-?>

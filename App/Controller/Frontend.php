@@ -21,7 +21,7 @@ class Frontend extends Controller
 		$userSession = $this->userSession();
 		$title = 'Home';
 
-		$this->render('','App/View/template/home.php',compact('userSession','title'));
+		$this->render('','view/template/home.php',compact('userSession','title'));
 	}
 
 	public function blog()
@@ -32,7 +32,7 @@ class Frontend extends Controller
 		$postManager = new PostManager();
 		$posts = $postManager->getListOf();
 
-		$this->render('App/View/frontend/blog.php','App/View/template/page.php', compact('userSession','title','posts'));
+		$this->render('view/frontend/blog.php','view/template/page.php', compact('userSession','title','posts'));
 	}
 
 	public function contact()
@@ -57,7 +57,7 @@ class Frontend extends Controller
 			}
 		}
 
-		$this->render('App/View/frontend/contact.php','App/View/template/page.php', compact('userSession','title','posts','success','errors','contactValidator'));
+		$this->render('view/frontend/contact.php','view/template/page.php', compact('userSession','title','posts','success','errors','contactValidator'));
 	}
 
 	public function post($id)
@@ -87,7 +87,7 @@ class Frontend extends Controller
 			}
 		}
 
-		$this->render('App/View/frontend/postView.php','App/View/template/post.php', compact('userSession','title','post','comments','commentSuccess','errors','commentValidator'));
+		$this->render('view/frontend/postView.php','view/template/post.php', compact('userSession','title','post','comments','commentSuccess','errors','commentValidator'));
 	}
 
 	public function connexion()
@@ -110,7 +110,7 @@ class Frontend extends Controller
 			}
 		}
 
-		$this->render('App/View/frontend/connexion.php','App/View/template/page.php', compact('title','userManager','connexionValidator','errors'));
+		$this->render('view/frontend/connexion.php','view/template/page.php', compact('title','userManager','connexionValidator','errors'));
 	}
 
 	
@@ -140,7 +140,7 @@ class Frontend extends Controller
 			}
 		}
 
-		$this->render('App/View/frontend/createUser.php','App/View/template/page.php', compact('title','userValidator','errors'));
+		$this->render('view/frontend/createUser.php','view/template/page.php', compact('title','userValidator','errors'));
 	}
 
 	public function profil($id)
@@ -177,7 +177,7 @@ class Frontend extends Controller
 			}
 		}
 
-		$this->render('App/View/frontend/profil.php','App/View/template/page.php', compact('userSession','title','userManager','userValidator','userProfil','update','errors'));
+		$this->render('view/frontend/profil.php','view/template/page.php', compact('userSession','title','userManager','userValidator','userProfil','update','errors'));
 	}
 
 	public function destroy()

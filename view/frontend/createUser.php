@@ -1,4 +1,3 @@
-<?php ob_start(); ?>
 <div class="form-login-register">
 	<div class="row justify-content-center">
 		<div class="col-md-8">
@@ -30,7 +29,6 @@
 					<label>Mot de Passe :</label>
 					<input class="form-control" type="password" name="password">
 					<?php if (isset($errors) && in_array($userValidator::PASSWORD_EMPTY, $errors)): ?>
-					cool
 					<span class="msg-error text-danger"><?= $userValidator::PASSWORD_EMPTY ?></span>
 					<?php elseif (isset($errors) && in_array($userValidator::PASSWORD_LENGHT, $errors)): ?>
 					<span class="msg-error text-danger"><?= $userValidator::PASSWORD_LENGHT ?></span>
@@ -43,7 +41,3 @@
 		</div>	
 	</div>
 </div>
-<?php
-$content = ob_get_clean();
-require 'view/template/page.php';
-?>
