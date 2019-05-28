@@ -25,7 +25,7 @@ class Backend extends Controller
 		$postManager = new PostManager();
 		$posts = $postManager->getListOf();
 
-		$this->render('App/View/backend/listPost.php','App/View/template/page.php', compact('userSession','title','posts'));
+		$this->render('view/backend/listPost.php','view/template/page.php', compact('userSession','title','posts'));
 	}
 
 	public function addPost()
@@ -65,7 +65,7 @@ class Backend extends Controller
 			}
 		}
 
-		$this->render('App/View/backend/addPost.php','App/View/template/page.php', compact('userSession','title','errors', 'postValidator','success'));
+		$this->render('view/backend/addPost.php','view/template/page.php', compact('userSession','title','errors', 'postValidator','success'));
 	}
 
 	public function deletePost($id)
@@ -132,7 +132,7 @@ class Backend extends Controller
 			}
 		}
 
-		$this->render('App/View/backend/updatePost.php','App/View/template/page.php', compact('userSession','title','usersAdmin','post','errors', 'postValidator','updateSuccess'));
+		$this->render('view/backend/updatePost.php','view/template/page.php', compact('userSession','title','usersAdmin','post','errors', 'postValidator','updateSuccess'));
 	}
 
 	public function listComment()
@@ -146,7 +146,7 @@ class Backend extends Controller
 		$commentManager = new CommentManager();
 		$comments = $commentManager->getListOf();
 		
-		$this->render('App/View/backend/listComment.php','App/View/template/page.php', compact('userSession','title','usersAdmin','comments'));
+		$this->render('view/backend/listComment.php','view/template/page.php', compact('userSession','title','usersAdmin','comments'));
 	}
 
 	public function updateComment($id)
@@ -174,7 +174,7 @@ class Backend extends Controller
 			}
 		}
 
-		$this->render('App/View/backend/updateComment.php','App/View/template/page.php', compact('userSession','title','comment','commentValidator','errors'));
+		$this->render('view/backend/updateComment.php','view/template/page.php', compact('userSession','title','comment','commentValidator','errors'));
 	}
 
 	public function deleteComment($id)
@@ -201,7 +201,7 @@ class Backend extends Controller
 		$userManager = new UserManager();
 		$users = $userManager->getListOf();
 
-		$this->render('App/View/backend/listUser.php','App/View/template/page.php', compact('userSession','title','users'));
+		$this->render('view/backend/listUser.php','view/template/page.php', compact('userSession','title','users'));
 	}
 
 	public function updateUser($id) {
@@ -228,7 +228,7 @@ class Backend extends Controller
 			}
 		}
 
-		$this->render('App/View/backend/updateUser.php','App/View/template/page.php', compact('userSession','title','user','errors','userValidator'));
+		$this->render('view/backend/updateUser.php','view/template/page.php', compact('userSession','title','user','errors','userValidator'));
 	}
 
 	public function deleteUser($id)
