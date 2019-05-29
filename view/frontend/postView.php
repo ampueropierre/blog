@@ -22,7 +22,7 @@
 		<form action="" method="post">
 			<div class="form-group">
 				<label for="comment">Votre commentaire</label>
-				<textarea name="comment" class="form-control" id="comment" cols="20" rows="5"></textarea>
+				<textarea name="content" class="form-control" id="comment" cols="20" rows="5"></textarea>
 				<?php if (isset($errors) && in_array($commentValidator::COMMENT_EMPTY, $errors)): ?>
 				<span class="text-danger"><?= $commentValidator::COMMENT_EMPTY  ?></span>
 				<?php endif; ?>

@@ -67,8 +67,8 @@ class Comment extends Model
 		$this->commentDate = $commentDate;
 	}
 
-	public function setContent(string $comment)
+	public function setContent(string $content)
 	{
-		$this->comment = $comment;
+		$this->content = $content;
 	}
 }

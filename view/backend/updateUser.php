@@ -3,6 +3,9 @@
 	Le Rôle a bien été modifié
 </div>
 <?php endif ?>
+<?php
+var_dump($_POST);
+?>
 <div class="row mb-3">
 	<div class="col-md-2">Prénom :</div>
 	<div class="col-md-10"><?= $user->getFirstname() ?></div>
@@ -22,8 +25,14 @@
 		<div class="col-md-10">
 			<select class="form-control" id="role" name="role">
 				<?php foreach ($roles as $role): ?>
-					<option value="<?= $role['id'] ?>" <?= ($user->getRolesId() == $role['id']) ? 'selected' : '' ?>><?= $role['name'] ?></option>
-				<?php endforeach ?>
+					<option value="<?= $role['id'] ?>"
+					<?php if ($user->getRolesId() == $role['id']): ?>
+						selected
+					<?php endif; ?>
+					>
+					<?= $role['name'] ?>	
+					</option>
+				<?php endforeach; ?>
 			</select>
 		</div>
 		<?php if (isset($errors) && in_array($userValidator::ROLE_NOTEXIST, $errors)):?>

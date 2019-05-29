@@ -145,8 +145,18 @@ class Backend extends Controller
 		$title = 'Liste des Commentaires';
 		$commentManager = new CommentManager();
 		$comments = $commentManager->getListOf();
+
+		$commentWaiting = [];
+		$commentValid = [];
+		foreach ($comments as $comment) {
+			if ($comment->getStatus() == 1) {
+				$commentValid[] = $comment;
+			} else {
+				$commentWaiting[] = $comment;
+			}
+		}
 		
-		$this->render('view/backend/listComment.php','view/template/page.php', compact('userSession','title','usersAdmin','comments'));
+		$this->render('view/backend/listComment.php','view/template/page.php', compact('userSession','title','usersAdmin','commentWaiting','commentValid'));
 	}
 
 	public function updateComment($id)
@@ -168,7 +178,7 @@ class Backend extends Controller
 					'id' => $comment->getId()
 				]);
 				$commentManager->update($commentUpdate);
-				header('Location: index.php?action=listComment');
+				$success = true;
 			} else {
 				$errors = $commentValidator->getErrors();
 			}
