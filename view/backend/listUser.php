@@ -14,23 +14,9 @@
 				<th><?= $user->getFirstname() ?></th>
 				<td><?= $user->getLastname() ?></td>
 				<td><?= $user->getMail() ?></td>
+				<td><?= $user->getRoleName() ?></td>
 				<td>
-					<?php
-					switch ($user->getRole()):
-						case '1':
-							echo 'Super Admin';
-							break;
-						case '2':
-							echo 'Admin';
-							break;
-						default:
-							echo 'Connecté';
-							break;
-					endswitch;
-					?>		
-				</td>
-				<td>
-					<?php if ($user->getRole() != 1): ?>
+					<?php if ($user->getRolesId() != 1): ?>
 					<a href="admin/users/update/<?= $user->getId() ?>" class="btn btn-outline-primary mr-2">Modifier</a>
 					<a href="admin/users/delete/<?= $user->getId() ?>" class="btn btn-outline-danger delete-user" data-id=<?= $user->getId() ?>>Supprimer</a>
 					<?php endif ?>	

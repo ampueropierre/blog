@@ -43,7 +43,7 @@
 				<span class="date"><?= $comment->getCommentDate()->format('- d F Y  H:i:s') ?></span>
 			</p>
 			<p class="comment-content">
-				<?= nl2br(htmlspecialchars($comment->getComment())) ?>
+				<?= nl2br(htmlspecialchars($comment->getContent())) ?>
 			</p>
 		</div>
 	

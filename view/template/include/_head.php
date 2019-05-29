@@ -45,13 +45,13 @@
           <li class="nav-item">
             <a class="nav-link" href="contact">Contact</a>
           </li>
-          <?php if (isset($userSession) && $userSession->getRole() != 3): ?>
+          <?php if (isset($userSession) && $userSession->getRolesId() != 3): ?>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Administration</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="admin/posts">Liste des Postes</a>
               <a class="dropdown-item" href="admin/comments">Liste des Commentaires</a>
-              <?php if (isset($userSession) && $userSession->getRole() == 1): ?>
+              <?php if (isset($userSession) && $userSession->getRolesId() == 1): ?>
               <a class="dropdown-item" href="admin/users">Liste des Utilisateurs</a>
               <?php endif ?>        
             </div>

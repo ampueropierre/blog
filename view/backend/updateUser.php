@@ -21,8 +21,9 @@
 		<label for="status" class="col-md-2">Rôle :</label>
 		<div class="col-md-10">
 			<select class="form-control" id="role" name="role">
-				<option value="2">Admin</option>
-				<option value="3" <?= ($user->getRole() == 3) ? 'selected' : '' ?>>Connecté</option>
+				<?php foreach ($roles as $role): ?>
+					<option value="<?= $role['id'] ?>" <?= ($user->getRolesId() == $role['id']) ? 'selected' : '' ?>><?= $role['name'] ?></option>
+				<?php endforeach ?>
 			</select>
 		</div>
 		<?php if (isset($errors) && in_array($userValidator::ROLE_NOTEXIST, $errors)):?>

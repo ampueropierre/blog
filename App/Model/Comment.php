@@ -5,31 +5,21 @@ use App\Datetime\DateTimeFrench;
 
 class Comment extends Model
 {
-	protected $postId;
-	protected $authorId;
+	protected $postsId;
+	protected $usersId;
 	protected $author;
 	protected $status;
-	protected $comment;
+	protected $content;
 	protected $commentDate;
 
-	public function getId()
+	public function getPostsId()
 	{
-		return $this->id;
+		return $this->postsId;
 	}
 
-	public function getPostId()
+	public function getUsersId()
 	{
-		return $this->postId;
-	}
-
-	public function getStatus()
-	{
-		return $this->status;
-	}
-
-	public function getAuthorId()
-	{
-		return $this->authorId;
+		return $this->usersId;
 	}
 
 	public function getAuthor()
@@ -37,9 +27,14 @@ class Comment extends Model
 		return $this->author;
 	}
 
-	public function getComment()
+	public function getStatus()
 	{
-		return $this->comment;
+		return $this->status;
+	}
+
+	public function getContent()
+	{
+		return $this->content;
 	}
 	
 	public function getCommentDate()
@@ -47,24 +42,19 @@ class Comment extends Model
 		return $this->commentDate;
 	}
 
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-
 	public function setStatus(int $status)
 	{
 		$this->status = $status;
 	}
 
-	public function setPostId(int $postId)
+	public function setPostsId(int $postsId)
 	{
-		$this->postId = $postId;
+		$this->postsId = $postsId;
 	}
 
-	public function setAuthorId(int $authorId)
+	public function setUsersId(int $usersId)
 	{
-		$this->authorId = $authorId;
+		$this->usersId = $usersId;
 	}
 
 	public function setAuthor(User $user)
@@ -77,7 +67,7 @@ class Comment extends Model
 		$this->commentDate = $commentDate;
 	}
 
-	public function setComment(string $comment)
+	public function setContent(string $comment)
 	{
 		$this->comment = $comment;
 	}

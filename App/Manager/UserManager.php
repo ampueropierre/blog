@@ -10,7 +10,7 @@ class UserManager extends Manager
 	public function getLoggedUser($mail, $password)
 	{
 		$db = $this->dbConnect();
-		$req = $db->prepare('SELECT id, firstname, lastname, mail, password, role FROM users WHERE mail = :mail');
+		$req = $db->prepare('SELECT id, firstname, lastname, mail, password, roles_id AS rolesId FROM users WHERE mail = :mail');
 		$req->bindValue(':mail', $mail);
 		$req->execute();
 
@@ -28,7 +28,7 @@ class UserManager extends Manager
 	public function getUser($id)
 	{
 		$db = $this->dbConnect();
-		$req = $db->prepare('SELECT id, firstname, lastname, password, mail, role FROM users WHERE id = :id');
+		$req = $db->prepare('SELECT id, firstname, lastname, password, mail, roles_id AS rolesId FROM users WHERE id = :id');
 		$req->bindValue(':id', $id);
 		$req->execute();
 
@@ -41,17 +41,29 @@ class UserManager extends Manager
 	public function getListOf()
 	{
 		$db = $this->dbConnect();
-		$req = $db->query('SELECT id, firstname, lastname, mail, password, role FROM users');
+		$req = $db->query('SELECT users.id AS id, firstname, lastname, mail, password, roles_id AS rolesId, name AS roleName FROM users INNER JOIN roles ON users.roles_id = roles.id');
 		$req->setFetchMode(\PDO::FETCH_CLASS|\PDO::FETCH_PROPS_LATE, 'App\Model\User');
 		$users = $req->fetchAll();
-		
+
 		return $users;	
+	}
+
+	public function getListOfRole()
+	{
+		$db = $this->dbConnect();
+		$req = $db->query('SELECT id, name FROM roles WHERE id != 1');
+		$roles = $req->fetchAll();
+
+		return $roles;	
 	}
 
 	public function getUsersAdmin()
 	{
 		$db = $this->dbConnect();
-		$req = $db->query('SELECT id, firstname, lastname FROM users WHERE role = 1 OR role = 2');
+		$req = $db->prepare('SELECT id, firstname, lastname FROM users WHERE roles_id = :role1 OR roles_id = :role2');
+		$req->bindValue('role1', 1);
+		$req->bindValue('role2', 2);
+		$req->execute();
 		$req->setFetchMode(\PDO::FETCH_CLASS|\PDO::FETCH_PROPS_LATE, 'App\Model\User');
 		$users = $req->fetchAll();
 		
@@ -89,8 +101,8 @@ class UserManager extends Manager
 	{
 
 		$db =$this->dbConnect();
-		$req = $db->prepare('UPDATE users SET role = :role WHERE id = :id');
-		$req->bindValue(':role', $user->getRole());
+		$req = $db->prepare('UPDATE users SET roles_id = :role WHERE id = :id');
+		$req->bindValue(':role', $user->getRolesId());
 		$req->bindValue(':id', $user->getId());
 
 		$req->execute();

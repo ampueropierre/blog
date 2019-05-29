@@ -1,6 +1,5 @@
 <a href="admin/posts/add" class="btn btn-primary mb-3">Ajouter un poste</a>
-
-<table class="table">
+<table class="table table-responsive">
 	<thead class="thead-light">
 		<tr>
 			<th scope="col">Titre</th>
@@ -18,7 +17,7 @@
 				<td>
 					<a href="admin/posts/update/<?= $post->getId() ?>" class="btn btn-outline-primary mr-2">Modifier</a>
 					<a href="admin/posts/delete/<?= $post->getId() ?>" class="btn btn-outline-danger delete-post">Supprimer</a></td>
-			</tr>
-		<?php endforeach; ?>
-	</tbody>
-</table>
+				</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>

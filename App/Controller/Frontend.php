@@ -77,7 +77,7 @@ class Frontend extends Controller
 			if (empty($commentValidator->getErrors())) {
 				$comment = new Comment([
 					'comment' => $_POST['comment'],
-					'authorId' => $userSession->getId(),
+					'usersId' => $userSession->getId(),
 					'postId' => $id
 				]);
 				$commentManager->add($comment);

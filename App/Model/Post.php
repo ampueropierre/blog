@@ -7,7 +7,7 @@ use App\Datetime\DateTimeFrench;
 class Post extends Model
 {
     protected $title;
-    protected $authorId;
+    protected $usersId;
     protected $author;
     protected $chapo;
     protected $img;
@@ -20,9 +20,9 @@ class Post extends Model
 		return $this->title;
 	}
 
-	public function getAuthorId()
+	public function getUsersId()
 	{
-		return $this->authorId;
+		return $this->usersId;
 	}
 
 	public function getAuthor()
@@ -55,14 +55,9 @@ class Post extends Model
 		return $this->dateModification;
 	}
 
-	public function setId(int $id)
+	public function setUsersId(int $usersId)
 	{
-		$this->id = $id;
-	}
-
-	public function setAuthorId(int $authorId)
-	{
-		$this->authorId = $authorId;
+		$this->usersId = $usersId;
 	}
 
 	public function setAuthor(User $user)

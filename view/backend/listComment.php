@@ -14,7 +14,7 @@
 			<?php if ($comment->getStatus() == 0): ?>	
 			<tr>
 				<td><?= $comment->getId() ?></td>
-				<td><?= substr($comment->getComment(),0,40) ?><?php if(strlen($comment->getComment()) > 40): ?>
+				<td><?= substr($comment->getContent(),0,40) ?><?php if(strlen($comment->getContent()) > 40): ?>
 						...
 					<?php endif; ?>
 				</td>
@@ -46,8 +46,8 @@
 			<tr>
 				<td><?= $comment->getId() ?></td>
 				<td>
-					<?= substr($comment->getComment(),0,40) ?>
-					<?php if(strlen($comment->getComment()) > 40): ?>
+					<?= substr($comment->getContent(),0,40) ?>
+					<?php if(strlen($comment->getContent()) > 40): ?>
 						...
 					<?php endif; ?>
 				</td>

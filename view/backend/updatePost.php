@@ -32,7 +32,7 @@
 			
 			<select name="authorId" id="author" class="form-control">
 				<?php foreach ($usersAdmin as $user): ?>
-					<option value="<?= $user->getId() ?>" <?= ($user->getId() == $post->getAuthorId()) ? 'selected' : '' ?>><?= $user->getFirstname().' '.$user->getLastname() ?></option>
+					<option value="<?= $user->getId() ?>" <?= ($user->getId() == $post->getUsersId()) ? 'selected' : '' ?>><?= $user->getFirstname().' '.$user->getLastname() ?></option>
 				<?php endforeach ?>
 			</select>
 			<?php if (isset($errors) && in_array($postValidator::AUTHOR_ID_INVALID, $errors)):?>

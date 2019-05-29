@@ -3,14 +3,14 @@
 <p>L'auteur : </p>
 <p><?= $comment->getAuthor()->getFirstname().' '.$comment->getAuthor()->getLastname()?></p>
 <p>Le commentaire :</p>
-<p><?= $comment->getComment() ?></p>
+<p><?= $comment->getContent() ?></p>
 
 <form action="" method="POST">
 	<div class="form-group">
 		<label for="status">Statut</label>
 		<select class="form-control" id="status" name="status">
 			<?php for($i = 0; $i < 2; $i++):?>
-			<option value="<?= $i ?>" <?= ($i == $comment->getStatus()) ? 'selected' : '' ?>><?= ($i == 0) ? 'Pas valide' : 'Valide' ?></option>
+			<option value="<?= $i ?>" <?= ($i == $comment->getStatus()) ? 'selected' : '' ?>><?= ($i == 0) ? 'En attente de Validation' : 'Validé' ?></option>
 			<?php endfor; ?>
 		</select>
 		<?php if (isset($errors) && in_array($commentValidator::STATUS_INVALID, $errors)):?>
