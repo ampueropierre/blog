@@ -4,6 +4,7 @@ private/img/*
 public/css/style.css.map
 
 /vendor
+vendor
 
 .env
 .idea
