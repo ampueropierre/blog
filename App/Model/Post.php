@@ -4,8 +4,22 @@ namespace App\Model;
 
 use App\Datetime\DateTimeFrench;
 
+/**
+ * Classe Post
+ */
 class Post extends Model
 {
+	/**
+	 * Propriété de la classe Poste
+	 * @var string $title le titre du poste
+	 * @var int $usersId l'id de l'utilisateur
+	 * @var User $author la class User
+	 * @var string $chapo le chapo du poste
+	 * @var string $img le path de l'image
+	 * @var string $content le contenu du poste
+	 * @var DateTime $dateCreation la date de création
+	 * @var DateTime $dateModification la date de la dernière modification
+	 */
     protected $title;
     protected $usersId;
     protected $author;

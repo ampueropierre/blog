@@ -1,7 +1,17 @@
 <?php
 namespace App\Datetime;
 
+/**
+ * Classe DateTimeFrench
+ * Extension de la classe DateTime pour afficher les jours et mois en francais
+ */
 class DateTimeFrench extends \DateTime {
+
+	/**
+	 * Modifie la function format de DateTime pour remplacer les mois et jours en francais 
+	 * @param  string $format Récupère la date
+	 * @return string la date
+	 */
     public function format($format) {
         $english_days = array('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday');
         $french_days = array('Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche');

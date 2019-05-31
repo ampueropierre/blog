@@ -4,8 +4,19 @@ namespace App\Service;
 
 use PHPMailer\PHPMailer\PHPMailer;
 
+/**
+ * La classe Mailer
+ * il permet d'envoyer des mail grâce à PHPMailer
+ */
 class Mailer
 {
+    /**
+     * Il permet d'envoyer un mail
+     * @param  string $from    destinateur du mail
+     * @param  string $name    le nom de l'utilisateur
+     * @param  string $message le message du mail
+     * @return bool retourne un booléan
+     */
     public function sendMail($from, $name, $message)
     {
         $mail = new PHPMailer;

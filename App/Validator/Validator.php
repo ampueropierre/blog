@@ -2,6 +2,10 @@
 
 namespace App\Validator;
 
+/**
+ * Classe abstract Validator
+ * Permet de vérifier les données envoyés avant de les traités
+ */
 abstract class Validator
 {
 	protected $errors = [];

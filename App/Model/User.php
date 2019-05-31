@@ -2,8 +2,20 @@
 
 namespace App\Model;
 
+/**
+ * Classe User
+ */
 class User extends Model
 {
+	/**
+	 * Propriété de la classe User
+	 * @var string le prénom de l'utilisateur
+	 * @var string le nom de l'utilisateur
+	 * @var string le mail
+	 * @var string le mot de passe
+	 * @var int l'id du rôle
+	 * @var string le non du rôle
+	 */
 	protected $firstname;
 	protected $lastname;
 	protected $mail;

@@ -13,8 +13,16 @@ use App\Validator\ConnexionValidator;
 use App\Validator\CommentValidator;
 use App\Validator\ContactValidator;
 
+/**
+ * Class Frontend
+ * Gère la partie controller du frontend
+ */
 class Frontend extends Controller
 {
+	/**
+	 * Cette function retourne la page d'accueil
+	 * @return la page d'accueil
+	 */
 	public function home()
 	{
 		$userSession = $this->userSession();
@@ -23,6 +31,10 @@ class Frontend extends Controller
 		$this->render('','view/template/home.php',compact('userSession','title'));
 	}
 
+	/**
+	 * Cette function retourne la page Blog
+	 * @return la page Blog
+	 */
 	public function blog()
 	{	
 		$userSession = $this->userSession();
@@ -34,6 +46,10 @@ class Frontend extends Controller
 		$this->render('view/frontend/blog.php','view/template/page.php', compact('userSession','title','posts'));
 	}
 
+	/**
+	 * Cette function retourne la page Contact
+	 * @return la page Contact
+	 */
 	public function contact()
 	{
 		$userSession = $this->userSession();
@@ -59,7 +75,12 @@ class Frontend extends Controller
 		$this->render('view/frontend/contact.php','view/template/page.php', compact('userSession','title','posts','success','errors','contactValidator'));
 	}
 
-	public function post($id)
+	/**
+	 * Cette function retourne la page d'un Poste
+	 * @param int $id L'id du poste
+	 * @return la page d'un poste en function de son id
+	 */
+	public function post(int $id)
 	{
 		$userSession = $this->userSession();
 
@@ -89,6 +110,10 @@ class Frontend extends Controller
 		$this->render('view/frontend/postView.php','view/template/post.php', compact('userSession','title','post','comments','commentSuccess','errors','commentValidator'));
 	}
 
+	/**
+	 * Cette function retourne la page Connexion
+	 * @return la page Connexion
+	 */
 	public function connexion()
 	{
 		$title = 'Connexion';
@@ -112,8 +137,10 @@ class Frontend extends Controller
 		$this->render('view/frontend/connexion.php','view/template/page.php', compact('title','userManager','connexionValidator','errors'));
 	}
 
-	
-
+	/**
+	 * Cette function retourne la page Création utilisateur
+	 * @return la page pour créer un nouvel utilisateur
+	 */
 	public function createUser()
 	{
 		$title = 'Créer un compte';
@@ -142,7 +169,12 @@ class Frontend extends Controller
 		$this->render('view/frontend/createUser.php','view/template/page.php', compact('title','userValidator','errors'));
 	}
 
-	public function profil($id)
+	/**
+	 * Cette function retourne la page d'un profil
+	 * @param int $id
+	 * @return la page profil en function de son id
+	 */
+	public function profil(int $id)
 	{
 		$userSession = $this->userSession(); 
 		
@@ -179,6 +211,10 @@ class Frontend extends Controller
 	
 	}
 
+	/**
+	 * Cette function détruit le $_SESSION en cours
+	 * @return vers la page Connexion
+	 */
 	public function destroy()
 	{
 		session_destroy();

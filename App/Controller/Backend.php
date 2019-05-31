@@ -12,8 +12,16 @@ use App\Validator\PostValidator;
 use App\Validator\UserValidator;
 use App\Validator\CommentValidator;
 
+/**
+ * Class Backend
+ * Gère la partie Backend du controller
+ */
 class Backend extends Controller
 {
+	/**
+	 * Cette function retourne la liste des Postes
+	 * @return la page Admin des postes
+	 */
 	public function listPost()
 	{
 		$userSession = $this->userSession();
@@ -29,6 +37,10 @@ class Backend extends Controller
 		
 	}
 
+	/**
+	 * Cette function retourne la page ajouter un poste
+	 * @return la page Ajouter un poste
+	 */
 	public function addPost()
 	{
 		$userSession = $this->userSession();
@@ -67,21 +79,12 @@ class Backend extends Controller
 		}	
 	}
 
-	public function deletePost($id)
-	{
-		$userSession = $this->userSession();
-		if ($userSession == null || $userSession->getRolesId() > 2) {
-			$this->page404();
-		} else {
-			$postManager = new PostManager();
-			$imgName = $postManager->getPost($id)->getImg();
-			if (unlink($imgName)) {
-				$postManager->delete($id);
-			}
-		}		
-	}
-
-	public function updatePost($id)
+	/**
+	 * Cette function retourne la page Modifier un poste
+	 * @param int $id L'id d'un poste
+	 * @return la page Modifier un poste
+	 */
+	public function updatePost(int $id)
 	{
 		$userSession = $this->userSession();
 		if ($userSession == null || $userSession->getRolesId() > 2) {
@@ -130,9 +133,31 @@ class Backend extends Controller
 			}
 
 			$this->render('view/backend/updatePost.php','view/template/page.php', compact('userSession','title','usersAdmin','post','errors', 'postValidator','updateSuccess'));
-		}	
+		}
 	}
 
+	/**
+	 * Cette function supprime un poste
+	 * @param int $id L'id d'un poste
+	 */
+	public function deletePost(int $id)
+	{
+		$userSession = $this->userSession();
+		if ($userSession == null || $userSession->getRolesId() > 2) {
+			$this->page404();
+		} else {
+			$postManager = new PostManager();
+			$imgName = $postManager->getPost($id)->getImg();
+			if (unlink($imgName)) {
+				$postManager->delete($id);
+			}
+		}		
+	}
+
+	/**
+	 * Cette function affiche la liste des Commentaires
+	 * @return la page liste des commentaires
+	 */
 	public function listComment()
 	{
 		$userSession = $this->userSession();
@@ -157,7 +182,12 @@ class Backend extends Controller
 		}	
 	}
 
-	public function updateComment($id)
+	/**
+	 * Cette fonction affiche la page modifier un commentaire
+	 * @param  int $id L'id d'un commentaire
+	 * @return la page modifier un commentaire
+	 */
+	public function updateComment(int $id)
 	{
 		$userSession = $this->userSession();
 		if ($userSession == null || $userSession->getRolesId() > 2) {
@@ -183,7 +213,11 @@ class Backend extends Controller
 		}	
 	}
 
-	public function deleteComment($id)
+	/**
+	 * Cette fonction permet de supprimer un commetnaire
+	 * @param  int $id l'id d'un commentaire
+	 */
+	public function deleteComment(int $id)
 	{
 		$userSession = $this->userSession();
 		if ($userSession == null || $userSession->getRolesId() > 2) {
@@ -194,6 +228,10 @@ class Backend extends Controller
 		}
 	}
 
+	/**
+	 * Cette fonction permet d'afficher les listes des utilisateurs
+	 * @return la page liste des utilisateurs
+	 */
 	public function listUser()
 	{
 		$userSession = $this->userSession();
@@ -208,7 +246,12 @@ class Backend extends Controller
 		}
 	}
 
-	public function updateUser($id) {
+	/**
+	 * Cette function permet d'afficher la page modifier un utilisateur
+	 * @param  int    $id l'id d'un utilisateur
+	 * @return affiche la page modifier utilisateur
+	 */
+	public function updateUser(int $id) {
 		$userSession = $this->userSession();
 		if($userSession == null || $userSession->getRolesId() > 1) {
 			$this->page404();
@@ -235,7 +278,11 @@ class Backend extends Controller
 		}	
 	}
 
-	public function deleteUser($id)
+	/**
+	 * Cette fonction permet de Supprimer un utilisateur de la base de donnée
+	 * @param int $id l'id d'un utilisateur
+	 */
+	public function deleteUser(int $id)
 	{
 		$userSession = $this->userSession();
 		if($userSession == null || $userSession->getRolesId() > 1) {
