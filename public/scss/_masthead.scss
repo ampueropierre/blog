@@ -1,8 +1,7 @@
 // Styling for the masthead
-header.masthead {
-  // TIP: Background images are set within the HTML using inline CSS!
-  flex: 1;
-  min-height: 250px;
+// TIP: Background images are set within the HTML using inline CSS!
+header.masthead-home {
+  height: 100%;
   background: no-repeat center center;
   background-color: $black;
   background-attachment: scroll;
@@ -71,6 +70,14 @@ header.masthead {
       }
     }
   }
+}
+header.masthead {
+  min-height: 250px;
+  background: no-repeat center center;
+  background-color: $black;
+  background-attachment: scroll;
+  position: relative;
+  @include background-cover;
   .post-heading,
   .page-heading {
     margin:auto;

@@ -26,4 +26,11 @@ abstract class Controller
 
 		return null;
 	}
+
+	public function page404()
+	{
+		$userSession = $this->userSession();
+		$title = '404 Error';
+		$this->render('view/404.php','view/template/page.php', compact('userSession','title'));
+	}
 }

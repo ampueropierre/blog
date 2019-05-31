@@ -1,6 +1,6 @@
 <?php include 'include/_head.php'; ?>  
   <!-- Page Header -->
-  <header class="masthead d-flex align-items-center" style="background-image: url('public/img/home-bg.png');background-position-y:top">
+  <header class="masthead-home d-flex align-items-center" style="background-image: url('public/img/home-bg.png');background-position-y:top">
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-11 col-md-10 mx-auto">

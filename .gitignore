@@ -1,6 +1,7 @@
 public/.sass-cache
 public/.sass-cache/*
 private/img/*
+!*/private/img/bicycle-blue1.jpg
 public/css/style.css.map
 
 /vendor

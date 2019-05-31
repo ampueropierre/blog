@@ -152,42 +152,37 @@ class Frontend extends Controller
 		$userProfil = $userManager->getUser($id);
 
 		if($userSession == null || $userSession->getId() != $userProfil->getId()) {
-			require('view/404.php');
-			exit;
+			$this->page404();
 		}
-
-		if (isset($_POST['update'])) {
-			$userValidator = new UserValidator([
-				'firstname' => $_POST['firstname'],
-				'lastname' => $_POST['lastname'],
-				'mail' => $_POST['mail'],
-			]);
-			if (empty($userValidator->getErrors())) {
-				$userProfil = new User([
+		else {
+			if (isset($_POST['update'])) {
+				$userValidator = new UserValidator([
 					'firstname' => $_POST['firstname'],
 					'lastname' => $_POST['lastname'],
 					'mail' => $_POST['mail'],
-					'id' => $id
 				]);
-				$userManager->update($userProfil);
-				$update = true;
+				if (empty($userValidator->getErrors())) {
+					$userProfil = new User([
+						'firstname' => $_POST['firstname'],
+						'lastname' => $_POST['lastname'],
+						'mail' => $_POST['mail'],
+						'id' => $id
+					]);
+					$userManager->update($userProfil);
+					$update = true;
 
-			} else {
-				$errors = $userValidator->getErrors();
+				} else {
+					$errors = $userValidator->getErrors();
+				}
 			}
+			$this->render('view/frontend/profil.php','view/template/page.php', compact('userSession','title','userManager','userValidator','userProfil','update','errors'));
 		}
-
-		$this->render('view/frontend/profil.php','view/template/page.php', compact('userSession','title','userManager','userValidator','userProfil','update','errors'));
+	
 	}
 
 	public function destroy()
 	{
 		session_destroy();
 		header('Location: login');
-	}
-
-	public function page404() {
-		$title = '404 Error';
-		require('view/404.php');
 	}
 }

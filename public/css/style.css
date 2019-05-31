@@ -72,6 +72,7 @@ img::-moz-selection {
   background: transparent; }
 
 main {
+  flex: 1;
   padding: 50px 0; }
 
 .msg-error {
@@ -175,9 +176,8 @@ main {
         -o-transform: translate3d(0, 100%, 0);
         transform: translate3d(0, 100%, 0); } }
 
-header.masthead {
-  flex: 1;
-  min-height: 250px;
+header.masthead-home {
+  height: 100%;
   background: no-repeat center center;
   background-color: #000;
   background-attachment: scroll;
@@ -186,16 +186,16 @@ header.masthead {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover; }
-  header.masthead .home-heading {
+  header.masthead-home .home-heading {
     color: white; }
-    header.masthead .home-heading h1 {
+    header.masthead-home .home-heading h1 {
       font-size: 2em;
       letter-spacing: 1.5px;
       font-family: 'Libre Baskerville', serif; }
       @media only screen and (min-width: 768px) {
-        header.masthead .home-heading h1 {
+        header.masthead-home .home-heading h1 {
           font-size: 3em; } }
-    header.masthead .home-heading p {
+    header.masthead-home .home-heading p {
       font-size: 12px;
       letter-spacing: 1.2px;
       text-transform: uppercase;
@@ -203,10 +203,10 @@ header.masthead {
       margin: 0;
       margin-bottom: 30px; }
       @media only screen and (min-width: 768px) {
-        header.masthead .home-heading p {
+        header.masthead-home .home-heading p {
           font-size: 16px;
           margin-bottom: 50px; } }
-    header.masthead .home-heading .btn-left {
+    header.masthead-home .home-heading .btn-left {
       display: inline-block;
       width: 110px;
       height: 35px;
@@ -221,11 +221,11 @@ header.masthead {
       color: white;
       text-decoration: none; }
       @media only screen and (min-width: 768px) {
-        header.masthead .home-heading .btn-left {
+        header.masthead-home .home-heading .btn-left {
           width: 150px;
           height: 50px;
           line-height: 50px; } }
-    header.masthead .home-heading .btn-right {
+    header.masthead-home .home-heading .btn-right {
       display: inline-block;
       width: 110px;
       height: 35px;
@@ -240,10 +240,21 @@ header.masthead {
       color: white;
       text-decoration: none; }
       @media only screen and (min-width: 768px) {
-        header.masthead .home-heading .btn-right {
+        header.masthead-home .home-heading .btn-right {
           width: 150px;
           height: 50px;
           line-height: 50px; } }
+
+header.masthead {
+  min-height: 250px;
+  background: no-repeat center center;
+  background-color: #000;
+  background-attachment: scroll;
+  position: relative;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; }
   header.masthead .post-heading,
   header.masthead .page-heading {
     margin: auto;
@@ -473,5 +484,8 @@ footer {
   .bloc-comment p {
     font-family: 'Roboto';
     font-size: 15px; }
+
+.page-error {
+  font-family: "Roboto"; }
 
 /*# sourceMappingURL=style.css.map */
