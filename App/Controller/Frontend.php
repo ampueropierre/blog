@@ -12,7 +12,6 @@ use App\Validator\UserValidator;
 use App\Validator\ConnexionValidator;
 use App\Validator\CommentValidator;
 use App\Validator\ContactValidator;
-use PHPMailer\PHPMailer\PHPMailer;
 
 class Frontend extends Controller
 {

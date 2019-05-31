@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model;
 
 use App\Datetime\DateTimeFrench;
