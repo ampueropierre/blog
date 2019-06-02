@@ -488,4 +488,26 @@ footer {
 .page-error {
   font-family: "Roboto"; }
 
+.update-comment {
+  font-family: 'Roboto'; }
+  .update-comment .meta {
+    font-size: 13px;
+    text-transform: uppercase;
+    color: #868e96;
+    font-weight: 800;
+    letter-spacing: 2px; }
+  .update-comment p {
+    margin: 0; }
+
+.update-user {
+  font-family: 'Roboto'; }
+  .update-user .meta {
+    font-size: 13px;
+    text-transform: uppercase;
+    color: #868e96;
+    font-weight: 800;
+    letter-spacing: 2px; }
+  .update-user p {
+    margin: 0; }
+
 /*# sourceMappingURL=style.css.map */
