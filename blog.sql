@@ -10,7 +10,7 @@ CREATE TABLE users (
                 lastname VARCHAR(100) NOT NULL,
                 mail VARCHAR(100) NOT NULL,
                 password VARCHAR(80) NOT NULL,
-                roles_id INT NOT NULL,
+                roles_id INT DEFAULT 3 NOT NULL,
                 PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
