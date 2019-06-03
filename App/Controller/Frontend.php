@@ -62,8 +62,7 @@ class Frontend extends Controller
 			if (empty($contactValidator->getErrors())) {
 			    $mailer = new Mailer();
 				if (!$mail = $mailer->sendMail($data['mail'], $data['name'], $data['message'])) {
-				    echo "Mailer Error: " . $mail->ErrorInfo;
-				    exit;
+					throw new \Exception('Le message n\'a pas été envoyé. Une erreur est survenue.');
 				} else {
 					unset($data);
 				    $success = true;
