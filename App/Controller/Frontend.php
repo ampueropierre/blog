@@ -15,13 +15,13 @@ use App\Validator\ContactValidator;
 
 /**
  * Class Frontend
- * Gère la partie controller du frontend
+ * Controller of frontend
  */
 class Frontend extends Controller
 {
 	/**
-	 * Cette function retourne la page d'accueil
-	 * @return la page d'accueil
+	 * Poster home page
+	 * @return
 	 */
 	public function home()
 	{
@@ -32,8 +32,8 @@ class Frontend extends Controller
 	}
 
 	/**
-	 * Cette function retourne la page Blog
-	 * @return la page Blog
+	 * Poster blog page
+	 * @return
 	 */
 	public function blog()
 	{	
@@ -47,7 +47,7 @@ class Frontend extends Controller
 	}
 
 	/**
-	 * Cette function retourne la page Contact
+	 * Return contact page
 	 * @return la page Contact
 	 */
 	public function contact()
@@ -55,15 +55,17 @@ class Frontend extends Controller
 		$userSession = $this->userSession();
 		$title = 'Contact';
 
-		if (isset($_POST['contact'])) {
-			$contactValidator = new ContactValidator($_POST);
+		$data = filter_input_array(INPUT_POST);
+
+		if (isset($data['contact'])) {
+			$contactValidator = new ContactValidator($data);
 			if (empty($contactValidator->getErrors())) {
 			    $mailer = new Mailer();
-				if (!$mail = $mailer->sendMail($_POST['mail'], $_POST['name'], $_POST['message'])) {
+				if (!$mail = $mailer->sendMail($data['mail'], $data['name'], $data['message'])) {
 				    echo "Mailer Error: " . $mail->ErrorInfo;
-				    die;
+				    exit;
 				} else {
-					unset($_POST);
+					unset($data);
 				    $success = true;
 				}
 			}
@@ -72,7 +74,7 @@ class Frontend extends Controller
 			}
 		}
 
-		$this->render('view/frontend/contact.php','view/template/page.php', compact('userSession','title','posts','success','errors','contactValidator'));
+		$this->render('view/frontend/contact.php','view/template/page.php', compact('userSession','title','data','success','errors','contactValidator'));
 	}
 
 	/**
