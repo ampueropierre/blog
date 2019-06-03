@@ -9,7 +9,7 @@
   <!-- Custom scripts for this template -->
   <script src="public/js/clean-blog.min.js"></script>
   <script src="public/js/blog.js"></script>
-  <script src="public/js/ajax.js"></script>
+  <script src="public/js/delete.js"></script>
 </body>
 
 </html>

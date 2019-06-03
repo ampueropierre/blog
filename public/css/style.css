@@ -435,6 +435,7 @@ footer {
     text-align: center; }
 
 .table {
+  font-family: 'Roboto';
   font-size: 12px;
   margin: 0; }
   .table th {

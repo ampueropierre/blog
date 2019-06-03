@@ -2,7 +2,7 @@
 	<div class="form-group">
 		<span class="meta">L'auteur</span>
 		<p><?= $comment->getAuthor()->getFirstname().' '.$comment->getAuthor()->getLastname()?></p>
-	</div>		
+	</div>
 	<div class="form-group">
 		<span class="meta">Le commentaire</span>
 		<p><?= $comment->getContent() ?></p>
