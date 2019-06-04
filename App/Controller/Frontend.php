@@ -171,7 +171,7 @@ class Frontend extends Controller
 				$user = new User($data);
 				$user = $userManager->add($user);
 
-				$_SESSION['user'] = serialize($user);
+				Session::put('user',serialize($userSession));
 
 				$this->blog();
 				exit;
