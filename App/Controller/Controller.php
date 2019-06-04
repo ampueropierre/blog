@@ -2,16 +2,16 @@
 
 /**
  * Class Controller
- * Abstract Class pour Backend et Frontend
+ * Abstract Class for Backend and Frontend
  */
 namespace App\Controller;
 
 abstract class Controller
 {
 	/**
-	 * @param string $view La vue a affiché
-	 * @param string $template Le template utilisé
-	 * @param array $variable
+	 * @param string $view path view
+	 * @param string $template path template
+	 * @param array $variable tranfert variables
 	 */
 	public function render($view,$template,$variable = [])
 	{	
@@ -28,19 +28,7 @@ abstract class Controller
 	}
 
 	/**
-	 * @return $_SESSION si connecté ou null
-	 */
-	protected function userSession()
-	{
-		if (isset($_SESSION['user'])) {
-			return unserialize($_SESSION['user']);
-		}
-
-		return null;
-	}
-
-	/**
-	 * @return La page 404  
+	 * @return return page 404  
 	 */
 	public function page404()
 	{

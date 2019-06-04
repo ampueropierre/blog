@@ -2,14 +2,14 @@
 	<div class="row justify-content-center">
 		<div class="col-md-8">
 			<?php if (isset($errorIdentifiant)): ?>
-			<div class="alert alert-danger" role="alert">
-				Il semble que votre adresse e-mail ou votre mot de passe soient incorrects. Veuillez essayer à nouveau, s'il vous plaît
+			<div class="alert alert-danger msg-alert" role="alert">
+				Il semble que votre adresse mail ou votre mot de passe soient incorrects. Veuillez essayer à nouveau, s'il vous plaît
 			</div>
 			<?php endif; ?>
 			<form action="" method="post">
 				<div class="form-group">
 					<label>Adresse mail :</label>
-					<input class="form-control" type="text" name="mail" value="<?php if (isset($_POST['mail'])) echo $_POST['mail']; ?>">
+					<input class="form-control" type="text" name="mail" value="<?php if (isset($data['mail'])) echo $data['mail']; ?>">
 						<?php if (isset($errors) && in_array($connexionValidator::MAIL_EMPTY, $errors)): ?>
 						<span class="msg-error text-danger"><?= $connexionValidator::MAIL_EMPTY ?></span>
 						<?php endif; ?>

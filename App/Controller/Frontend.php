@@ -12,6 +12,7 @@ use App\Validator\UserValidator;
 use App\Validator\ConnexionValidator;
 use App\Validator\CommentValidator;
 use App\Validator\ContactValidator;
+use App\Session\Session;
 
 /**
  * Class Frontend
@@ -20,24 +21,26 @@ use App\Validator\ContactValidator;
 class Frontend extends Controller
 {
 	/**
-	 * Poster home page
+	 * Return home page
 	 * @return
 	 */
 	public function home()
 	{
-		$userSession = $this->userSession();
+		$userSession = Session::get('user');
+		
 		$title = 'Home';
 
 		$this->render('','view/template/home.php',compact('userSession','title'));
 	}
 
 	/**
-	 * Poster blog page
+	 * Return blog page
 	 * @return
 	 */
 	public function blog()
 	{	
-		$userSession = $this->userSession();
+		$userSession = Session::get('user');
+
 		$title = 'Blog';
 
 		$postManager = new PostManager();
@@ -48,11 +51,12 @@ class Frontend extends Controller
 
 	/**
 	 * Return contact page
-	 * @return la page Contact
+	 * @return page Contact
 	 */
 	public function contact()
 	{
-		$userSession = $this->userSession();
+		$userSession = Session::get('user');
+
 		$title = 'Contact';
 
 		$data = filter_input_array(INPUT_POST);
@@ -77,29 +81,31 @@ class Frontend extends Controller
 	}
 
 	/**
-	 * Cette function retourne la page d'un Poste
-	 * @param int $id L'id du poste
-	 * @return la page d'un poste en function de son id
+	 * Return post page
+	 * @param int $postId Id of post
+	 * @return page post
 	 */
-	public function post(int $id)
+	public function post(int $postId)
 	{
-		$userSession = $this->userSession();
+		$userSession = Session::get('user');
 
 		$postManager = new PostManager();
 		$commentManager = new CommentManager();
 
-		$post = $postManager->getPost($id);
-		$comments = $commentManager->getListOfValide($id);
+		$post = $postManager->getPost($postId);
+		$comments = $commentManager->getListOfValide($postId);
 
 		$title = $post->getTitle();
 
-		if (isset($_POST['addComment'])) {
-			$commentValidator = new CommentValidator($_POST);
+		$data = filter_input_array(INPUT_POST);
+
+		if (isset($data['addComment']) && 'publier' === $data['addComment']) {
+			$commentValidator = new CommentValidator($data);
 			if (empty($commentValidator->getErrors())) {
 				$comment = new Comment([
-					'content' => $_POST['content'],
+					'content' => $data['content'],
 					'usersId' => $userSession->getId(),
-					'postsId' => $id
+					'postsId' => $postId
 				]);
 				$commentManager->add($comment);
 				$commentSuccess = true;
@@ -108,97 +114,104 @@ class Frontend extends Controller
 			}
 		}
 
-		$this->render('view/frontend/postView.php','view/template/post.php', compact('userSession','title','post','comments','commentSuccess','errors','commentValidator'));
+		$this->render('view/frontend/postView.php','view/template/post.php', compact('userSession','title','post','comments','data','commentSuccess','errors','commentValidator'));
 	}
 
 	/**
-	 * Cette function retourne la page Connexion
-	 * @return la page Connexion
+	 * Return connexion page
+	 * @return page connexion
 	 */
 	public function connexion()
 	{
 		$title = 'Connexion';
 
-		if (isset($_POST['connexion'])) {
+		$data = filter_input_array(INPUT_POST);
+
+		if (isset($data['connexion'])) {
 			$userManager = new UserManager();
-			$connexionValidator = new ConnexionValidator($_POST);
+			$connexionValidator = new ConnexionValidator($data);
 			if (empty($connexionValidator->getErrors())) {
-				$userSession = $userManager->getLoggedUser($_POST['mail'], $_POST['password']);
-				if ($userSession) {	
-					$_SESSION['user'] = serialize($userSession);
-					header('Location: posts');
-				} else {
-					$errorIdentifiant = true;
+				$userSession = $userManager->getLoggedUser($data['mail'], $data['password']);
+				if ($userSession) {
+					Session::put('user',serialize($userSession));
+					$this->blog();
+					exit;
 				}
+				$errorIdentifiant = true;
 			} else {
 				$errors = $connexionValidator->getErrors();
 			}
 		}
 
-		$this->render('view/frontend/connexion.php','view/template/page.php', compact('title','userManager','connexionValidator','errors'));
+		$this->render('view/frontend/connexion.php','view/template/page.php', compact('title','data','userManager','connexionValidator','errors','errorIdentifiant'));
 	}
 
 	/**
-	 * Cette function retourne la page Création utilisateur
-	 * @return la page pour créer un nouvel utilisateur
+	 * Return creation user page
+	 * @return
 	 */
 	public function createUser()
 	{
 		$title = 'Créer un compte';
+
+		$data = filter_input_array(INPUT_POST);
 		
-		if (isset($_POST['create'])) {
+		if (isset($data['create'])) {
 			$userValidator = new UserValidator([
-				'firstname' => $_POST['firstname'],
-				'lastname' => $_POST['lastname'],
-				'mail' => $_POST['mail'],
-				'mailExist' => $_POST['mail'],
-				'password' => $_POST['password']
+				'firstname' => $data['firstname'],
+				'lastname' => $data['lastname'],
+				'mail' => $data['mail'],
+				'mailExist' => $data['mail'],
+				'password' => $data['password']
 			]);
 			if (!empty($userValidator->getErrors())) {
 				$errors = $userValidator->getErrors();
 			} else {
 				$userManager = new UserManager();
-				$user = new User($_POST);
+				$user = new User($data);
 				$user = $userManager->add($user);
 
 				$_SESSION['user'] = serialize($user);
 
-				header('Location: posts');
+				$this->blog();
+				exit;
 			}
 		}
 
-		$this->render('view/frontend/createUser.php','view/template/page.php', compact('title','userValidator','errors'));
+		$this->render('view/frontend/createUser.php','view/template/page.php', compact('title','data','userValidator','errors'));
 	}
 
 	/**
-	 * Cette function retourne la page d'un profil
-	 * @param int $id
-	 * @return la page profil en function de son id
+	 * Return profil page
+	 * @param int $idUser Id of User
+	 * @return
 	 */
-	public function profil(int $id)
+	public function profil(int $idUser)
 	{
-		$userSession = $this->userSession(); 
+		$userSession = Session::get('user'); 
 		
 		$title = "Mon profil";
 		$userManager = new UserManager();
-		$userProfil = $userManager->getUser($id);
+		$userProfil = $userManager->getUser($idUser);
 
 		if($userSession == null || $userSession->getId() != $userProfil->getId()) {
 			$this->page404();
 		}
 		else {
-			if (isset($_POST['update'])) {
+			$data = filter_input_array(INPUT_POST);
+
+			if (isset($data['update'])) {
 				$userValidator = new UserValidator([
-					'firstname' => $_POST['firstname'],
-					'lastname' => $_POST['lastname'],
-					'mail' => $_POST['mail'],
+					'firstname' => $data['firstname'],
+					'lastname' => $data['lastname'],
+					'mail' => $data['mail'],
 				]);
 				if (empty($userValidator->getErrors())) {
 					$userProfil = new User([
-						'firstname' => $_POST['firstname'],
-						'lastname' => $_POST['lastname'],
-						'mail' => $_POST['mail'],
-						'id' => $id
+						'firstname' => $data['firstname'],
+						'lastname' => $data['lastname'],
+						'mail' => $data['mail'],
+						'id' => $idUser
 					]);
 					$userManager->update($userProfil);
 					$update = true;
@@ -207,18 +220,18 @@ class Frontend extends Controller
 					$errors = $userValidator->getErrors();
 				}
 			}
-			$this->render('view/frontend/profil.php','view/template/page.php', compact('userSession','title','userManager','userValidator','userProfil','update','errors'));
+			$this->render('view/frontend/profil.php','view/template/page.php', compact('userSession','title','userManager','data','userValidator','userProfil','update','errors'));
 		}
 	
 	}
 
 	/**
-	 * Cette function détruit le $_SESSION en cours
-	 * @return vers la page Connexion
+	 * This function destroy $_SESSION and return login page
+	 * @return
 	 */
 	public function destroy()
 	{
-		session_destroy();
-		header('Location: login');
+		Session::forget('user');
+		$this->connexion();
 	}
 }
