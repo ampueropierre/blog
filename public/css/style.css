@@ -78,6 +78,10 @@ main {
 .msg-error {
   font-size: 12px; }
 
+.alert {
+  font-family: 'Roboto';
+  font-size: 14px; }
+
 #mainNav {
   position: absolute;
   border-bottom: 1px solid #e9ecef;

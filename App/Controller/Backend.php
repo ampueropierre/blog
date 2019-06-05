@@ -11,101 +11,109 @@ use App\Model\Comment;
 use App\Validator\PostValidator;
 use App\Validator\UserValidator;
 use App\Validator\CommentValidator;
+use App\Session\Session;
 
 /**
  * Class Backend
- * Gère la partie Backend du controller
+ * Controller of Backend
  */
 class Backend extends Controller
 {
 	/**
-	 * Cette function retourne la liste des Postes
-	 * @return la page Admin des postes
+	 * Return list Posts page for Admin
+	 * @return
 	 */
 	public function listPost()
 	{
-		$userSession = $this->userSession();
-		if ($userSession == null || $userSession->getRolesId() > 2) {
-			$this->page404();
-		} else {
+		$userSession = Session::get('user');
+
+		if ($this->userSessionValid($userSession,2)) {
 			$title = 'Liste des Postes';
 			$postManager = new PostManager();
 			$posts = $postManager->getListOf();
 
 			$this->render('view/backend/listPost.php','view/template/page.php', compact('userSession','title','posts'));
 		}
-		
 	}
 
 	/**
-	 * Cette function retourne la page ajouter un poste
-	 * @return la page Ajouter un poste
+	 * Return add post page for Admin
+	 * @return
 	 */
 	public function addPost()
 	{
-		$userSession = $this->userSession();
-		if ($userSession == null || $userSession->getRolesId() > 2) {
-			$this->page404();
-		} else {
+		$userSession = Session::get('user');
+
+		if ($this->userSessionValid($userSession,2)) {
 			$title = 'Ajouter un Poste';
-			if (isset($_POST['add'])) {
+
+			$data = filter_input_array(INPUT_POST);
+			$file = $_FILES;
+
+			if (isset($data['add'])) {
 				$postValidator = new PostValidator([
-					'title' => $_POST['title'],
-					'chapo' => $_POST['chapo'],
-					'content' => $_POST['content'],
-					'img' => $_FILES['img']
+					'title' => $data['title'],
+					'chapo' => $data['chapo'],
+					'content' => $data['content'],
+					'img' => $file['img']
 				]);
 				if (empty($postValidator->getErrors())) {
 					$uploaddir = $_ENV['IMG_DIR_POST'];
-					$uploadfile = $uploaddir.time().'-'.basename($_FILES['img']['name']);
+					$uploadfile = $uploaddir.time().'-'.basename($file['img']['name']);
 					$post = new Post([
 						'usersId' => $userSession->getId(),
-						'title' => $_POST['title'],
-						'chapo' => $_POST['chapo'],
-						'content' => $_POST['content'],
+						'title' => $data['title'],
+						'chapo' => $data['chapo'],
+						'content' => $data['content'],
 						'img' => $uploadfile
 					]);
-					if(move_uploaded_file($_FILES['img']['tmp_name'], $uploadfile)) {
+					if(move_uploaded_file($file['img']['tmp_name'], $uploadfile)) {
 						$postManager = new PostManager();
 						$postManager->add($post);
 						$success = true;
-						unset($_POST);
+						unset($data);
 					}	
 				} else {
 					$errors = $postValidator->getErrors();
 				}
+
+
 			}
 			$this->render('view/backend/addPost.php','view/template/page.php', compact('userSession','title','errors', 'postValidator','success'));
-		}	
+		}
+		
+			
 	}
 
 	/**
-	 * Cette function retourne la page Modifier un poste
-	 * @param int $id L'id d'un poste
-	 * @return la page Modifier un poste
+	 * Return Update post page
+	 * @param int $id Id of Post
+	 * @return
 	 */
-	public function updatePost(int $id)
+	public function updatePost(int $idPost)
 	{
-		$userSession = $this->userSession();
-		if ($userSession == null || $userSession->getRolesId() > 2) {
-			$this->page404();
-		} else {
+		$userSession = Session::get('user');
+
+		if ($this->userSessionValid($userSession,2)) {
 			$title = 'Modifier un Poste';
 
 			$postManager = new PostManager();
 			$userManager = new UserManager();
 
 			$usersAdmin = $userManager->getUsersAdmin();
-			$post = $postManager->getPost($id);
+			$post = $postManager->getPost($idPost);
 
-			if (isset($_POST['update'])) {
-				$postValidator = new PostValidator($_POST);
+			$data = filter_input_array(INPUT_POST);
+			$file = $_FILES;
+
+			if (isset($data['update'])) {
+				$postValidator = new PostValidator($data);
 				if (empty($postValidator->getErrors())) {
 					$post = new Post([
-						'title' => $_POST['title'],
-						'chapo' => $_POST['chapo'],
-						'content' => $_POST['content'],
-						'usersId' => $_POST['authorId'],
+						'title' => $data['title'],
+						'chapo' => $data['chapo'],
+						'content' => $data['content'],
+						'usersId' => $data['authorId'],
 						'id' => $post->getId()
 					]);
 					$postManager->update($post);
@@ -114,16 +122,16 @@ class Backend extends Controller
 					$errors = $postValidator->getErrors();
 				}
 			}
-			if (isset($_POST['updateImg'])) {
-				$postValidator = new PostValidator(['img' => $_FILES['img']]);
+			if (isset($data['updateImg'])) {
+				$postValidator = new PostValidator(['img' => $file['img']]);
 				if (empty($postValidator->getErrors())) {
 					$uploaddir = $_ENV['IMG_DIR_POST'];
-					$uploadfile = $uploaddir.time().'-'.basename($_FILES['img']['name']);
+					$uploadfile = $uploaddir.time().'-'.basename($file['img']['name']);
 					$img = new Post([
 						'id' => $post->getId(),
 						'img' => $uploadfile
 					]);
-					if (unlink($post->getImg()) && move_uploaded_file($_FILES['img']['tmp_name'], $img->getImg())) {
+					if (unlink($post->getImg()) && move_uploaded_file($file['img']['tmp_name'], $img->getImg())) {
 						$postManager->updateImg($img);
 						$updateSuccess = 'img';
 					}
@@ -137,39 +145,39 @@ class Backend extends Controller
 	}
 
 	/**
-	 * Cette function supprime un poste
-	 * @param int $id L'id d'un poste
+	 * This function delete a Post
+	 * @param int $idPost id of Post
 	 */
-	public function deletePost(int $id)
+	public function deletePost(int $idPost)
 	{
-		$userSession = $this->userSession();
-		if ($userSession == null || $userSession->getRolesId() > 2) {
-			$this->page404();
-		} else {
+		$userSession = Session::get('user');
+
+		if ($this->userSessionValid($userSession,2)) {
 			$postManager = new PostManager();
-			$imgName = $postManager->getPost($id)->getImg();
+			$imgName = $postManager->getPost($idPost)->getImg();
 			if (unlink($imgName)) {
-				$postManager->delete($id);
+				$postManager->delete($idPost);
 			}
 		}		
 	}
 
 	/**
-	 * Cette function affiche la liste des Commentaires
-	 * @return la page liste des commentaires
+	 * Return List comments page
+	 * @return
 	 */
 	public function listComment()
 	{
-		$userSession = $this->userSession();
-		if ($userSession == null || $userSession->getRolesId() > 2) {
-			$this->page404();
-		} else {
+		$userSession = Session::get('user');
+
+		if ($this->userSessionValid($userSession,2)) {
+
 			$title = 'Liste des Commentaires';
 			$commentManager = new CommentManager();
 			$comments = $commentManager->getListOf();
 
 			$commentWaiting = [];
 			$commentValid = [];
+
 			foreach ($comments as $comment) {
 				if ($comment->getStatus() == 1) {
 					$commentValid[] = $comment;
@@ -178,29 +186,32 @@ class Backend extends Controller
 				}
 			}
 			
-			$this->render('view/backend/listComment.php','view/template/page.php', compact('userSession','title','usersAdmin','commentWaiting','commentValid'));
-		}	
+			$this->render('view/backend/listComment.php','view/template/page.php', compact('userSession','title','commentWaiting','commentValid'));
+		}
 	}
 
 	/**
-	 * Cette fonction affiche la page modifier un commentaire
-	 * @param  int $id L'id d'un commentaire
-	 * @return la page modifier un commentaire
+	 * Return Update comment Page
+	 * @param  int $idComment Id of comment
+	 * @return
 	 */
-	public function updateComment(int $id)
+	public function updateComment(int $idComment)
 	{
-		$userSession = $this->userSession();
-		if ($userSession == null || $userSession->getRolesId() > 2) {
-			$this->page404();
-		} else {
+		$userSession = Session::get('user');
+
+		if ($this->userSessionValid($userSession,2)) {
+
 			$title = 'Modifier un Commentaire';
 			$commentManager = new CommentManager();
-			$comment = $commentManager->getComment($id);
-			if (isset($_POST['update'])) {
-				$commentValidator = new CommentValidator($_POST);
+			$comment = $commentManager->getComment($idComment);
+
+			$data = filter_input_array(INPUT_POST);
+
+			if (isset($data['update'])) {
+				$commentValidator = new CommentValidator($data);
 				if (empty($commentValidator->getErrors())) {
 					$commentUpdate = new Comment([
-						'status' => $_POST['status'],
+						'status' => $data['status'],
 						'id' => $comment->getId()
 					]);
 					$commentManager->update($commentUpdate);
@@ -209,22 +220,20 @@ class Backend extends Controller
 					$errors = $commentValidator->getErrors();
 				}
 			}
-			$this->render('view/backend/updateComment.php','view/template/page.php', compact('userSession','title','comment','commentValidator','errors'));
+			$this->render('view/backend/updateComment.php','view/template/page.php', compact('userSession','title','data','comment','commentValidator','errors','success'));
 		}	
 	}
 
 	/**
-	 * Cette fonction permet de supprimer un commetnaire
-	 * @param  int $id l'id d'un commentaire
+	 * Delete Comment
+	 * @param  int $idComment Id of comment
 	 */
-	public function deleteComment(int $id)
+	public function deleteComment(int $idComment)
 	{
-		$userSession = $this->userSession();
-		if ($userSession == null || $userSession->getRolesId() > 2) {
-			$this->page404();
-		} else {
+		$userSession = Session::get('user');
+		if ($this->userSessionValid($userSession,2)) {
 			$commentManager = new CommentManager();
-			$commentManager->delete($id);
+			$commentManager->delete($idComment);
 		}
 	}
 
@@ -234,10 +243,8 @@ class Backend extends Controller
 	 */
 	public function listUser()
 	{
-		$userSession = $this->userSession();
-		if($userSession == null || $userSession->getRolesId() > 1) {
-			$this->page404();
-		} else {
+		$userSession = Session::get('user');
+		if ($this->userSessionValid($userSession,1)) {
 			$title = 'Liste des Utilisateurs';
 			$userManager = new UserManager();
 			$users = $userManager->getListOf();
@@ -247,24 +254,27 @@ class Backend extends Controller
 	}
 
 	/**
-	 * Cette function permet d'afficher la page modifier un utilisateur
-	 * @param  int    $id l'id d'un utilisateur
-	 * @return affiche la page modifier utilisateur
+	 * Return Update User page
+	 * @param  int  $idUser Id of User
+	 * @return
 	 */
-	public function updateUser(int $id) {
-		$userSession = $this->userSession();
-		if($userSession == null || $userSession->getRolesId() > 1) {
-			$this->page404();
-		} else {
+	public function updateUser(int $idUser) {
+
+		$userSession = Session::get('user');
+
+		if ($this->userSessionValid($userSession,1)) {
 			$title = 'Modifier un Utilisateur';
 			$userManager = new UserManager();
-			$user = $userManager->getUser($id);
+			$user = $userManager->getUser($idUser);
 			$roles = $userManager->getListOfRole();
-			if (isset($_POST['update'])) {
-				$userValidator = new UserValidator($_POST);
+
+			$data = filter_input_array(INPUT_POST);
+
+			if (isset($data['update'])) {
+				$userValidator = new UserValidator($data);
 				if (empty($userValidator->getErrors())) {
 					$userUpdate = new User([
-						'rolesId' => $_POST['role'],
+						'rolesId' => $data['role'],
 						'id' => $user->getId()
 					]);
 					$userManager->updateRole($userUpdate);
@@ -274,22 +284,37 @@ class Backend extends Controller
 				}
 			}
 
-			$this->render('view/backend/updateUser.php','view/template/page.php', compact('userSession','title','user','roles','errors','userValidator','success'));
+			$this->render('view/backend/updateUser.php','view/template/page.php', compact('userSession','title','user','roles','data','errors','userValidator','success'));
 		}	
 	}
 
 	/**
-	 * Cette fonction permet de Supprimer un utilisateur de la base de donnée
-	 * @param int $id l'id d'un utilisateur
+	 * Delete User
+	 * @param int $idUser Id of User
 	 */
-	public function deleteUser(int $id)
+	public function deleteUser(int $idUser)
 	{
-		$userSession = $this->userSession();
-		if($userSession == null || $userSession->getRolesId() > 1) {
-			$this->page404();
-		} else {
+		$userSession = Session::get('user');
+
+		if ($this->userSessionValid($userSession,1)) {
 			$commentManager = new UserManager();
-			$commentManager->delete($id);
+			$commentManager->delete($idUser);
 		}		
+	}
+
+	/**
+	 * Private function verify User Id to continue 
+	 * @param  avoid $userSession object User or Null
+	 * @param  int $idUser      Id User
+	 * @return page 404 or true
+	 */
+	private function userSessionValid($userSession,$idUser) {
+		if ($userSession == null || $userSession->getRolesId() > $idUser) {
+			$this->page404();
+			exit;
+		}
+
+		return true;
+
 	}
 }

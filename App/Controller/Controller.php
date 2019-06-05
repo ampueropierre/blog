@@ -1,10 +1,12 @@
 <?php
 
-/**
+ /**
  * Class Controller
  * Abstract Class for Backend and Frontend
  */
 namespace App\Controller;
+
+use App\Session\Session;
 
 abstract class Controller
 {
@@ -32,7 +34,7 @@ abstract class Controller
 	 */
 	public function page404()
 	{
-		$userSession = $this->userSession();
+		$userSession = Session::get('user');
 		$title = '404 Error';
 		$this->render('view/404.php','view/template/page.php', compact('userSession','title'));
 	}
