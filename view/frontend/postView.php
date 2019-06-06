@@ -24,7 +24,7 @@
 				<label for="comment">Votre commentaire</label>
 				<textarea name="content" class="form-control" id="comment" cols="20" rows="5"></textarea>
 				<?php if (isset($errors) && in_array($commentValidator::COMMENT_EMPTY, $errors)): ?>
-				<span class="text-danger"><?= $commentValidator::COMMENT_EMPTY  ?></span>
+				<span class="text-danger msg-error"><?= $commentValidator::COMMENT_EMPTY  ?></span>
 				<?php endif; ?>
 			</div>
 			<input type="submit" class="btn btn-primary" name="addComment" value="publier" />

@@ -9,7 +9,7 @@
 			<form action="" method="post">
 				<div class="form-group">
 					<label>Adresse mail :</label>
-					<input class="form-control" type="text" name="mail" value="<?php if (isset($data['mail'])) echo $data['mail']; ?>">
+					<input class="form-control" type="text" name="mail" value="<?= (isset($data['mail'])) ? $data['mail'] : '' ?>">
 						<?php if (isset($errors) && in_array($connexionValidator::MAIL_EMPTY, $errors)): ?>
 						<span class="msg-error text-danger"><?= $connexionValidator::MAIL_EMPTY ?></span>
 						<?php endif; ?>

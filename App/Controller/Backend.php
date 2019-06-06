@@ -71,7 +71,7 @@ class Backend extends Controller
 						$postManager = new PostManager();
 						$postManager->add($post);
 						$success = true;
-						unset($data);
+						$data = [];
 					}	
 				} else {
 					$errors = $postValidator->getErrors();
@@ -79,7 +79,7 @@ class Backend extends Controller
 
 
 			}
-			$this->render('view/backend/addPost.php','view/template/page.php', compact('userSession','title','errors', 'postValidator','success'));
+			$this->render('view/backend/addPost.php','view/template/page.php', compact('userSession','title','data','errors', 'postValidator','success'));
 		}
 		
 			

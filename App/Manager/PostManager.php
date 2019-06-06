@@ -21,6 +21,21 @@ class PostManager extends Manager
 		return $posts;
 	}
 
+	public function postExist($postId) {
+		$db = $this->dbConnect();
+		$req = $db->prepare('SELECT id FROM posts WHERE id = :id');
+		$req->bindValue(':id', $postId);
+		$req->execute();
+
+		$post = $req->fetch();
+
+		if (!$post) {
+			return false;
+		}
+
+		return true;
+	}
+
 	public function getPost($postId)
 	{
 		$db = $this->dbConnect();
@@ -72,11 +87,11 @@ class PostManager extends Manager
 		$req->execute();
 	}
 
-	public function delete(int $id)
+	public function delete(int $idPost)
 	{
 		$db = $this->dbConnect();
 		$req = $db->prepare('DELETE FROM posts WHERE id = :id');
-		$req->bindValue(':id', $id, \PDO::PARAM_INT);
+		$req->bindValue(':id', $idPost, \PDO::PARAM_INT);
 		$req->execute();
 	}
 }

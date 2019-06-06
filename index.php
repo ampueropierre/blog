@@ -15,59 +15,62 @@ use App\Controller\Backend;
 $frontend = new Frontend;
 $backend = new Backend;
 
+$action = filter_input(INPUT_GET, 'action');
+$getId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+
 try
 {
-	if (isset($_GET['action'])) {
+	if (isset($action)) {
 		if ($_GET['action'] == 'posts') {
 			$frontend->blog();
 		}
-		elseif ($_GET['action'] == 'post' && isset($_GET['id'])) {
-			$frontend->post($_GET['id']);
+		elseif ($action == 'post' && isset($getId)) {
+			$frontend->post($getId);
 		}
-		elseif ($_GET['action'] == 'contact') {
+		elseif ($action == 'contact') {
 			$frontend->contact();
 		}
-		elseif ($_GET['action'] == 'login') {
+		elseif ($action == 'login') {
 			$frontend->connexion();
 		}
-		elseif ($_GET['action'] == 'destroy') {
+		elseif ($action == 'destroy') {
 			$frontend->destroy();
 		}
-		elseif($_GET['action'] == 'register') {
+		elseif($action == 'register') {
 			$frontend->createUser();
 		}
-		elseif ($_GET['action'] == 'profil' && isset($_GET['id'])) {
-			$frontend->profil($_GET['id']);
+		elseif ($action == 'profil' && isset($getId)) {
+			$frontend->profil($getId);
 		}
-		elseif ($_GET['action'] == 'listPost') {
+		elseif ($action == 'listPost') {
 			$backend->listPost();
 		}
-		elseif ($_GET['action'] == 'addPost') {
+		elseif ($action == 'addPost') {
 			$backend->addPost();
 		}
-		elseif ($_GET['action'] == 'deletePost' && isset($_GET['id'])) {
-			$backend->deletePost($_GET['id']);
+		elseif ($action == 'deletePost' && isset($getId)) {
+			$backend->deletePost($getId);
 		}
-		elseif ($_GET['action'] == 'updatePost' && isset($_GET['id'])) {
-			$backend->updatePost($_GET['id']);	
+		elseif ($action == 'updatePost' && isset($getId)) {
+			$backend->updatePost($getId);	
 		}
-		elseif ($_GET['action'] == 'listComment') {
+		elseif ($action == 'listComment') {
 			$backend->listComment();	
 		}
-		elseif ($_GET['action'] == 'updateComment' && isset($_GET['id'])) {
-			$backend->updateComment($_GET['id']);	
+		elseif ($action == 'updateComment' && isset($getId)) {
+			$backend->updateComment($getId);	
 		}
-		elseif ($_GET['action'] == 'deleteComment' && isset($_GET['id'])) {
-			$backend->deleteComment($_GET['id']);
+		elseif ($action == 'deleteComment' && isset($getId)) {
+			$backend->deleteComment($getId);
 		}
-		elseif ($_GET['action'] == 'listUser') {
+		elseif ($action == 'listUser') {
 			$backend->listUser();
 		}
-		elseif ($_GET['action'] == 'updateUser' && isset($_GET['id'])) {
-			$backend->updateUser($_GET['id']);
+		elseif ($action == 'updateUser' && isset($getId)) {
+			$backend->updateUser($getId);
 		}
-		elseif ($_GET['action'] == 'deleteUser' && isset($_GET['id'])) {
-			$backend->deleteUser($_GET['id']);
+		elseif ($action == 'deleteUser' && isset($getId)) {
+			$backend->deleteUser($getId);
 		}
 		else {
 			$frontend->page404();

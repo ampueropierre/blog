@@ -27,7 +27,7 @@ class Frontend extends Controller
 	public function home()
 	{
 		$userSession = Session::get('user');
-		
+
 		$title = 'Home';
 
 		$this->render('','view/template/home.php',compact('userSession','title'));
@@ -92,40 +92,56 @@ class Frontend extends Controller
 		$postManager = new PostManager();
 		$commentManager = new CommentManager();
 
-		$post = $postManager->getPost($postId);
-		$comments = $commentManager->getListOfValide($postId);
+		if($postManager->postExist($postId)) {
 
-		$title = $post->getTitle();
+			$post = $postManager->getPost($postId);
+			$comments = $commentManager->getListOfValide($postId);
 
-		$data = filter_input_array(INPUT_POST);
+			$title = $post->getTitle();
 
-		if (isset($data['addComment']) && 'publier' === $data['addComment']) {
-			$commentValidator = new CommentValidator($data);
-			if (empty($commentValidator->getErrors())) {
-				$comment = new Comment([
-					'content' => $data['content'],
-					'usersId' => $userSession->getId(),
-					'postsId' => $postId
-				]);
-				$commentManager->add($comment);
-				$commentSuccess = true;
-			} else {
-				$errors = $commentValidator->getErrors();
+			$options = array(
+				'content' =>FILTER_SANITIZE_STRING,
+				'addComment' =>FILTER_SANITIZE_STRING
+			);
+
+			$data = filter_input_array(INPUT_POST, $options);
+
+			if (isset($data['addComment']) && 'publier' === $data['addComment']) {
+				$commentValidator = new CommentValidator($data);
+				if (empty($commentValidator->getErrors())) {
+					$comment = new Comment([
+						'content' => $data['content'],
+						'usersId' => $userSession->getId(),
+						'postsId' => $postId
+					]);
+					$commentManager->add($comment);
+					$commentSuccess = true;
+				} else {
+					$errors = $commentValidator->getErrors();
+				}
 			}
-		}
 
-		$this->render('view/frontend/postView.php','view/template/post.php', compact('userSession','title','post','comments','data','commentSuccess','errors','commentValidator'));
+			$this->render('view/frontend/postView.php','view/template/post.php', compact('userSession','title','post','comments','data','commentSuccess','errors','commentValidator'));
+		} else {
+			$this->page404();
+		}
 	}
 
 	/**
 	 * Return connexion page
-	 * @return page connexion
+	 * @return
 	 */
 	public function connexion()
 	{
 		$title = 'Connexion';
 
-		$data = filter_input_array(INPUT_POST);
+		$options = array(
+			'mail' => FILTER_VALIDATE_EMAIL,
+			'password' => FILTER_SANITIZE_STRING,
+			'connexion' => FILTER_SANITIZE_STRING
+		);
+
+		$data = filter_input_array(INPUT_POST, $options);
 
 		if (isset($data['connexion'])) {
 			$userManager = new UserManager();
@@ -154,7 +170,15 @@ class Frontend extends Controller
 	{
 		$title = 'Créer un compte';
 
-		$data = filter_input_array(INPUT_POST);
+		$options = array(
+			'firstname' => FILTER_SANITIZE_STRING,
+			'lastname' => FILTER_SANITIZE_STRING,
+			'mail' => FILTER_VALIDATE_EMAIL,
+			'password' => FILTER_SANITIZE_STRING,
+			'create' => FILTER_SANITIZE_STRING
+		);
+
+		$data = filter_input_array(INPUT_POST, $options);
 		
 		if (isset($data['create'])) {
 			$userValidator = new UserValidator([
@@ -194,35 +218,39 @@ class Frontend extends Controller
 		$userManager = new UserManager();
 		$userProfil = $userManager->getUser($idUser);
 
-		if($userSession == null || $userSession->getId() != $userProfil->getId()) {
-			$this->page404();
-		}
-		else {
-			$data = filter_input_array(INPUT_POST);
+		if($userSession != null && $userProfil != false) {
+			if ($userSession->getId() == $userProfil->getId()) {
+				if (isset($data['update'])) {
 
-			if (isset($data['update'])) {
-				$userValidator = new UserValidator([
-					'firstname' => $data['firstname'],
-					'lastname' => $data['lastname'],
-					'mail' => $data['mail'],
-				]);
-				if (empty($userValidator->getErrors())) {
-					$userProfil = new User([
+					$data = filter_input_array(INPUT_POST);
+					$userValidator = new UserValidator([
 						'firstname' => $data['firstname'],
 						'lastname' => $data['lastname'],
 						'mail' => $data['mail'],
-						'id' => $idUser
 					]);
-					$userManager->update($userProfil);
-					$update = true;
+					if (empty($userValidator->getErrors())) {
+						$userProfil = new User([
+							'firstname' => $data['firstname'],
+							'lastname' => $data['lastname'],
+							'mail' => $data['mail'],
+							'id' => $idUser
+						]);
+						$userManager->update($userProfil);
+						$update = true;
 
-				} else {
-					$errors = $userValidator->getErrors();
+					} else {
+						$errors = $userValidator->getErrors();
+					}
 				}
+				$this->render('view/frontend/profil.php','view/template/page.php', compact('userSession','title','userManager','data','userValidator','userProfil','update','errors'));
 			}
-			$this->render('view/frontend/profil.php','view/template/page.php', compact('userSession','title','userManager','data','userValidator','userProfil','update','errors'));
+			else {
+				$this->page404();			
+			}
 		}
-	
+		else {
+			$this->page404();
+		}
 	}
 
 	/**

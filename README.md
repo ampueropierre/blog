@@ -25,12 +25,12 @@ git clone git@github.com:ampueropierre/blog.git
 Et
 
 ```
-autre manip
+autre manip()
 ```
 
 ## Logiciel utilisé
 
-* [Sublime Text](https://www.sublimetext.com/) - Éditeur de texte
+*   [Sublime Text](https://www.sublimetext.com/) - Éditeur de texte
 
 ## Mentor
 

@@ -8,9 +8,9 @@ class UserValidator extends Validator
 {
 	const FIRSTNAME_EMPTY = '*Le champ prénom est vide';
 	const LASTNAME_EMPTY = '*Le champ nom est vide';
-	const MAIL_EMPTY = '*Le champ mail est vide';
+	const MAIL_EMPTY = '*Le champ mail est vide ou n\'est pas valide';
 	const PASSWORD_EMPTY = '*Le champ mot de passe est vide';
-	const MAIL_EXIST = 'Ce mail existe déjà';
+	const MAIL_EXIST = '*Ce mail existe déjà';
 	const PASSWORD_LENGHT = '*Le mot de passe doit être supérieur ou égal à 8 caractères';
 	const ROLE_NOTEXIST = 'Ce role n\'existe pas';
 
@@ -30,9 +30,7 @@ class UserValidator extends Validator
 
 	public function checkMail($mail)
 	{
-		$userManager = new UserManager();
-
-		if (empty($mail)) {
+		if (!$mail) {
 			$this->errors[] = self::MAIL_EMPTY;
 		}
 	}
