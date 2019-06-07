@@ -21,7 +21,7 @@ $getId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 try
 {
 	if (isset($action)) {
-		if ($_GET['action'] == 'posts') {
+		if ($action == 'posts') {
 			$frontend->blog();
 		}
 		elseif ($action == 'post' && isset($getId)) {

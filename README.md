@@ -22,12 +22,6 @@ Cloné ce repo dans un dossier
 git clone git@github.com:ampueropierre/blog.git
 ```
 
-Et
-
-```
-autre manip()
-```
-
 ## Logiciel utilisé
 
 *   [Sublime Text](https://www.sublimetext.com/) - Éditeur de texte
