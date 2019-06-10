@@ -1,5 +1,5 @@
 <a href="admin/posts/add" class="btn btn-primary mb-3">Ajouter un poste</a>
-<table class="table table-responsive">
+<table class="table">
 	<thead class="thead-light">
 		<tr>
 			<th scope="col">Titre</th>
