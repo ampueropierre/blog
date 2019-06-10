@@ -78,6 +78,10 @@ main {
 .msg-error {
   font-size: 12px; }
 
+.alert {
+  font-family: 'Roboto';
+  font-size: 14px; }
+
 #mainNav {
   position: absolute;
   border-bottom: 1px solid #e9ecef;
@@ -469,6 +473,8 @@ footer {
 
 .form-login-register {
   font-family: 'Raleway'; }
+  .form-login-register .msg-alert {
+    font-size: 12px; }
   .form-login-register .title-form {
     margin-bottom: 20px; }
   .form-login-register label {

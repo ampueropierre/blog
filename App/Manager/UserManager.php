@@ -25,11 +25,11 @@ class UserManager extends Manager
 		return null;
 	}
 
-	public function getUser($id)
+	public function getUser($idUser)
 	{
 		$db = $this->dbConnect();
 		$req = $db->prepare('SELECT id, firstname, lastname, password, mail, roles_id AS rolesId FROM users WHERE id = :id');
-		$req->bindValue(':id', $id);
+		$req->bindValue(':id', $idUser);
 		$req->execute();
 
 		$req->setFetchMode(\PDO::FETCH_CLASS|\PDO::FETCH_PROPS_LATE, 'App\Model\User');
@@ -108,11 +108,11 @@ class UserManager extends Manager
 		$req->execute();
 	}
 
-	public function delete(int $id)
+	public function delete(int $idUser)
 	{
 		$db = $this->dbConnect();
 		$req = $db->prepare('DELETE FROM users WHERE id = :id');
-		$req->bindValue(':id', $id, \PDO::PARAM_INT);
+		$req->bindValue(':id', $idUser, \PDO::PARAM_INT);
 		$req->execute();
 	}
 

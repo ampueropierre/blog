@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <base href="<?= dirname(getenv('SCRIPT_NAME')) ?>/">
+  <base href="<?= dirname(filter_input(INPUT_SERVER, 'SCRIPT_NAME')) ?>/">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Blog OpenClassroom">

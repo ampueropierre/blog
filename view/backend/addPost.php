@@ -7,14 +7,14 @@
 	<form action="" method="POST" enctype="multipart/form-data">
 		<div class="form-group">
 			<label for="title">Titre :</label>
-			<input type="text" class="form-control" name="title" id="title" value="<?= (isset($_POST['title']) ? $_POST['title'] : '') ?>">
+			<input type="text" class="form-control" name="title" id="title" value="<?= (isset($data['title']) ? $data['title'] : '') ?>">
 			<?php if (isset($errors) && in_array($postValidator::TITLE_EMPTY, $errors)):?>
 			<span class="msg-error text-danger"><?= $postValidator::TITLE_EMPTY ?></span>
 			<?php endif; ?>
 		</div>
 		<div class="form-group">
 			<label for="title">Chapo :</label>
-			<input type="text" class="form-control" name="chapo" id="chapo" value="<?= (isset($_POST['chapo']) ? $_POST['chapo'] : '') ?>">
+			<input type="text" class="form-control" name="chapo" id="chapo" value="<?= (isset($data['chapo']) ? $data['chapo'] : '') ?>">
 			<?php if (isset($errors) && in_array($postValidator::CHAPO_EMPTY, $errors)):?>
 			<span class="msg-error text-danger"><?= $postValidator::CHAPO_EMPTY ?></span>
 			<?php endif; ?>
@@ -30,7 +30,7 @@
 		</div>
 		<div class="form-group">
 			<label for="content">Contenu :</label>
-			<textarea name="content" id="content" class="form-control" rows="7"></textarea>
+			<textarea name="content" id="content" class="form-control" rows="7"><?= (isset($data['content']) ? $data['content'] : '') ?></textarea>
 			<?php if (isset($errors) && in_array($postValidator::CONTENT_EMPTY, $errors)):?>
 			<span class="msg-error text-danger"><?= $postValidator::CONTENT_EMPTY ?></span>
 			<?php endif; ?>

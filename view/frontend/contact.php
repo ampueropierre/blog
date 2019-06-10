@@ -7,7 +7,7 @@
   <div class="control-group">
     <div class="form-group floating-label-form-group controls">
       <label>Nom</label>
-      <input type="text" class="form-control" placeholder="Nom" id="name" name="name" value="<?= (isset($_POST['name'])) ? $_POST['name'] : '' ?>">
+      <input type="text" class="form-control" placeholder="Nom" id="name" name="name" value="<?= (isset($data['name'])) ? $data['name'] : '' ?>">
     </div>
     <?php if (isset($errors) && in_array($contactValidator::NAME_EMPTY, $errors)): ?>
     <span class="msg-error text-danger"><?= $contactValidator::NAME_EMPTY ?></span>
@@ -16,7 +16,7 @@
   <div class="control-group">
     <div class="form-group floating-label-form-group controls">
       <label>Adresse Email</label>
-      <input type="email" class="form-control" placeholder="Adresse Email" id="email" name="mail" value="<?= (isset($_POST['mail'])) ? $_POST['mail'] : '' ?>">
+      <input type="email" class="form-control" placeholder="Adresse Email" id="email" name="mail" value="<?= (isset($data['mail'])) ? $data['mail'] : '' ?>">
     </div>
     <?php if (isset($errors) && in_array($contactValidator::MAIL_EMPTY, $errors)): ?>
     <span class="msg-error text-danger"><?= $contactValidator::MAIL_EMPTY ?></span>
@@ -25,7 +25,7 @@
   <div class="control-group">
     <div class="form-group floating-label-form-group controls">
       <label>Message</label>
-      <textarea rows="5" class="form-control" placeholder="Message" id="message" name="message"><?= (isset($_POST['message'])) ? $_POST['message'] : '' ?></textarea>
+      <textarea rows="5" class="form-control" placeholder="Message" id="message" name="message"><?= (isset($data['message'])) ? $data['message'] : '' ?></textarea>
     </div>
     <?php if (isset($errors) && in_array($contactValidator::MESSAGE_EMPTY, $errors)): ?>
     <span class="msg-error text-danger"><?= $contactValidator::MESSAGE_EMPTY ?></span>

@@ -21,13 +21,11 @@
 			<label for="status" class="meta">Rôle</label>
 			<select class="form-control" id="role" name="role">
 				<?php foreach ($roles as $role): ?>
-				<option value="<?= $role['id'] ?>"
-				<?php if ($user->getRolesId() == $role['id']): ?>
-					selected
-				<?php endif; ?>
-				>
-				<?= $role['name'] ?>	
-				</option>
+					<?php if (isset($data)): ?>
+						<option value="<?= $role['id'] ?>" <?= ($data['role'] == $role['id']) ? 'selected' : '' ?>><?= $role['name'] ?></option>
+					<?php else: ?>
+						<option value="<?= $role['id'] ?>" <?= ($user->getRolesId() == $role['id']) ? 'selected' : '' ?>><?= $role['name'] ?></option>
+					<?php endif; ?>
 				<?php endforeach; ?>
 			</select>
 			<?php if (isset($errors) && in_array($userValidator::ROLE_NOTEXIST, $errors)):?>

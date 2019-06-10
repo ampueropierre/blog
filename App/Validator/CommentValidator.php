@@ -7,9 +7,9 @@ class CommentValidator extends Validator
 	const COMMENT_EMPTY = 'le champ Commentaire est vide';
 	const STATUS_INVALID = 'une erreur est survenue';
 
-	public function checkComment($comment)
+	public function checkContent(string $content)
 	{
-		if (empty($comment)) {
+		if (empty($content)) {
 			$this->errors[] = self::COMMENT_EMPTY;
 		}
 	}

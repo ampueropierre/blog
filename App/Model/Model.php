@@ -3,19 +3,19 @@
 namespace App\Model;
 
 /**
- * Class Model classe parente
+ * Class Model
  */
 abstract class Model
 {
 	/**
-	 * l'id de la classe
+	 * Id of class
 	 * @var int
 	 */
 	protected $id;
 
 	/**
-	 * Permet d'hydrater l'objet
-	 * @param array $data récupère un tableau de donnée
+	 * Create instance
+	 * @param array $data
 	 */
 	function __construct(array $data = [])
 	{
@@ -23,9 +23,9 @@ abstract class Model
 	}
 
 	/**
-	 * Fonction hydrate
+	 * hydrate object
 	 * @param array $data
-	 * @return method retourne la methode en fonction de la valeur récupérer
+	 * @return
 	 */
 	public function hydrate($data)
 	{
@@ -42,7 +42,7 @@ abstract class Model
 	}
 
 	/**
-	 * Retourne l'id
+	 * Get Id
 	 * @return int
 	 */
 	public function getId()
@@ -51,7 +51,7 @@ abstract class Model
 	}
 
 	/**
-	 * constructeur de l'id
+	 * Construct id
 	 * @param int $id
 	 */
 	public function setId(int $id)

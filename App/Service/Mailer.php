@@ -6,16 +6,16 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 /**
  * La classe Mailer
- * il permet d'envoyer des mail grâce à PHPMailer
+ * Send mail
  */
 class Mailer
 {
     /**
-     * Il permet d'envoyer un mail
-     * @param  string $from    destinateur du mail
-     * @param  string $name    le nom de l'utilisateur
-     * @param  string $message le message du mail
-     * @return bool retourne un booléan
+     * Send mail
+     * @param  string $from    
+     * @param  string $name    user's name
+     * @param  string $message message
+     * @return bool
      */
     public function sendMail($from, $name, $message)
     {
