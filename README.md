@@ -21,6 +21,16 @@ Cloné ce repo dans un dossier
 ```
 git clone git@github.com:ampueropierre/blog.git
 ```
+Créer une base de donnée
+
+```
+utiliser le fichier database.sql
+```
+installer les librairies en ligne de commande
+
+```
+composer install
+```
 
 ## Logiciel utilisé
 
