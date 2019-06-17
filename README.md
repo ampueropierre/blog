@@ -31,6 +31,11 @@ installer les librairies en ligne de commande
 ```
 composer install
 ```
+modifier le fichier .env.dist
+
+```
+modifier l'extension en .env et modifier les informations dans le fichier 
+```
 
 ## Logiciel utilisé
 
