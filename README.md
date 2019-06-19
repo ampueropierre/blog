@@ -1,5 +1,7 @@
 # Créer votre premier blog en PHP - P5
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/08cac97ac535452ebadb65500ddb7ff7)](https://app.codacy.com/app/ampueropierre/blog?utm_source=github.com&utm_medium=referral&utm_content=ampueropierre/blog&utm_campaign=Badge_Grade_Settings)
+
 Projet réalisé dans le cadre de la formation Développeur d'application - PHP / Symfony.
 
 ## Pour commencer
