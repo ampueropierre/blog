@@ -18,7 +18,7 @@ php 7, mysql, apache avec mod rewrite
 
 ### Installation
 
-Cloné ce repo dans un dossier
+Cloner ce repo dans un dossier
 
 ```
 git clone git@github.com:ampueropierre/blog.git
@@ -33,16 +33,9 @@ installer les librairies en ligne de commande
 ```
 composer install
 ```
-modifier le fichier .env.dist
+dupliquer le fichier .env.dist
 
 ```
-modifier l'extension en .env et modifier les informations dans le fichier 
+le renommer en .env et modifier les informations dans le fichier 
 ```
 
-## Logiciel utilisé
-
-*   [Sublime Text](https://www.sublimetext.com/) - Éditeur de texte
-
-## Mentor
-
-Benoit Lanselle
